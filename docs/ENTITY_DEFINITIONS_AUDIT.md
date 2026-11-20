@@ -83,6 +83,22 @@ Mount fields are retained in the JSON without renaming. Based on `makeactor()` a
 
 The player weapon setup is a separate runtime path: `doplayerweaponsetup()` writes the player actor's mount slots dynamically. It should not be mistaken for the static enemy/boss archetype table.
 
+#### Cross-reference: which projectile kinds are actually selected
+
+The player setup code maps upgrade families to projectile kinds:
+
+| Player weapon family | Runtime mount | Projectile kind source |
+|---|---:|---|
+| Cannon | 1–5 | `cannontype()` selects kinds 1, 2 or 3 depending on upgrade level |
+| Missile | 6 | Kind 4 |
+| Auto-turret | 7 | Kind 6 |
+| W-Laser | 8 | Kind 5 |
+| B-Laser | 9 | `beamlasertype()` selects 7, 8 or 9 |
+
+The static enemy/boss archetype mount table uses projectile kinds **10–15**. Separately, archetypes **19** and **20** define death-emitted projectile kinds **16** and **17** in `actortypes.Field15[1..5]`; `makeactor()` transfers those to runtime actor `Field18[]`, and `doactordeath()` fires them when the actor's death sequence completes.
+
+This accounts for explicit kinds 1–17 across player weapons, enemy/boss mounts and death-emitted shots. Kinds 39–40 have explicit parameter assignments but are not referenced by the actor mount or death-emission tables traced in this pass. Kinds 18–38 have neither explicit per-kind assignments nor references in those tables. This is a static cross-reference, not proof that 39–40 or 18–38 can never be reached through any other code path.
+
 ### Projectile kind coverage
 
 The program allocates **40** projectile-kind records and initializes common defaults for IDs 1–40:
