@@ -8,7 +8,7 @@
 
 | Source | Blob SHA |
 |---|---|
-| `Types/actortype.bb` | source declaration inspected |
+| `Types/actortype.bb` | `d21285a5ba5d03d8e4e802ea8f0228a760c61b10` |
 | `Functions/makeactor.bb` | `d6fc51374b11f96b802c83efb3fbab13f940aaa9` |
 | `Functions/doactors.bb` | `7195ad99613df63074b4430798627f0e96481316` |
 | `Functions/doactoranimations.bb` | `9e25ab2489eb5b7cf494e8f4336f9688dd64405f` |
