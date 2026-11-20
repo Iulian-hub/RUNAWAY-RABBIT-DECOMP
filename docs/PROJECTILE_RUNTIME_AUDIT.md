@@ -64,8 +64,8 @@ Confidence labels:
 | 28 | float | Beam extent or attached-shot offset | partial | Initialized from caller arg6; used as beam segment length or attachment offset. |
 | 29 | float | Velocity X | confirmed | Integrates position and is affected by acceleration, homing and speed cap. |
 | 30 | float | Velocity Y | confirmed | Integrates position and is affected by gravity, homing and speed cap. |
-| 31 | float | Visual width / primary particle size | partial | Passed to sprite renderer and impact particle creation. |
-| 32 | float | Visual height / secondary particle size | partial | Passed to sprite renderer and used in collision/beam geometry. |
+| 31 | float | Projectile sprite width | confirmed | Passed through makeparticle() to sprite width; later modified by Field49. |
+| 32 | float | Projectile sprite height | confirmed | Passed through makeparticle() to sprite height; later modified by Field50. |
 | 33 | float | Collision width | confirmed | Passed to anglecollisionxy(). |
 | 34 | float | Collision height | confirmed | Passed to anglecollisionxy(). |
 | 35 | integer | Persistent-hit / damage-over-time flag | partial | 0 consumes the shot on collision; nonzero enables repeated/timed damage paths. |
@@ -82,14 +82,14 @@ Confidence labels:
 | 46 | integer | Random angular spread magnitude | confirmed | Used to randomize initial firing angle. |
 | 47 | float | Scale growth rate | confirmed | Added to Field48 each frame. |
 | 48 | float | Current projectile visual scale | confirmed | Updated by Field47 and passed to setsprite(). |
-| 49 | float | Projectile width growth rate | confirmed | Added to Field31 each frame; Field31 is also used as visual width/color channel in rendering, so inspect per-kind values before normalizing. |
-| 50 | float | Vertical acceleration | confirmed | Added to Field32 each frame. |
+| 49 | float | Projectile width growth rate | confirmed | Added to Field31 each frame. |
+| 50 | float | Projectile height growth rate | confirmed | Added to Field32 each frame. |
 | 51 | float | Angular velocity | confirmed | Added to Field18 each frame. |
 | 52 | float | Trail emission interval | confirmed | Compared with Field53 to decide when to emit a trail particle. |
 | 53 | float | Trail emission timer | confirmed | Accumulates frame time and resets after trail emission. |
-| 54 | float | Trail particle speed parameter | partial | Negated and passed as makeparticle() speed magnitude. |
-| 55 | float | Trail particle size multiplier | confirmed | Scales randomized trail particle size. |
-| 56 | float | Trail particle width and height | partial | Passed as both width and height to makeparticle(). |
+| 54 | float | Trail particle speed magnitude | confirmed | Negated and passed to makeparticle() as its speed parameter. |
+| 55 | float | Trail particle rotation speed multiplier | confirmed | Sets sprite Field15; updatesprites() integrates that into sprite rotation. |
+| 56 | float | Trail particle width and height | confirmed | Passed as both width and height to makeparticle(). |
 | 57 | integer | Trail texture/effect identifier | confirmed | Passed as particle texture/effect selector. |
 | 58 | float | Unresolved field | unknown | Declared float; no assignment found in makeweaponshot() or use in the traced update/collision paths. |
 | 59 | float | Unresolved field | unknown | Declared float; no assignment found in makeweaponshot() or use in the traced update/collision paths. |
