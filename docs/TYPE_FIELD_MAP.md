@@ -11,14 +11,21 @@ Confidence:
 
 | Field | Provisional meaning | Confidence / evidence |
 |---|---|---|
+| Field0 | Special actor state flag | Low / unresolved – set during player death handling; other semantics remain unclear |
+| Field1 | Render-order classification flag | Medium – `updateactor()` assigns a distinct entity order when set; boss parts clear it |
 | Field2 | Child actor index | Medium – assigned by `makeactor()`; death code references it |
 | Field3 | Parent actor index | High – child initialization writes parent slot; enemy cleanup checks it |
+| Field4 | Root/standalone actor flag | High – `makeactor()` sets it for root actors and clears it for child actors; enemy end-AI uses it to gate root behavior |
 | Field5 | Decal entity handle | High – loaded as decal and parented to actor body |
 | Field6 | Decal type/index | High – used to select `actordecals()` texture |
 | Field7 | Decal draw-side/order flag | Medium – selects entity order |
-| Field16 | Projectile/weapon kind emitted on death or related special behavior | Low – more call-site tracing needed |
-| Field17[1..10] | Per-slot angle for death-emitted weapon | Medium – paired with Field18 in `doactordeath()` |
-| Field18[1..10] | Per-slot weapon kind emitted on death | Medium – paired with Field17 in `doactordeath()` |
+| Field8 | Hit-flash color transition duration | High – used as the denominator in the color transition timer |
+| Field9–Field11 | Hit-flash RGB start color | Medium – interpolated toward Field12–Field14 during hit flash |
+| Field12–Field14 | Base actor RGB color | High – applied to actor body, children and turret entities |
+| Field15 | Death-processing suppression flag | Medium – `doactordeathcheck()` performs normal death/low-health handling only when this field is zero |
+| Field16 | Contact-hit projectile kind | Medium – `doactorcollisions()` spawns this projectile when the actor takes contact damage |
+| Field17[1..10] | Per-slot angle for death-emitted weapon | High – paired with Field18 in `doactordeath()` |
+| Field18[1..10] | Per-slot weapon kind emitted on death | High – paired with Field17 in `doactordeath()` |
 | Field19 | Actor update/render suppression flag | High – checked by `doactors()`, set for inactive player actors |
 | Field20 | Exclusion flag used by target search | Medium – `findtarget()` excludes actors with this flag |
 | Field21 | Actor graphic index | High – used to select `actorgraphics()` |
@@ -28,6 +35,9 @@ Confidence:
 | Field25 | Current animation frame | High – passed to `EntityTexture` |
 | Field26 | Animation frame timer | High – incremented and reset by `doactoranimations()` |
 | Field30 | Faction identifier | High – indexes faction collision matrix and faction counters |
+| Field34 | Death-sequence timer | High – starts when health reaches zero and increments until the death duration is reached |
+| Field35 | Death-sequence duration threshold | High – compared against Field34 before actor deactivation |
+| Field36 / Field37 | Randomized local offsets for low-health particles | Medium – generated from actor-type spread values and used by `doactordeathcheck()` |
 | Field31 | Actor contact-damage value | Medium – used in actor-vs-actor health reduction |
 | Field32 | Actor firing-enabled state | High – read by `doactorweapons()` |
 | Field41 | Actor slot active flag | High – controls actor iteration and allocation |
@@ -40,7 +50,8 @@ Confidence:
 | Field50 | Actor rotation/heading | High – used in sprite orientation, movement and collision |
 | Field51 / Field52 | Sprite X/Y scale | High – passed to `ScaleSprite` |
 | Field53 / Field54 | Collision width/height or half-extents | High – used by collision routines and death effects |
-| Field55 | Hit-flash timer/intensity state | Medium – decays while actor color interpolates |
+| Field55 | Hit-flash timer/intensity state | High – set to 255 on hit and decays using Field8 while color interpolates |
+| Field56 / Field57 | Unresolved actor fields | Low / unresolved – not sufficiently traced |
 | Field58 | Maximum/starting health | High – copied from actor type; used as health denominator |
 | Field59 | Current health | High – decremented by damage and summed for bosses |
 | Field61[1..10] | Weapon kind mounted in each slot | High – copied from actor-type data and used to create shots |
@@ -58,7 +69,8 @@ Confidence:
 | Field74[1..10] | Effective firing interval | Medium – populated from weapon-shot definition |
 | Field75[1..10] | Time since last shot / firing accumulator | High – accumulated and reset on shot |
 | Field76[1..10] | Per-slot firing-rate multiplier | Medium – multiplied into interval |
-| Field77 | Actor age/lifetime timer | Medium – incremented in `updateactor()`; used in eligibility checks |
+| Field77 | Actor age timer | High – incremented in `updateactor()`; used in collision and target eligibility checks |
+| Field78 | Unresolved actor field | Low / unresolved – initialized to zero by `makeactor()`; no reliable semantic assignment yet |
 | Field79 | Last attacker / killer actor index | High – used to award score and attribute kills |
 | Field80 | Actor-type extra flag | Low – assigned from actor-type Field50; needs more references |
 
@@ -97,7 +109,7 @@ Other fields are intentionally left unmapped until their initialization and all 
 | Field30 | Beam-laser upgrade level | High – used in bonus pickup and weapon setup |
 | Field31 | Wave-laser upgrade level | High – used in bonus pickup and weapon setup |
 | Field32 | Auto-turret upgrade level | High – used in bonus pickup and weapon setup |
-| Field33 | Temporary movement/weapon restriction timer | Low – used as a positive gate in movement and bomb conditions |
+| Field33 | Movement trail timer | Medium – decremented in `doplayermovement()` while movement trail particles are emitted |
 
 ## 3. levelevent (31 fields)
 
@@ -137,8 +149,13 @@ The active projectile record and the weapon-shot definition share this type, but
 | Field14 | Texture/layer index | Medium – passed to weapon texture-layer helper |
 | Field15 | Weapon-shot kind ID | High – assigned from the kind passed to `makeweaponshot()` |
 | Field18 | Projectile angle | High – updated and used for collision orientation |
-| Field19 | Projectile lifetime / duration parameter | Medium – copied from kind and used in collision calculations |
-| Field21 | Damage value | High – applied to actor health |
+| Field19 | Projectile speed magnitude | High – copied from the kind definition; used as speed for homing and as a beam collision extension. The associated `sprite.Field19` is the separate visual lifetime timer |
+| Field21 | Damage value | High – applied to actor health or projectile interception health |
+| Field31 / Field32 | Projectile sprite width / height | High – passed through `makeparticle()` and `setsprite()` to the visual quad |
+| Field49 / Field50 | Projectile width / height growth rates | High – integrated into Field31 and Field32 during projectile updates |
+| Field54 | Trail particle speed magnitude | High – passed negated as the trail particle speed |
+| Field55 | Trail particle rotation-speed multiplier | High – sets sprite rotation speed for trail particles |
+| Field56 | Trail particle width and height | High – passed as both visual dimensions to `makeparticle()` |
 | Field22 / Field23 | Projectile X/Y position | High – updated every frame |
 | Field25 | Special projectile/collision mode | Medium – changes collision and boundary behavior |
 | Field26 | Owner actor index | Medium – receives firing actor argument |
@@ -158,7 +175,11 @@ The active projectile record and the weapon-shot definition share this type, but
 | Field66 / Field67 | Projectile health/durability | Medium – reduced when projectiles collide |
 | Field71 | Active projectile flag | High – gates projectile update and pool allocation |
 
-## 5. Other types
+## 5. Profile and player setup types
+
+The full profile serialization, shop prices, new-profile defaults, player setup mapping and typed 34-field player runtime map are documented separately in [PROFILE_PLAYER_UPGRADE_AUDIT.md](PROFILE_PLAYER_UPGRADE_AUDIT.md). The machine-readable field extraction is in [profile_player_upgrades.extracted.json](data/profile_player_upgrades.extracted.json). Profile Field15 / playersetup Field9 remains unresolved.
+
+## 6. Other types
 
 The following structures are confirmed by declarations and use sites but have not yet been field-mapped comprehensively:
 
@@ -173,7 +194,7 @@ The following structures are confirmed by declarations and use sites but have no
 - `anim`: animation texture handles, frame dimensions/count and timing.
 - `menu`, `gui_object`, `gui_text`, `gui_font`: menu and custom GUI data.
 
-## 6. Rules for completing this map
+## 7. Rules for completing this map
 
 1. Trace each field's initialization in `EntryPoint()`, `makeactor()` or the relevant loader.
 2. Search all writes and reads in every function that uses the type.
