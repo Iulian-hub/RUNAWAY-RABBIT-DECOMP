@@ -44,9 +44,10 @@ func get_music_enabled() -> bool:
 
 func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
-	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92))
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96))
-	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 32.0)
+	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 280.0, 210.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 405.0, 125.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 510.0, 125.0)
+	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0)
 	_enemy_layer = Node2D.new()
 	_enemy_layer.name = "LiveMenuEnemies"
 	_enemy_layer.position = Vector2.ZERO
@@ -138,17 +139,17 @@ func _spawn_menu_enemy() -> void:
 	_enemy_layer.add_child(enemy)
 	enemy.play("default")
 
-func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, bottom_height: float = 0.0) -> void:
+func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, layer_top: float = -1.0, layer_height: float = -1.0) -> void:
 	var layer := TextureRect.new()
 	layer.texture = texture
 	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	if bottom_height > 0.0:
+	if layer_height > 0.0:
 		layer.stretch_mode = TextureRect.STRETCH_SCALE
-		layer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-		layer.offset_top = -bottom_height
-		layer.offset_bottom = 0.0
+		layer.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+		layer.offset_top = layer_top
+		layer.offset_bottom = layer_top + layer_height
 	else:
+		layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.modulate = tint
