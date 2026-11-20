@@ -217,9 +217,9 @@ Boss archetype 32, 34, 35 și 36 folosesc grafici statice prin `actorgraphicpath
 | Componentă | Archetype | Offset X | Offset Y | HP de bază | Recompensă |
 |---:|---:|---:|---:|---:|---:|
 | 1 | 31 (boss11) | 0 | 0 | 900 | 5000 |
-| 2 | 32 (boss12) | -164 | -2 | 500000? | 2500 |
+| 2 | 32 (boss12) | -164 | -2 | 450 | 2500 |
 
-**Corecție de interpretare:** valoarea din Field20 este recompensa, nu HP. HP-ul componentei 2 trebuie citit din definiția actorului 32: 450. Deci tabelul corect este 900 HP și 450 HP. În `partondeathdestroy`, distrugerea componentei 1 setează relația către componenta 2; verificarea exactă a valorii 1 din matrice indică o regulă de distrugere asociată, iar efectul runtime este procesat de `dobosses()`.
+Field20 reprezintă recompensa, nu HP. HP-ul componentelor este copiat din `actortypes.Field25`: 900 pentru archetype 31 și 450 pentru archetype 32. Matricea `partondeathdestroy` marchează componenta 2 ca țintă a efectului declanșat la distrugerea componentei 1; efectul este aplicat de `dobosses()`.
 
 AI Case 1 nu are cod specific în `dobossai()`; boss-ul folosește deplasarea comună a originii și poziționarea componentelor.
 
