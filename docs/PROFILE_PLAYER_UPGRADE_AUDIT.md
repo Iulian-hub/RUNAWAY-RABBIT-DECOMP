@@ -189,21 +189,30 @@ These are the multipliers written into actor mount Field76. The runtime firing i
 | 2 | Crosshair sprite/entity | Created in loadplayers(). |
 | 3 | Control mode | Selects keyboard/mouse/joystick fire controls. |
 | 4–5 | Player world X/Y | Drives shield and actor positioning. |
+| 6 | Horizontal movement velocity | Derived from crosshair/player target offset and integrated into Field4. |
 | 7 | Kill count | Incremented when attributed kills are awarded. |
-| 9 | Shield visual/state selector | Selects shield color case in updateplayer(). |
+| 8 | Death count for the current level | Reset at level start and incremented when player actor health reaches zero. |
+| 9 | Remaining shield charges / shield level | Decremented when a hit consumes a shield; also selects the shield HUD/color case. |
 | 10 | Lives count | Initialized from player setup and used by player life logic. |
 | 11 | In-level cash/score accumulator | Receives kill rewards; at level completion is used for score submission and, on campaign victory, credited to persistent profile money. |
 | 12 | Re-entry / invulnerability timer | Initialized to 120 and affects actor alpha in updateplayer(). |
-| 13 | Hit / weapon-setup transition timer | Drives temporary red actor tint and delayed weapon reconfiguration. |
-| 14 | Actor alpha / visibility factor | Applied to actor and turret entities. |
+| 13 | Weapon-setup transition timer | Drives temporary red actor tint and delayed weapon reconfiguration. |
+| 14 | Player actor alpha | Applied to actor and turret entities; modulated during shield/invulnerability transitions. |
+| 15 | Re-entry fade direction | Alternates between positive and negative values while the player actor fades during the 120-unit re-entry timer. |
+| 16 | Death-sequence active flag | Selects the death animation/escape path in doplayerhits(), doplayersend() and doplayers().
+| 17 | Death-sequence vertical velocity | Decreases over time and moves the dead player actor downward.
 | 18 | Shield sprite/entity | Created in loadplayers(). |
-| 19 | Shield alpha factor | Used when rendering shield. |
+| 19 | Shield alpha factor | Oscillates between configured bounds to animate shield visibility. |
+| 20 | Shield alpha direction | Positive/negative direction used to oscillate Field19. |
 | 21 | Bomb count | Initialized from player setup; consumed by firebomb(). |
+| 22 | Death animation frame/variant index | Randomized at death and passed to the hamster-death animation texture. |
 | 23–24 | Combo count and timer | Used to award combo bonus. |
 | 25–26 | Combo target/position coordinates | Used for combo display positioning. |
-| 28–32 | Special-mode weapon upgrade overrides | Added to player setup upgrade values by doplayerweaponsetup(). |
+| 27 | Beam Laser charge/cooldown timer | Set when the Beam Laser is fired; resets its mount firing timer while positive. |
+| 28–32 | Temporary weapon upgrade counters | Added to the corresponding setup levels in order: Chain Cannon, Homing Missiles, Beam Laser, Wave Laser, Auto Turret. |
+| 33 | Movement trail timer | Counts down while movement particles are emitted. |
 
-Other playertype fields remain unmapped until their full read/write call sites are traced. The source uses positional fields heavily; do not assume unlisted fields are empty or unimportant.
+Fields 6, 8, 15–17, 20, 22, 27 and 33 were resolved in the subsequent hit/death/movement/HUD trace. Fields not listed above remain unmapped until their full read/write call sites are traced. The source uses positional fields heavily; do not assume unlisted fields are empty or unimportant.
 
 ## 7. Defects and data-integrity risks
 
