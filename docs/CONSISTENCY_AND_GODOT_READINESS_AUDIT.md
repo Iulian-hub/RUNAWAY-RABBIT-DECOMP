@@ -30,7 +30,7 @@ The GitHub directory listing confirms:
 
 The earlier figure of 163 graphics is consistent with a recursive count of image assets, not the number of entries in the `gfx/` root directory. The 198 function-directory entries likewise do not mean 198 active modules: two are backup files.
 
-The current documentation set contains **18 principal Markdown audit/planning documents**, including this consistency report, plus two machine-readable extraction files under `docs/data/`. The earlier counts of 11 and 13 were stale.
+The current documentation set contains **19 principal Markdown audit/planning documents**, including this consistency report, plus two machine-readable extraction files under `docs/data/`. The earlier counts of 11 and 13 were stale.
 
 ## 3. Apparent differences resolved
 
