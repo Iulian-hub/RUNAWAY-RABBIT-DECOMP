@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "extraction": {
+    "repository": "Iulian-hub/RUNAWAY-RABBIT-DECOMP",
+    "branch": "main",
+    "source_file": "Functions/EntryPoint.bb",
+    "source_blob_sha": "28d80ac3e696a3a97eb40313664c445fd3235449",
+    "method": "Static mapping from profile persistence, campaign setup, shop event handlers and player weapon setup. Decimal prices converted from hexadecimal source literals.",
+    "caveat": "Gusto-modified source. No runtime validation against original Mighty Rodent executable in this extraction."
+  },
+  "profile_capacity": 10,
+  "profile_fields": [
+    {
+      "field": "Field0",
+      "name": "name"
+    },
+    {
+      "field": "Field1",
+      "name": "unlocked_level"
+    },
+    {
+      "field": "Field2",
+      "name": "sound_enabled"
+    },
+    {
+      "field": "Field3",
+      "name": "hints_enabled"
+    },
+    {
+      "field": "Field4",
+      "name": "music_enabled"
+    },
+    {
+      "field": "Field5",
+      "name": "creation_skill_selector"
+    },
+    {
+      "field": "Field6",
+      "name": "currency"
+    },
+    {
+      "field": "Field7",
+      "name": "chain_cannon_level"
+    },
+    {
+      "field": "Field8",
+      "name": "beam_laser_level"
+    },
+    {
+      "field": "Field9",
+      "name": "homing_missile_level"
+    },
+    {
+      "field": "Field10",
+      "name": "auto_turret_level"
+    },
+    {
+      "field": "Field11",
+      "name": "wave_laser_level"
+    },
+    {
+      "field": "Field12",
+      "name": "shield_power_level"
+    },
+    {
+      "field": "Field13",
+      "name": "giga_bomb_level"
+    },
+    {
+      "field": "Field14",
+      "name": "player_count"
+    },
+    {
+      "field": "Field15",
+      "name": "unresolved_setup_value"
+    },
+    {
+      "field": "Field16",
+      "name": "lives_upgrade_level"
+    }
+  ],
+  "save_order": [
+    "name",
+    "Field4",
+    "Field2",
+    "Field3",
+    "Field1",
+    "Field5",
+    "Field6",
+    "Field7",
+    "Field8",
+    "Field9",
+    "Field10",
+    "Field11",
+    "Field12",
+    "Field13",
+    "Field14",
+    "Field15",
+    "Field16"
+  ],
+  "new_profile_defaults_by_skill": {
+    "1": {
+      "lives": 2,
+      "shield_power": 4,
+      "giga_bombs": 3
+    },
+    "2": {
+      "lives": 2,
+      "shield_power": 3,
+      "giga_bombs": 2
+    },
+    "3": {
+      "lives": 2,
+      "shield_power": 2,
+      "giga_bombs": 1
+    },
+    "4": {
+      "lives": 2,
+      "shield_power": 1,
+      "giga_bombs": 1
+    }
+  },
+  "upgrades": [
+    {
+      "id": 1,
+      "name": "Lives",
+      "profile_field": 16,
+      "max_level": 4,
+      "prices": [
+        10000,
+        15000,
+        23000,
+        30000
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Shield Power",
+      "profile_field": 12,
+      "max_level": 4,
+      "prices": [
+        5000,
+        7000,
+        10000,
+        15000
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Giga Bombs",
+      "profile_field": 13,
+      "max_level": 4,
+      "prices": [
+        6000,
+        9000,
+        12000,
+        18000
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Chain Cannon",
+      "profile_field": 7,
+      "max_level": 10,
+      "prices": [
+        1000,
+        20000,
+        30000,
+        45000,
+        67500,
+        100000,
+        150000,
+        275000,
+        350000,
+        500000
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Beam Laser",
+      "profile_field": 8,
+      "max_level": 5,
+      "prices": [
+        40000,
+        60000,
+        90000,
+        135000,
+        200000
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Homing Missiles",
+      "profile_field": 9,
+      "max_level": 5,
+      "prices": [
+        60000,
+        90000,
+        135000,
+        200000,
+        300000
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Auto Turret",
+      "profile_field": 10,
+      "max_level": 5,
+      "prices": [
+        80000,
+        120000,
+        180000,
+        270000,
+        450000
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Wave Laser",
+      "profile_field": 11,
+      "max_level": 5,
+      "prices": [
+        100000,
+        150000,
+        325000,
+        450000,
+        600000
+      ]
+    }
+  ],
+  "player_setup_fields": [
+    {
+      "field": 0,
+      "name": "shield_power_level"
+    },
+    {
+      "field": 1,
+      "name": "lives_level"
+    },
+    {
+      "field": 2,
+      "name": "control_mode"
+    },
+    {
+      "field": 3,
+      "name": "giga_bomb_level"
+    },
+    {
+      "field": 4,
+      "name": "chain_cannon_level"
+    },
+    {
+      "field": 5,
+      "name": "homing_missile_level"
+    },
+    {
+      "field": 6,
+      "name": "beam_laser_level"
+    },
+    {
+      "field": 7,
+      "name": "wave_laser_level"
+    },
+    {
+      "field": 8,
+      "name": "auto_turret_level"
+    },
+    {
+      "field": 9,
+      "name": "unresolved_profile_field15"
+    }
+  ],
+  "player_weapon_mounts": [
+    {
+      "mounts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "weapon": "Chain Cannon",
+      "projectile_kinds": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "mounts": [
+        6
+      ],
+      "weapon": "Homing Missiles",
+      "projectile_kind": 4,
+      "fire_interval_multipliers": [
+        1,
+        0.5,
+        0.33,
+        0.25,
+        0.2
+      ]
+    },
+    {
+      "mounts": [
+        7
+      ],
+      "weapon": "Auto Turret",
+      "projectile_kind": 6,
+      "fire_interval_multipliers": [
+        1,
+        0.666,
+        0.55,
+        0.45,
+        0.333
+      ]
+    },
+    {
+      "mounts": [
+        8
+      ],
+      "weapon": "Wave Laser",
+      "projectile_kind": 5,
+      "fire_interval_multipliers": [
+        1,
+        0.5,
+        0.33,
+        0.25,
+        0.2
+      ]
+    },
+    {
+      "mounts": [
+        9
+      ],
+      "weapon": "Beam Laser",
+      "projectile_kinds": [
+        7,
+        7,
+        8,
+        8,
+        9
+      ],
+      "fire_interval_multipliers": [
+        1,
+        0.75,
+        1,
+        0.85,
+        1
+      ]
+    }
+  ],
+  "cannon_progression": [
+    {
+      "level": 1,
+      "barrels": 1,
+      "kind": 1
+    },
+    {
+      "level": 2,
+      "barrels": 2,
+      "kind": 1
+    },
+    {
+      "level": 3,
+      "barrels": 3,
+      "kind": 1
+    },
+    {
+      "level": 4,
+      "barrels": 2,
+      "kind": 2
+    },
+    {
+      "level": 5,
+      "barrels": 3,
+      "kind": 2
+    },
+    {
+      "level": 6,
+      "barrels": 4,
+      "kind": 2
+    },
+    {
+      "level": 7,
+      "barrels": 3,
+      "kind": 3
+    },
+    {
+      "level": 8,
+      "barrels": 5,
+      "kind": 2
+    },
+    {
+      "level": 9,
+      "barrels": 4,
+      "kind": 3
+    },
+    {
+      "level": 10,
+      "barrels": 5,
+      "kind": 3
+    }
+  ],
+  "source_findings": [
+    {
+      "id": "delete_profile_wrong_slot",
+      "severity": "high",
+      "description": "deleteprofile clears Field14 on currentprofile instead of profiletodelete."
+    },
+    {
+      "id": "delete_profile_stale_fields",
+      "severity": "medium",
+      "description": "deleteprofile does not clear target Field15 or Field16."
+    },
+    {
+      "id": "profile_ui_slots_1_to_6",
+      "severity": "medium",
+      "description": "Persistence supports 10 profiles; menu event handlers expose slots 1–6."
+    },
+    {
+      "id": "unversioned_profile_binary",
+      "severity": "high",
+      "description": "profiles.dat is positional and has no schema version or migration mechanism."
+    }
+  ]
+}
