@@ -422,5 +422,218 @@
       "severity": "high",
       "description": "profiles.dat is positional and has no schema version or migration mechanism."
     }
-  ]
+  ],
+  "player_runtime_fields": [
+    {
+      "field": 0,
+      "name": "active",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 1,
+      "name": "actor_slot",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 2,
+      "name": "crosshair_entity",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 3,
+      "name": "control_mode",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 4,
+      "name": "world_x",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 5,
+      "name": "world_y",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 6,
+      "name": "horizontal_velocity",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 7,
+      "name": "kill_count",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 8,
+      "name": "deaths_this_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 9,
+      "name": "remaining_shield_charges",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 10,
+      "name": "lives",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 11,
+      "name": "in_level_cash_score",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 12,
+      "name": "reentry_invulnerability_timer",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 13,
+      "name": "weapon_setup_transition_timer",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 14,
+      "name": "actor_alpha",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 15,
+      "name": "reentry_fade_direction",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 16,
+      "name": "death_sequence_active",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 17,
+      "name": "death_vertical_velocity",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 18,
+      "name": "shield_entity",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 19,
+      "name": "shield_alpha",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 20,
+      "name": "shield_alpha_direction",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 21,
+      "name": "bomb_count",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 22,
+      "name": "death_animation_variant",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 23,
+      "name": "combo_count",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 24,
+      "name": "combo_timer",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 25,
+      "name": "combo_anchor_x",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 26,
+      "name": "combo_anchor_y",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 27,
+      "name": "beam_laser_cooldown_timer",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 28,
+      "name": "temporary_chain_cannon_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 29,
+      "name": "temporary_homing_missile_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 30,
+      "name": "temporary_beam_laser_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 31,
+      "name": "temporary_wave_laser_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 32,
+      "name": "temporary_auto_turret_level",
+      "blitz_type": "integer",
+      "confidence": "source-traced"
+    },
+    {
+      "field": 33,
+      "name": "movement_trail_timer",
+      "blitz_type": "float",
+      "confidence": "source-traced"
+    }
+  ],
+  "source_revisions": {
+    "Functions/doplayerhits.bb": "035545b44b324fab944177f68da4c873f4676e95",
+    "Functions/doplayermovement.bb": "3168b1e454d8f9e124114298ca9333bab4726894",
+    "Functions/dohud.bb": "4eaaaf5cde6633c5a5bf7a0e22bd3c524fc66983",
+    "Functions/updateplayer.bb": "690caa8354981942748de6f7e141953e4a528e83",
+    "Functions/doplayerweapons.bb": "source inspected"
+  }
 }
