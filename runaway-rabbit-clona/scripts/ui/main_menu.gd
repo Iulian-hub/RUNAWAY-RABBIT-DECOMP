@@ -15,6 +15,7 @@ const KAMIKAZE: Texture2D = preload("res://assets/original_enemies/kamikaze.png"
 const ZIPJET: Texture2D = preload("res://assets/original_enemies/zipjet.png")
 const MENU_ENEMY_SCRIPT = preload("res://scripts/ui/menu_enemy.gd")
 const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
+const MENU_ENEMY_LANES: Array[float] = [175.0, 300.0, 425.0, 550.0]
 const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
 var _content: VBoxContainer
 var _enemy_layer: Node2D
@@ -47,6 +48,7 @@ func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 260.0, 250.0, 1.0)
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 475.0, 105.0, 5.0)
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 525.0, 105.0, 5.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 550.0, 105.0, 5.0)
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 575.0, 113.0, 5.0)
 	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0, 1.0)
 	_enemy_layer = Node2D.new()
@@ -118,8 +120,23 @@ func _create_enemy_frames(atlas: Texture2D, frame_count: int, animation_fps: flo
 		frames.add_frame("default", frame)
 	return frames
 
+func _find_available_enemy_lane() -> float:
+	var occupied_lanes: Array[float] = []
+	for child in _enemy_layer.get_children():
+		occupied_lanes.append(float(child.get("lane_y")))
+	var available_lanes: Array[float] = []
+	for lane_y in MENU_ENEMY_LANES:
+		if not occupied_lanes.has(lane_y):
+			available_lanes.append(lane_y)
+	if available_lanes.is_empty():
+		return -1.0
+	return available_lanes[randi_range(0, available_lanes.size() - 1)]
+
 func _spawn_menu_enemy() -> void:
 	if _enemy_frame_sets.is_empty():
+		return
+	var lane_y := _find_available_enemy_lane()
+	if lane_y < 0.0:
 		return
 	var direction := _next_enemy_direction
 	_next_enemy_direction *= -1.0
@@ -128,9 +145,9 @@ func _spawn_menu_enemy() -> void:
 	enemy.sprite_frames = _enemy_frame_sets[randi_range(0, _enemy_frame_sets.size() - 1)]
 	enemy.set("travel_direction", direction)
 	enemy.set("travel_speed", randf_range(75.0, 135.0))
-	enemy.set("vertical_phase", randf_range(0.0, TAU))
-	enemy.scale = Vector2.ONE * randf_range(0.68, 0.82)
-	enemy.position = Vector2(-70.0 if direction > 0.0 else viewport_size.x + 70.0, randf_range(145.0, viewport_size.y - 90.0))
+	enemy.set("lane_y", lane_y)
+	enemy.scale = Vector2.ONE * randf_range(0.76, 0.88)
+	enemy.position = Vector2(-75.0 if direction > 0.0 else viewport_size.x + 75.0, lane_y)
 	enemy.flip_h = direction < 0.0
 	_enemy_layer.add_child(enemy)
 	enemy.play("default")

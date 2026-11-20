@@ -35,3 +35,10 @@ The main menu now creates ambient enemy fly-bys using the original sprite sheets
 - Removed the oversized translucent header strip that created a hard horizontal seam.
 - Replaced the incorrect full-texture `menuborder.png` StyleBoxTexture (which stretched the green carrot pattern across the panel) with a restrained translucent blue StyleBoxFlat and a subtle border.
 - Adjusted the island/water bands to fill the lower part of the scene without the large blank gap above the ground. The wave texture now repeats horizontally instead of being stretched into a single oversized wave. The shader exposes a repeat-count parameter for that purpose.
+
+
+## Additional water layer and straight-line enemy lanes
+
+A fourth copy of the original scrolling water layer is inserted at y=550, above the lowest water band, preserving the same repeat scale and horizontal scroll speed.
+
+Menu enemies now use four fixed horizontal lanes (y=175, 300, 425, 550). A lane can be occupied by only one active enemy, including while it is entering or leaving the screen. This prevents sprites from meeting or overlapping while moving in opposite directions. Vertical bobbing and rotation have been removed; each enemy follows a constant horizontal trajectory. Sprite scale is increased slightly to 0.76–0.88.
