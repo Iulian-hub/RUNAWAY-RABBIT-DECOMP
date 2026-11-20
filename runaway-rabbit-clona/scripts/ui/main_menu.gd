@@ -13,7 +13,6 @@ var _sound_enabled: bool = true
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_load_settings()
-	Input.set_custom_mouse_cursor(load("res://assets/original_ui/menu/mouse.png"), Input.CURSOR_ARROW)
 	_build_shell()
 	_show_home()
 
