@@ -151,6 +151,7 @@ func _show_home() -> void:
 	var start := _make_button("START GAME")
 	start.pressed.connect(func() -> void: start_requested.emit())
 	_content.add_child(start)
+	start.grab_focus()
 
 	var instructions := _make_button("INSTRUCTIONS")
 	instructions.pressed.connect(_show_instructions)
@@ -266,6 +267,7 @@ func _add_back_button() -> void:
 	var back := _make_button("BACK")
 	back.pressed.connect(_show_home)
 	_content.add_child(back)
+	back.grab_focus()
 
 
 func _load_settings() -> void:
