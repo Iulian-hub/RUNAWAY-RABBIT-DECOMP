@@ -15,18 +15,18 @@ Confidence:
 | Field1 | Render-order classification flag | Medium – `updateactor()` assigns a distinct entity order when set; boss parts clear it |
 | Field2 | Child actor index | Medium – assigned by `makeactor()`; death code references it |
 | Field3 | Parent actor index | High – child initialization writes parent slot; enemy cleanup checks it |
-| Field4 | Root/standalone actor flag | High – `makeactor()` sets it for root actors and clears it for child actors; enemy end-AI uses it to gate root behavior |
+| Field4 | Root/standalone actor flag | High – `makeactor()` sets it for root actors and clears it for child actors; enemy end-AI gates root behavior |
 | Field5 | Decal entity handle | High – loaded as decal and parented to actor body |
 | Field6 | Decal type/index | High – used to select `actordecals()` texture |
 | Field7 | Decal draw-side/order flag | Medium – selects entity order |
-| Field8 | Hit-flash color transition duration | High – used as the denominator in the color transition timer |
+| Field8 | Hit-flash color transition duration | High – used as denominator in the color transition timer |
 | Field9–Field11 | Hit-flash RGB start color | Medium – interpolated toward Field12–Field14 during hit flash |
 | Field12–Field14 | Base actor RGB color | High – applied to actor body, children and turret entities |
 | Field15 | Death-processing suppression flag | Medium – `doactordeathcheck()` performs normal death/low-health handling only when this field is zero |
 | Field16 | Contact-hit projectile kind | Medium – `doactorcollisions()` spawns this projectile when the actor takes contact damage |
 | Field17[1..10] | Per-slot angle for death-emitted weapon | High – paired with Field18 in `doactordeath()` |
 | Field18[1..10] | Per-slot weapon kind emitted on death | High – paired with Field17 in `doactordeath()` |
-| Field19 | Actor update/render suppression flag | High – checked by `doactors()`, set for inactive player actors |
+| Field19 | Actor update/render suppression flag | High – checked by `doactors()`; set for inactive player actors |
 | Field20 | Exclusion flag used by target search | Medium – `findtarget()` excludes actors with this flag |
 | Field21 | Actor graphic index | High – used to select `actorgraphics()` |
 | Field22 | Animation-loop index | High – used to select `animloops()` |
@@ -34,12 +34,15 @@ Confidence:
 | Field24 | Animation active/looping flag | Medium – gates animation timer updates |
 | Field25 | Current animation frame | High – passed to `EntityTexture` |
 | Field26 | Animation frame timer | High – incremented and reset by `doactoranimations()` |
+| Field27–Field29 | Raw per-mount configuration copied from actor archetype | Low / unresolved – copied during actor creation; exact runtime meanings not fully traced |
 | Field30 | Faction identifier | High – indexes faction collision matrix and faction counters |
-| Field34 | Death-sequence timer | High – starts when health reaches zero and increments until the death duration is reached |
-| Field35 | Death-sequence duration threshold | High – compared against Field34 before actor deactivation |
-| Field36 / Field37 | Randomized local offsets for low-health particles | Medium – generated from actor-type spread values and used by `doactordeathcheck()` |
 | Field31 | Actor contact-damage value | Medium – used in actor-vs-actor health reduction |
 | Field32 | Actor firing-enabled state | High – read by `doactorweapons()` |
+| Field33 | Unresolved actor field | Low / unresolved – no reliable semantic assignment yet |
+| Field34 | Death-sequence timer | High – starts when health reaches zero and increments until death duration is reached |
+| Field35 | Death-sequence duration threshold | High – compared against Field34 before actor deactivation |
+| Field36 / Field37 | Randomized local offsets for low-health particles | Medium – generated from actor-type spread values and used by `doactordeathcheck()` |
+| Field38–Field40 | Unresolved actor fields | Low / unresolved – not sufficiently traced |
 | Field41 | Actor slot active flag | High – controls actor iteration and allocation |
 | Field42 | Actor body entity handle | High – positioned, textured, hidden and rendered |
 | Field43 | Actor type identifier | High – used to select enemy type behavior |
@@ -54,9 +57,10 @@ Confidence:
 | Field56 / Field57 | Unresolved actor fields | Low / unresolved – not sufficiently traced |
 | Field58 | Maximum/starting health | High – copied from actor type; used as health denominator |
 | Field59 | Current health | High – decremented by damage and summed for bosses |
+| Field60 | Health regeneration rate | Medium – `updateactor()` adds a Field58-scaled amount per frame and clamps to maximum health |
 | Field61[1..10] | Weapon kind mounted in each slot | High – copied from actor-type data and used to create shots |
 | Field62[1..10] | Turret/weapon visual configuration | Medium – selects turret texture/visibility |
-| Field63[1..10] | Target/faction filter for weapon slot | Medium – passed into target search |
+| Field63[1..10] | Targeting behavior / projectile-target option | Medium – passed into target search |
 | Field64[1..10] | Turret rendering/order configuration | Medium – affects entity ordering |
 | Field65[1..10] | Current turret angle | High – used by weapon aiming and turret rendering |
 | Field66[1..10] | Turret scale | High – used by `ScaleSprite` |
@@ -74,41 +78,37 @@ Confidence:
 | Field79 | Last attacker / killer actor index | High – used to award score and attribute kills |
 | Field80 | Actor-type extra flag | Low – assigned from actor-type Field50; needs more references |
 
-Other fields are intentionally left unmapped until their initialization and all meaningful reads/writes have been traced.
-
 ## 2. playertype (34 fields)
 
 | Field | Provisional meaning | Confidence / evidence |
 |---|---|---|
-| Field0 | Player active flag | High – checked in `doplayers()` and `dolevels()` |
+| Field0 | Player active flag | High – checked in `doplayers()` and level flow |
 | Field1 | Actor slot index for this player | High – used to access the player's actor |
 | Field2 | Crosshair entity handle | High – positioned, shown and hidden by `docrosshair()` |
 | Field3 | Input/control mode | High – selects mouse/keyboard/controller branches in `doplayerweapons()` |
-| Field4 / Field5 | Player X/Y position | High – used for actor position, collision and combo location |
-| Field6 | Horizontal movement velocity/smoothing state | Medium – updated by `doplayermovement()` |
-| Field7 | Kill/combo-related counter | Low – incremented when an enemy death is attributed to the player |
-| Field8 | Death/respawn counter | Medium – incremented when player health is depleted |
-| Field9 | Shield count | High – decremented when a hit consumes a shield |
+| Field4 / Field5 | Player X/Y position | High – used for actor position, movement and combo location |
+| Field6 | Horizontal movement velocity/smoothing state | High – updated and integrated by `doplayermovement()` |
+| Field7 | Kill count | High – incremented when an enemy death is attributed to the player |
+| Field8 | Death count for current level | High – reset at level start and incremented when player health is depleted |
+| Field9 | Remaining shield charges | High – decremented when a hit consumes a shield; also selects shield HUD/color state |
 | Field10 | Remaining lives | High – decremented during respawn handling |
-| Field11 | Player score/cash total | High – incremented by enemy and combo rewards |
-| Field12 | Temporary invulnerability timer | Medium – controls hit/invulnerability visual state |
-| Field14 | Player/actor alpha value | Medium – applied to actor and turret entities |
-| Field16 | Player death/respawn state | High – gates movement/weapons and drives death handling |
-| Field17 | Death/respawn vertical movement speed | Medium – modified while player falls |
+| Field11 | In-level cash/score accumulator | High – receives enemy and combo rewards; credited to persistent profile money after a campaign win |
+| Field12 | Re-entry / invulnerability timer | High – initialized to 120 and gates damage/alpha behavior |
+| Field13 | Weapon-setup transition timer | Medium – drives temporary red actor tint and delayed weapon reconfiguration |
+| Field14 | Player actor alpha | High – applied to actor and turret entities during re-entry |
+| Field15 | Re-entry fade direction | High – positive/negative direction used to animate actor alpha during the timer |
+| Field16 | Player death-sequence active flag | High – gates movement/weapons and drives death handling |
+| Field17 | Death-sequence vertical velocity | Medium – reduced over time while the dead actor moves downward |
 | Field18 | Shield visual entity handle | High – positioned and shown/hidden |
 | Field19 | Shield visual alpha | High – animated and applied to shield entity |
-| Field20 | Shield pulse direction | Medium – sign controls alpha animation |
+| Field20 | Shield alpha direction | High – sign controls the shield alpha oscillation |
 | Field21 | Remaining bombs | High – checked and decremented by `firebomb()` |
-| Field22 | Death animation frame | Medium – passed to `EntityTexture` |
+| Field22 | Death animation frame/variant index | Medium – randomized at death and passed to `EntityTexture` |
 | Field23 | Combo count | High – shown in combo reward text |
 | Field24 | Combo timer | High – decremented until combo reward is paid |
 | Field25 / Field26 | Combo reward display X/Y | High – used for combo score text |
-| Field27 | Beam/weapon charge cooldown | Medium – decremented and used to gate beam firing |
-| Field28 | Cannon upgrade level | High – used in bonus pickup and weapon setup |
-| Field29 | Missile upgrade level | High – used in bonus pickup and weapon setup |
-| Field30 | Beam-laser upgrade level | High – used in bonus pickup and weapon setup |
-| Field31 | Wave-laser upgrade level | High – used in bonus pickup and weapon setup |
-| Field32 | Auto-turret upgrade level | High – used in bonus pickup and weapon setup |
+| Field27 | Beam Laser charge/cooldown timer | High – set when the Beam Laser is fired; resets its mount firing timer while positive |
+| Field28–Field32 | Temporary weapon upgrade counters | High – added to setup levels in order: Chain Cannon, Homing Missiles, Beam Laser, Wave Laser, Auto Turret |
 | Field33 | Movement trail timer | Medium – decremented in `doplayermovement()` while movement trail particles are emitted |
 
 ## 3. levelevent (31 fields)
@@ -141,38 +141,55 @@ Other fields are intentionally left unmapped until their initialization and all 
 
 ## 4. typeweaponshot (72 fields)
 
-The active projectile record and the weapon-shot definition share this type, but are used as separate arrays: `weaponshotkinds()` describes reusable shot templates and `weaponshots()` stores active shots.
+The active projectile record and the weapon-shot definition share this type, but are used as separate arrays: `weaponshotkinds()` describes reusable shot templates and `weaponshots()` stores active shots. For the complete 72-field lifecycle map, see [PROJECTILE_RUNTIME_AUDIT.md](PROJECTILE_RUNTIME_AUDIT.md).
 
 | Field | Provisional meaning | Confidence / evidence |
 |---|---|---|
+| Field0–Field6 | RGB transition duration and start/target color channels | High – used to interpolate sprite RGB |
+| Field7 | Beam / continuous-contact mode | Medium – selects beam-specific collision path |
+| Field8–Field12 | Beam segment length, anchor and repeat-hit timing parameters | Medium / partial – copied/updated across beam creation and collision |
 | Field13 | Sprite handle for projectile visual | High – cast to `sprite` in projectile update/collision |
 | Field14 | Texture/layer index | Medium – passed to weapon texture-layer helper |
 | Field15 | Weapon-shot kind ID | High – assigned from the kind passed to `makeweaponshot()` |
 | Field18 | Projectile angle | High – updated and used for collision orientation |
-| Field19 | Projectile speed magnitude | High – copied from the kind definition; used as speed for homing and as a beam collision extension. The associated `sprite.Field19` is the separate visual lifetime timer |
+| Field19 | Projectile speed magnitude | High – used as speed for homing and as a beam collision extension. The associated `sprite.Field19` is the separate visual lifetime timer |
+| Field20 | Maximum speed magnitude | Medium – caps velocity when positive |
 | Field21 | Damage value | High – applied to actor health or projectile interception health |
-| Field31 / Field32 | Projectile sprite width / height | High – passed through `makeparticle()` and `setsprite()` to the visual quad |
-| Field49 / Field50 | Projectile width / height growth rates | High – integrated into Field31 and Field32 during projectile updates |
-| Field54 | Trail particle speed magnitude | High – passed negated as the trail particle speed |
-| Field55 | Trail particle rotation-speed multiplier | High – sets sprite rotation speed for trail particles |
-| Field56 | Trail particle width and height | High – passed as both visual dimensions to `makeparticle()` |
 | Field22 / Field23 | Projectile X/Y position | High – updated every frame |
-| Field25 | Special projectile/collision mode | Medium – changes collision and boundary behavior |
-| Field26 | Owner actor index | Medium – receives firing actor argument |
-| Field27 | Weapon mount index | Medium – receives firing slot argument |
+| Field24 | Homing turn-delay timer | Medium – gates steering while positive |
+| Field25 | Special boundary / attached-shot mode | Medium – affects bounds, damage scaling and mount attachment |
+| Field26 | Attached actor slot | High – used by attached-shot positioning |
+| Field27 | Attached mount index | High – selects actor mount arrays |
+| Field28 | Beam extent / attached-shot offset | Medium – initialized by caller and used by beam/attachment path |
 | Field29 / Field30 | X/Y velocity | High – integrated into position |
+| Field31 / Field32 | Projectile sprite width / height | High – passed through `makeparticle()` and `setsprite()` |
 | Field33 / Field34 | Projectile collision width/height | High – passed to rotated collision routine |
+| Field35 | Persistent-hit / damage-over-time mode | Medium – distinguishes consumed shots from persistent collision behavior |
 | Field36 | Source actor index | High – used to attribute damage/kills |
-| Field37 | Follow/attachment behavior flag | Medium – selects actor-velocity contribution |
-| Field38–40 | Special movement/return state | Low – more tracing needed |
-| Field42 | Homing/targeting behavior flag | Medium – activates target search |
+| Field37 | Inherit source actor velocity flag | High – selects actor-velocity contribution |
+| Field38–Field40 | Owner-relative delayed-launch state | Medium – controls delayed launch and owner-relative movement |
+| Field41 | Weapon sound index | High – selects the projectile sound on creation |
+| Field42 | Homing/targeting behavior flag | High – activates target search |
 | Field43 | Target search radius/range | Medium – passed to `findtarget()` |
 | Field44 | Turning/steering speed | Medium – used with angle interpolation |
 | Field45 | Current target actor/projectile index | Medium – assigned from `findtarget()` |
-| Field47–50 | Acceleration/rotation/fade parameters | Low – not fully mapped |
+| Field46 | Random angular spread | High – randomizes initial firing angle |
+| Field47 / Field48 | Projectile scale growth rate / current scale | High – integrated and passed to sprite rendering |
+| Field49 / Field50 | Projectile width / height growth rates | High – integrated into Field31 and Field32 |
+| Field51 | Angular velocity | High – integrated into projectile angle |
+| Field52 / Field53 | Trail emission interval / timer | High – gate and schedule trail particles |
+| Field54 | Trail particle speed magnitude | High – passed negated as the trail particle speed |
+| Field55 | Trail particle rotation-speed multiplier | High – sets trail sprite rotation speed |
+| Field56 | Trail particle width and height | High – passed as both visual dimensions to `makeparticle()` |
+| Field57 | Trail particle texture/effect ID | Medium – passed as particle texture selector |
+| Field60 | Velocity multiplier / drag coefficient | Medium – changes speed and velocity per frame |
+| Field61 | Muzzle-flash color selector | High – selects one of five flash colors |
+| Field62 | Impact particle-burst flag | High – enables particle burst on impact |
+| Field63 | Impact explosion size | High – positive value creates impact explosion |
 | Field64[1..10] | Target faction mask | High – used to filter eligible target factions |
-| Field65 | Faction/type of this projectile | Medium – compared during projectile collision |
-| Field66 / Field67 | Projectile health/durability | Medium – reduced when projectiles collide |
+| Field65 | Projectile faction ID | Medium – compared during projectile collision/targeting |
+| Field66 / Field67 | Projectile interception enable / current health | Medium – controls projectile interception and durability |
+| Field69 | RGB transition / hit-flash state | Medium – drives color interpolation and hit flash |
 | Field71 | Active projectile flag | High – gates projectile update and pool allocation |
 
 ## 5. Profile and player setup types
