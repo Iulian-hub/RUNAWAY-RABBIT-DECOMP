@@ -89,11 +89,12 @@ func _on_bombs_changed(value: int) -> void:
 
 
 func _on_bomb_triggered() -> void:
+	var cleared_enemies := get_tree().get_nodes_in_group("enemies").size()
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.queue_free()
 	for projectile in projectiles_root.get_children():
 		projectile.queue_free()
-	score += 250 * get_tree().get_nodes_in_group("enemies").size()
+	score += 250 * cleared_enemies
 	_update_score()
 
 
