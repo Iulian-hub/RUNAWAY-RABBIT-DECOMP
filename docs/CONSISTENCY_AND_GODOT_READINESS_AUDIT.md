@@ -30,7 +30,7 @@ The GitHub directory listing confirms:
 
 The earlier figure of 163 graphics is consistent with a recursive count of image assets, not the number of entries in the `gfx/` root directory. The 198 function-directory entries likewise do not mean 198 active modules: two are backup files.
 
-The current documentation set contains 13 principal Markdown audit/planning documents, including this consistency report. The previous status summary's count of 11 was stale.
+The current documentation set contains **17 principal Markdown audit/planning documents**, including this consistency report, plus two machine-readable extraction files under `docs/data/`. The earlier counts of 11 and 13 were stale.
 
 ## 3. Apparent differences resolved
 
@@ -108,10 +108,10 @@ The HUD formats player Field11 with a dollar sign, and enemy/boss reward paths i
 
 | Priority | Gap | Why it matters | Required follow-up |
 |---|---|---|---|
-| Critical | Full semantic map of all 81 actor fields and all 72 projectile fields | Gameplay code will otherwise reproduce hidden coupling | Build a read/write cross-reference table |
-| Critical | Complete actor archetype and weapon-mount data export | Needed to instantiate enemies, players and boss parts accurately | Extract all EntryPoint definitions into machine-readable tables |
-| Critical | Full mapping of all 40 projectile kinds | Damage, collision and visuals vary by projectile definition | Export definitions and classify per-kind behavior |
-| High | Full player/profile/setup field map | Shop, upgrades, saving and co-op depend on it | Trace every read/write in player/profile routines |
+| Critical | Full semantic map of all 81 actor fields; five projectile fields remain unresolved | Gameplay code will otherwise reproduce hidden coupling | Finish actor read/write cross-reference; resolve projectile fields 16, 58, 59, 68 and 70 |
+| High | Complete semantic actor archetype and weapon-mount catalogue | The first machine extraction captures 34 explicit archetypes, but player templates and actor-field semantics still need expansion | Expand the JSON with resolved named fields and player templates |
+| High | Projectile definition-to-runtime cross-reference | The first JSON extraction contains all 40 kind slots; 19 have explicit assignments and runtime lifecycle is documented, but five fields and kinds 39–40 remain unresolved | Trace remaining fields and determine whether kinds 39–40 are reachable |
+| High | Complete player runtime field map | Profile persistence and most player setup/upgrade mappings are documented; several of the 34 runtime player fields remain unresolved | Trace all playertype reads/writes, death/re-entry and special-mode paths |
 | High | Exact menu/event catalogue | Necessary to rebuild navigation and shop/profile flows | Enumerate menu IDs, item IDs and event strings |
 | High | Complete sound call-site map | Needed to reproduce sound behavior and prevent missing cues | Map every sound variable to callers |
 | High | Full background-layer and asset-use map | Prevents incorrect parallax, ordering and missing art | Export background definitions and texture metadata |
@@ -191,4 +191,4 @@ Suggested implementation order:
 
 **Not ready for:** claiming a faithful full-game recreation, finalizing every gameplay constant, or treating Gusto's modified behavior as the original Mighty Rodent baseline.
 
-The next most valuable audit deliverable is a machine-readable extraction of actor archetypes, weapon mounts and all projectile kinds. That reduces implementation guesswork more than adding another prose-only overview. A separate original-executable test log is required for behavioral equivalence.
+The next most valuable audit deliverable is the complete 81-field actor semantic map and a fully resolved player runtime field map. The actor/projectile extraction and profile/upgrade audit are now published, so repeating those overviews would add little value. A separate original-executable test log is still required for behavioral equivalence.
