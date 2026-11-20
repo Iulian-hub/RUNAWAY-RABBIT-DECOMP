@@ -48,6 +48,7 @@ func _build_screen() -> void:
 	background.color = Color("#050b19")
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
+	_add_stars()
 
 	var glow := ColorRect.new()
 	glow.color = Color(0.04, 0.24, 0.38, 0.22)
@@ -112,13 +113,17 @@ func _build_screen() -> void:
 	add_child(version)
 
 
-func _draw() -> void:
+func _add_stars() -> void:
 	var viewport_size := get_viewport_rect().size
 	for index in range(95):
+		var star := ColorRect.new()
 		var x := fposmod(float(index * 173 + 31), viewport_size.x)
 		var y := fposmod(float(index * 97 + 17), viewport_size.y)
-		var radius := 1.4 if index % 9 == 0 else 0.7
-		draw_circle(Vector2(x, y), radius, Color(0.58, 0.79, 1.0, 0.28))
+		var star_size := 2.0 if index % 9 == 0 else 1.0
+		star.position = Vector2(x, y)
+		star.size = Vector2(star_size, star_size)
+		star.color = Color(0.58, 0.79, 1.0, 0.38)
+		add_child(star)
 
 
 func _finish() -> void:
