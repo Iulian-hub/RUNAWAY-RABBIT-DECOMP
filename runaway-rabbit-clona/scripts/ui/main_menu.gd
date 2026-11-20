@@ -60,8 +60,8 @@ func _build_shell() -> void:
 
 	var panel := PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.position = Vector2(-205, -205)
-	panel.size = Vector2(410, 410)
+	panel.position = Vector2(-220, -205)
+	panel.size = Vector2(440, 500)
 	panel.add_theme_stylebox_override("panel", _panel_style())
 	add_child(panel)
 
@@ -177,7 +177,7 @@ func _show_instructions() -> void:
 	_add_text("LEFT MOUSE BUTTON", "Fire the primary weapon.")
 	_add_text("RIGHT MOUSE BUTTON", "Use a bomb.")
 	_add_text("A / D", "Fine horizontal movement.")
-	_add_text("ESC", "Reserved for pause/menu navigation.")
+	_add_text("ARROW KEYS / ENTER", "Navigate and activate focused menu buttons.")
 	_add_back_button()
 
 
