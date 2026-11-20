@@ -9,7 +9,7 @@
 | `Types/profile.bb` | `fdc11773d8e0dff9cb02b8ab5a02126734f156d7` |
 | `Types/playertype.bb` | `a09b30bfb55cfc1213328db8c5c0b4a3b34806de` |
 | `Types/playersetuptype.bb` | `821f4220fed5d27c499ff0fa04e39c8990986806` |
-| `Types/upgradetypes.bb` | `(type inspected in current source)` |
+| `Types/upgradetypes.bb` | `b0fe5142d160b8eff3c031f0df3b96d27d6c6109` |
 | `Functions/loadprofiles.bb` | `9185a28529a30200cb101ee07b096f0f8312bc78` |
 | `Functions/saveprofiles.bb` | `9726d87b03b21f744e731d9ab1cfd98629ba5c18` |
 | `Functions/newprofile.bb` | `98f7d25d046558b0e440f5cd696b3eaff4a11315` |
