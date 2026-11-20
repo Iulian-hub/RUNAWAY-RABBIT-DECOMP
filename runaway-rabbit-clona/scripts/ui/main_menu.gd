@@ -126,11 +126,11 @@ func _spawn_menu_enemy() -> void:
 		return
 	var direction := 1.0 if randf() < 0.5 else -1.0
 	var viewport_size := get_viewport_rect().size
-	var enemy := MENU_ENEMY_SCRIPT.new() as AnimatedSprite2D
+	var enemy = MENU_ENEMY_SCRIPT.new() as AnimatedSprite2D
 	enemy.sprite_frames = _enemy_frame_sets[randi_range(0, _enemy_frame_sets.size() - 1)]
-	enemy.travel_direction = direction
-	enemy.travel_speed = randf_range(75.0, 135.0)
-	enemy.vertical_phase = randf_range(0.0, TAU)
+	enemy.set("travel_direction", direction)
+	enemy.set("travel_speed", randf_range(75.0, 135.0))
+	enemy.set("vertical_phase", randf_range(0.0, TAU))
 	enemy.scale = Vector2.ONE * randf_range(0.42, 0.62)
 	enemy.position = Vector2(-70.0 if direction > 0.0 else viewport_size.x + 70.0, randf_range(145.0, viewport_size.y - 90.0))
 	enemy.flip_h = direction < 0.0
@@ -144,6 +144,7 @@ func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tin
 	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	if bottom_height > 0.0:
+		layer.stretch_mode = TextureRect.STRETCH_SCALE
 		layer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 		layer.offset_top = -bottom_height
 		layer.offset_bottom = 0.0
