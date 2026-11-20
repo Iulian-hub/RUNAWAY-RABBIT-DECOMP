@@ -24,10 +24,10 @@ func get_music_enabled() -> bool:
 	return _music_enabled
 
 func _build_shell() -> void:
-	_add_animated_background_layer(FOREST_SKY, -0.0007, Color(1, 1, 1, 1))
-	_add_animated_background_layer(FOREST_FAR, -0.002, Color(1, 1, 1, 0.92))
-	_add_animated_background_layer(FOREST_MID, -0.0055, Color(1, 1, 1, 0.96))
-	_add_animated_background_layer(FOREST_GROUND, -0.01, Color(1, 1, 1, 1))
+	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
+	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92))
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96))
+	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1))
 	var glow := ColorRect.new()
 	glow.color = Color(0.03, 0.25, 0.36, 0.22)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
