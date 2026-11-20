@@ -27,7 +27,7 @@ func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
 	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92))
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96))
-	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1))
+	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 100.0)
 	var glow := ColorRect.new()
 	glow.color = Color(0.03, 0.25, 0.36, 0.22)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -77,12 +77,17 @@ func _build_shell() -> void:
 	footer.add_theme_color_override("font_color", Color("#52677e"))
 	add_child(footer)
 
-func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color) -> void:
+func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, bottom_height: float = 0.0) -> void:
 	var layer := TextureRect.new()
 	layer.texture = texture
 	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	if bottom_height > 0.0:
+		layer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		layer.offset_top = -bottom_height
+		layer.offset_bottom = 0.0
+	else:
+		layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.modulate = tint
 	var material := ShaderMaterial.new()
