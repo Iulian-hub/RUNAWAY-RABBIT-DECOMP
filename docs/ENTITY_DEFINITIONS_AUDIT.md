@@ -158,7 +158,7 @@ Only **19** IDs have explicit per-kind assignments in `EntryPoint.bb`: 1–17, 3
 | 39 | Da | $06 | 4.0 | 1.0 | $00 | 30.0 / 30.0 | $00 | $00 | 60.0 |
 | 40 | Da | $07 | 1.0 | 1.0 | $00 | 30.0 / 30.0 | $07 | $00 | 60.0 |
 
-These columns are raw source fields, not invented names. Existing call-site tracing gives several useful anchors: Field14 selects the weapon texture layer; Field19 is copied into the projectile instance and participates in lifetime/collision behavior; Field21 is damage; Field25 changes collision/boundary handling; Field41 selects an associated weapon sound; Field42 activates homing/target search; Field70 is the firing interval copied into an actor mount.
+These columns are raw source fields, not invented names. Existing call-site tracing gives several useful anchors: Field14 selects the weapon texture layer; Field19 is copied into the projectile instance as its speed magnitude (the associated sprite has a separate lifetime timer); Field21 is damage; Field25 changes collision/boundary handling; Field41 selects an associated weapon sound; Field42 activates homing/target search; Field70 is the firing interval copied into an actor mount.
 
 ### Runtime implications
 
