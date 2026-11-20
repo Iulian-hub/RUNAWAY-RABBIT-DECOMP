@@ -31,40 +31,40 @@ The source initializes `actorgraphicpath(1..100)` to `gfx/blank.bmp`. No per-ID 
 
 | Archetype ID | Graphic ID (Field17) | Actor image path | Animation ID (Field16) | Health (Field25) | Faction (Field49) | Mounts observed |
 |---:|---:|---|---:|---:|---:|---|
-| 3 | $03 | — | $00 | 3.0 | $02 | 1: shot $0B, turret $00, rate 1.0, offset(15.0, -10.0) |
-| 4 | $04 | — | $00 | 5.0 | $02 | 1: shot $0B, turret $00, rate 0.5, offset(0.0, -10.0) |
-| 5 | $05 | — | $00 | 8.0 | $02 | 1: shot $0C, turret $00, rate 2.0, offset(0.0, -15.0) |
-| 6 | $06 | — | $00 | 28.0 | $02 | 1: shot $0F, turret $00, rate 4.0, offset(0.0, -15.0) |
-| 7 | $07 | — | $00 | 12.0 | $02 | 1: shot $0F, turret $00, rate 0.9, offset(20.0, -10.0) |
-| 8 | $08 | — | $00 | 8.0 | $02 | — |
-| 9 | $09 | — | $00 | 9.0 | $02 | 1: shot $0E, turret $04, rate 1.0, offset(-7.0, 10.0) |
-| 10 | $0A | — | $00 | 20.0 | $02 | 1: shot $0F, turret $00, rate 0.7, offset(45.0, 15.0) |
-| 11 | $0B | — | $00 | 70.0 | $02 | 1: shot $0B, turret $00, rate 0.15, offset(50.0, -30.0)<br>2: shot $0B, turret $00, rate 0.15, offset(-60.0, -30.0) |
-| 12 | $0C | — | $00 | 16.0 | $05 | — |
-| 13 | $0D | — | $00 | 16.0 | $02 | — |
-| 14 | $0E | — | $00 | 25.0 | $02 | 1: shot $0D, turret $02, rate —, offset(-30.0, -30.0) |
-| 15 | $0F | — | $00 | 100.0 | $02 | 1: shot $0D, turret $00, rate 0.75, offset(80.0, -50.0)<br>2: shot $0D, turret $00, rate 0.75, offset(-80.0, -50.0) |
-| 16 | $10 | — | $00 | 60.0 | $02 | 1: shot $0A, turret $02, rate 0.75, offset(0.0, -42.0) |
-| 17 | $11 | — | $00 | 300.0 | $02 | — |
-| 18 | $12 | — | $00 | 150.0 | $02 | 1: shot $0D, turret $02, rate 0.5, offset(0.0, -30.0) |
-| 19 | $13 | — | $00 | 12.0 | $02 | — |
-| 20 | $14 | — | $00 | 22.0 | $02 | — |
-| 21 | $15 | — | $00 | 2000.0 | $00 | — |
-| 22 | $16 | — | $00 | 2000.0 | $06 | — |
-| 31 | $19 | — | $00 | 900.0 | $02 | 1: shot $0E, turret $05, rate 0.65, offset(0.0, 45.0)<br>2: shot $0E, turret $05, rate 0.65, offset(0.0, -75.0) |
-| 32 | $00 | — | $02 | 450.0 | $02 | 1: shot $0D, turret $07, rate 0.7, offset(0.0, -15.0) |
-| 33 | $1E | — | $00 | 1300.0 | $02 | 1: shot $0E, turret $05, rate 1.5, offset(60.0, -20.0)<br>2: shot $0E, turret $05, rate 1.5, offset(-60.0, -20.0) |
-| 34 | $00 | — | $05 | 600.0 | $02 | 1: shot $0D, turret $07, rate 1.0, offset(-10.0, -20.0) |
-| 35 | $00 | — | $06 | 600.0 | $02 | 1: shot $0D, turret $07, rate 1.0, offset(10.0, -25.0) |
-| 36 | $00 | — | $07 | 2000.0 | $06 | — |
-| 37 | $17 | — | $00 | 1350.0 | $02 | 1: shot $0E, turret $06, rate 0.5, offset(60.0, 0.0)<br>2: shot $0E, turret $02, rate 0.5, offset(60.0, 0.0)<br>3: shot $0E, turret $02, rate 0.5, offset(60.0, 0.0) |
-| 38 | $18 | — | $00 | 1000.0 | $02 | 1: shot $0A, turret $02, rate 0.7, offset(0.0, 0.0) |
-| 39 | $04 | — | $00 | 500000.0 | $0A | — |
-| 40 | $00 | — | $14 | 150000000.0 | $03 | — |
-| 41 | $1A | — | $00 | 7000.0 | $02 | 1: shot $0E, turret $05, rate 0.3, offset(0.0, 100.0)<br>2: shot $0E, turret $05, rate 0.4, offset(100.0, 50.0)<br>3: shot $0E, turret $05, rate 0.4, offset(-100.0, 50.0)<br>4: shot $0E, turret $05, rate 0.5, offset(50.0, -50.0)<br>5: shot $0E, turret $05, rate 0.5, offset(-50.0, -50.0) |
-| 42 | $1B | — | $00 | 8000.0 | $02 | 1: shot $0E, turret $05, rate 0.1, offset(0.0, 30.0)<br>2: shot $0E, turret $05, rate 0.35, offset(100.0, -90.0)<br>3: shot $0D, turret $07, rate 0.9, offset(50.0, -10.0)<br>4: shot $0D, turret $07, rate 1.2, offset(10.0, -120.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-100.0, -70.0) |
-| 43 | $1C | — | $00 | 6000.0 | $02 | 1: shot $0D, turret $07, rate 0.35, offset(0.0, 100.0)<br>2: shot $0D, turret $07, rate 1.1, offset(20.0, 60.0)<br>3: shot $0E, turret $05, rate 0.35, offset(-100.0, 60.0)<br>4: shot $0E, turret $05, rate 0.4, offset(20.0, -60.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-100.0, -60.0) |
-| 44 | $1D | — | $00 | 5000.0 | $02 | 1: shot $0E, turret $05, rate 0.3, offset(0.0, 0.0)<br>2: shot $0E, turret $05, rate 0.35, offset(0.0, 50.0)<br>3: shot $0D, turret $07, rate 1.0, offset(-20.0, -20.0)<br>4: shot $0E, turret $05, rate 0.4, offset(-60.0, -90.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-50.0, -50.0) |
+| 3 | $03 | Unresolved (blank default) | $00 | 3.0 | $02 | 1: shot $0B, turret $00, rate 1.0, offset(15.0, -10.0) |
+| 4 | $04 | Unresolved (blank default) | $00 | 5.0 | $02 | 1: shot $0B, turret $00, rate 0.5, offset(0.0, -10.0) |
+| 5 | $05 | Unresolved (blank default) | $00 | 8.0 | $02 | 1: shot $0C, turret $00, rate 2.0, offset(0.0, -15.0) |
+| 6 | $06 | Unresolved (blank default) | $00 | 28.0 | $02 | 1: shot $0F, turret $00, rate 4.0, offset(0.0, -15.0) |
+| 7 | $07 | Unresolved (blank default) | $00 | 12.0 | $02 | 1: shot $0F, turret $00, rate 0.9, offset(20.0, -10.0) |
+| 8 | $08 | Unresolved (blank default) | $00 | 8.0 | $02 | — |
+| 9 | $09 | Unresolved (blank default) | $00 | 9.0 | $02 | 1: shot $0E, turret $04, rate 1.0, offset(-7.0, 10.0) |
+| 10 | $0A | Unresolved (blank default) | $00 | 20.0 | $02 | 1: shot $0F, turret $00, rate 0.7, offset(45.0, 15.0) |
+| 11 | $0B | Unresolved (blank default) | $00 | 70.0 | $02 | 1: shot $0B, turret $00, rate 0.15, offset(50.0, -30.0)<br>2: shot $0B, turret $00, rate 0.15, offset(-60.0, -30.0) |
+| 12 | $0C | Unresolved (blank default) | $00 | 16.0 | $05 | — |
+| 13 | $0D | Unresolved (blank default) | $00 | 16.0 | $02 | — |
+| 14 | $0E | Unresolved (blank default) | $00 | 25.0 | $02 | 1: shot $0D, turret $02, rate —, offset(-30.0, -30.0) |
+| 15 | $0F | Unresolved (blank default) | $00 | 100.0 | $02 | 1: shot $0D, turret $00, rate 0.75, offset(80.0, -50.0)<br>2: shot $0D, turret $00, rate 0.75, offset(-80.0, -50.0) |
+| 16 | $10 | Unresolved (blank default) | $00 | 60.0 | $02 | 1: shot $0A, turret $02, rate 0.75, offset(0.0, -42.0) |
+| 17 | $11 | Unresolved (blank default) | $00 | 300.0 | $02 | — |
+| 18 | $12 | Unresolved (blank default) | $00 | 150.0 | $02 | 1: shot $0D, turret $02, rate 0.5, offset(0.0, -30.0) |
+| 19 | $13 | Unresolved (blank default) | $00 | 12.0 | $02 | — |
+| 20 | $14 | Unresolved (blank default) | $00 | 22.0 | $02 | — |
+| 21 | $15 | Unresolved (blank default) | $00 | 2000.0 | $00 | — |
+| 22 | $16 | Unresolved (blank default) | $00 | 2000.0 | $06 | — |
+| 31 | $19 | Unresolved (blank default) | $00 | 900.0 | $02 | 1: shot $0E, turret $05, rate 0.65, offset(0.0, 45.0)<br>2: shot $0E, turret $05, rate 0.65, offset(0.0, -75.0) |
+| 32 | $00 | Unresolved (blank default) | $02 | 450.0 | $02 | 1: shot $0D, turret $07, rate 0.7, offset(0.0, -15.0) |
+| 33 | $1E | Unresolved (blank default) | $00 | 1300.0 | $02 | 1: shot $0E, turret $05, rate 1.5, offset(60.0, -20.0)<br>2: shot $0E, turret $05, rate 1.5, offset(-60.0, -20.0) |
+| 34 | $00 | Unresolved (blank default) | $05 | 600.0 | $02 | 1: shot $0D, turret $07, rate 1.0, offset(-10.0, -20.0) |
+| 35 | $00 | Unresolved (blank default) | $06 | 600.0 | $02 | 1: shot $0D, turret $07, rate 1.0, offset(10.0, -25.0) |
+| 36 | $00 | Unresolved (blank default) | $07 | 2000.0 | $06 | — |
+| 37 | $17 | Unresolved (blank default) | $00 | 1350.0 | $02 | 1: shot $0E, turret $06, rate 0.5, offset(60.0, 0.0)<br>2: shot $0E, turret $02, rate 0.5, offset(60.0, 0.0)<br>3: shot $0E, turret $02, rate 0.5, offset(60.0, 0.0) |
+| 38 | $18 | Unresolved (blank default) | $00 | 1000.0 | $02 | 1: shot $0A, turret $02, rate 0.7, offset(0.0, 0.0) |
+| 39 | $04 | Unresolved (blank default) | $00 | 500000.0 | $0A | — |
+| 40 | $00 | Unresolved (blank default) | $14 | 150000000.0 | $03 | — |
+| 41 | $1A | Unresolved (blank default) | $00 | 7000.0 | $02 | 1: shot $0E, turret $05, rate 0.3, offset(0.0, 100.0)<br>2: shot $0E, turret $05, rate 0.4, offset(100.0, 50.0)<br>3: shot $0E, turret $05, rate 0.4, offset(-100.0, 50.0)<br>4: shot $0E, turret $05, rate 0.5, offset(50.0, -50.0)<br>5: shot $0E, turret $05, rate 0.5, offset(-50.0, -50.0) |
+| 42 | $1B | Unresolved (blank default) | $00 | 8000.0 | $02 | 1: shot $0E, turret $05, rate 0.1, offset(0.0, 30.0)<br>2: shot $0E, turret $05, rate 0.35, offset(100.0, -90.0)<br>3: shot $0D, turret $07, rate 0.9, offset(50.0, -10.0)<br>4: shot $0D, turret $07, rate 1.2, offset(10.0, -120.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-100.0, -70.0) |
+| 43 | $1C | Unresolved (blank default) | $00 | 6000.0 | $02 | 1: shot $0D, turret $07, rate 0.35, offset(0.0, 100.0)<br>2: shot $0D, turret $07, rate 1.1, offset(20.0, 60.0)<br>3: shot $0E, turret $05, rate 0.35, offset(-100.0, 60.0)<br>4: shot $0E, turret $05, rate 0.4, offset(20.0, -60.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-100.0, -60.0) |
+| 44 | $1D | Unresolved (blank default) | $00 | 5000.0 | $02 | 1: shot $0E, turret $05, rate 0.3, offset(0.0, 0.0)<br>2: shot $0E, turret $05, rate 0.35, offset(0.0, 50.0)<br>3: shot $0D, turret $07, rate 1.0, offset(-20.0, -20.0)<br>4: shot $0E, turret $05, rate 0.4, offset(-60.0, -90.0)<br>5: shot $0E, turret $05, rate 0.4, offset(-50.0, -50.0) |
 
 Mount fields are retained in the JSON without renaming. Based on `makeactor()` and `doactorweapons()`, the key source fields are:
 
@@ -118,27 +118,27 @@ Only **19** IDs have explicit per-kind assignments in `EntryPoint.bb`: 1–17, 3
 | 15 | Da | $14 | 1.0 | 1.0 | — | 26.0 / 15.0 | $04 | — | 30.0 |
 | 16 | Da | $1F | 10.0 | 1.0 | $00 | 15.0 / 15.0 | $07 | $00 | 60.0 |
 | 17 | Da | $14 | 10.0 | 1.0 | $00 | 26.0 / 15.0 | $07 | $00 | 60.0 |
-| 18 | Nu | — | — | — | — | — / — | — | — | — |
-| 19 | Nu | — | — | — | — | — / — | — | — | — |
-| 20 | Nu | — | — | — | — | — / — | — | — | — |
-| 21 | Nu | — | — | — | — | — / — | — | — | — |
-| 22 | Nu | — | — | — | — | — / — | — | — | — |
-| 23 | Nu | — | — | — | — | — / — | — | — | — |
-| 24 | Nu | — | — | — | — | — / — | — | — | — |
-| 25 | Nu | — | — | — | — | — / — | — | — | — |
-| 26 | Nu | — | — | — | — | — / — | — | — | — |
-| 27 | Nu | — | — | — | — | — / — | — | — | — |
-| 28 | Nu | — | — | — | — | — / — | — | — | — |
-| 29 | Nu | — | — | — | — | — / — | — | — | — |
-| 30 | Nu | — | — | — | — | — / — | — | — | — |
-| 31 | Nu | — | — | — | — | — / — | — | — | — |
-| 32 | Nu | — | — | — | — | — / — | — | — | — |
-| 33 | Nu | — | — | — | — | — / — | — | — | — |
-| 34 | Nu | — | — | — | — | — / — | — | — | — |
-| 35 | Nu | — | — | — | — | — / — | — | — | — |
-| 36 | Nu | — | — | — | — | — / — | — | — | — |
-| 37 | Nu | — | — | — | — | — / — | — | — | — |
-| 38 | Nu | — | — | — | — | — / — | — | — | — |
+| 18 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 19 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 20 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 21 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 22 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 23 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 24 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 25 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 26 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 27 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 28 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 29 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 30 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 31 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 32 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 33 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 34 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 35 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 36 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 37 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
+| 38 | Nu | Unresolved (blank default) | — | — | — | — / — | — | — | — |
 | 39 | Da | $06 | 4.0 | 1.0 | $00 | 30.0 / 30.0 | $00 | $00 | 60.0 |
 | 40 | Da | $07 | 1.0 | 1.0 | $00 | 30.0 / 30.0 | $07 | $00 | 60.0 |
 
