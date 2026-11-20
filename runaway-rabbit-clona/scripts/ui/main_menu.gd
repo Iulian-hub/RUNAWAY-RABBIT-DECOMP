@@ -7,18 +7,37 @@ const FOREST_SKY: Texture2D = preload("res://assets/original_background/forest/f
 const FOREST_FAR: Texture2D = preload("res://assets/original_background/forest/forestbkg2.png")
 const FOREST_MID: Texture2D = preload("res://assets/original_background/forest/forestbkg1.png")
 const FOREST_GROUND: Texture2D = preload("res://assets/original_background/forest/forestground.png")
+const BASIC_FLYER: Texture2D = preload("res://assets/original_enemies/basicflyer.png")
+const ADVANCED_FLYER: Texture2D = preload("res://assets/original_enemies/advancedflyer.png")
+const SAUCER: Texture2D = preload("res://assets/original_enemies/sauceranim.png")
+const DIVE_FIGHTER: Texture2D = preload("res://assets/original_enemies/divefighter.png")
+const KAMIKAZE: Texture2D = preload("res://assets/original_enemies/kamikaze.png")
+const ZIPJET: Texture2D = preload("res://assets/original_enemies/zipjet.png")
+const MENU_ENEMY_SCRIPT = preload("res://scripts/ui/menu_enemy.gd")
 const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
 const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
 const MENU_BORDER_TEXTURE: Texture2D = preload("res://assets/original_ui/menu/menuborder.png")
 var _content: VBoxContainer
+var _enemy_layer: Node2D
+var _enemy_spawn_timer: float = 0.6
+var _enemy_frame_sets: Array[SpriteFrames] = []
 var _music_enabled: bool = true
 var _sound_enabled: bool = true
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	randomize()
 	_load_settings()
 	_build_shell()
+	_build_enemy_animations()
 	_show_home()
+
+func _process(delta: float) -> void:
+	_enemy_spawn_timer -= delta
+	if _enemy_spawn_timer <= 0.0:
+		if _enemy_layer.get_child_count() < 6:
+			_spawn_menu_enemy()
+		_enemy_spawn_timer = randf_range(0.85, 1.45)
 
 func get_music_enabled() -> bool:
 	return _music_enabled
@@ -27,7 +46,11 @@ func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
 	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92))
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96))
-	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 100.0)
+	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 32.0)
+	_enemy_layer = Node2D.new()
+	_enemy_layer.name = "LiveMenuEnemies"
+	_enemy_layer.position = Vector2.ZERO
+	add_child(_enemy_layer)
 	var glow := ColorRect.new()
 	glow.color = Color(0.03, 0.25, 0.36, 0.22)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -76,6 +99,44 @@ func _build_shell() -> void:
 	footer.add_theme_font_size_override("font_size", 11)
 	footer.add_theme_color_override("font_color", Color("#52677e"))
 	add_child(footer)
+
+func _build_enemy_animations() -> void:
+	_enemy_frame_sets = [
+		_create_enemy_frames(BASIC_FLYER, 2, 7.0),
+		_create_enemy_frames(ADVANCED_FLYER, 2, 7.0),
+		_create_enemy_frames(SAUCER, 4, 10.0),
+		_create_enemy_frames(DIVE_FIGHTER, 1, 1.0),
+		_create_enemy_frames(KAMIKAZE, 2, 8.0),
+		_create_enemy_frames(ZIPJET, 2, 8.0)
+	]
+
+func _create_enemy_frames(atlas: Texture2D, frame_count: int, animation_fps: float) -> SpriteFrames:
+	var frames := SpriteFrames.new()
+	frames.set_animation_loop("default", true)
+	frames.set_animation_speed("default", animation_fps)
+	for frame_index in range(frame_count):
+		var frame := AtlasTexture.new()
+		frame.atlas = atlas
+		frame.region = Rect2(Vector2(frame_index * 128, 0), Vector2(128, 128))
+		frames.add_frame("default", frame)
+	return frames
+
+func _spawn_menu_enemy() -> void:
+	if _enemy_frame_sets.is_empty():
+		return
+	var direction := 1.0 if randf() < 0.5 else -1.0
+	var viewport_size := get_viewport_rect().size
+	var enemy := MENU_ENEMY_SCRIPT.new() as AnimatedSprite2D
+	enemy.sprite_frames = _enemy_frame_sets[randi_range(0, _enemy_frame_sets.size() - 1)]
+	enemy.travel_direction = direction
+	enemy.travel_speed = randf_range(75.0, 135.0)
+	enemy.vertical_phase = randf_range(0.0, TAU)
+	enemy.scale = Vector2.ONE * randf_range(0.42, 0.62)
+	enemy.position = Vector2(-70.0 if direction > 0.0 else viewport_size.x + 70.0, randf_range(145.0, viewport_size.y - 90.0))
+	enemy.flip_h = direction < 0.0
+	enemy.z_index = 1
+	_enemy_layer.add_child(enemy)
+	enemy.play("default")
 
 func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, bottom_height: float = 0.0) -> void:
 	var layer := TextureRect.new()

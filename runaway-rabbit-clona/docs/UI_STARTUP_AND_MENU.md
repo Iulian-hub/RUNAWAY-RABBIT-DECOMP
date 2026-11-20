@@ -20,3 +20,10 @@ All imported artwork and audio are unchanged assets from the Gusto-modified Runa
 The original `startgame()` displays `gfx/mainpic.jpg` only during the transition. It then calls `startmenubkg(38, 0)`; that function sets `currentlevel=38`, selects the background from level 38's first event, and the main game loop continues calling `dobackgrounds()`, `doactors()`, and the other world-update routines while the menu is active. Level 38's first event selects background set 2 (the forest set).
 
 Godot now replaces the static `mainpic.jpg` menu backdrop with the original forest assets: `forestsky.jpg`, `forestbkg2.png`, `forestbkg1.png`, and `forestground.png`. Each layer uses a separate scrolling shader; relative speeds are based on the source's per-frame texture-scroll values (converted approximately to seconds at 60 FPS). Menu controls remain a foreground UI layer. This recreates the source's continuously moving parallax backdrop, not the full Blitz3D actor simulation of level 38; actor/enemy animation parity remains future work.
+
+
+## Live menu enemy traffic and forest foreground sizing
+
+The forest foreground is constrained to 32 logical pixels at the bottom of the 1280x720 design viewport. This follows the original forest background definition's 42.5 height multiplied by its 0.75 vertical scale (approximately 31.9 px), instead of stretching the ground texture over a large part of the screen.
+
+The main menu now creates ambient enemy fly-bys using the original sprite sheets imported unchanged from `gfx/`: `basicflyer.png`, `advancedflyer.png`, `sauceranim.png`, `divefighter.png`, `kamikaze.png`, and `zipjet.png`. Each atlas is split into 128x128 frames, consistent with the original `artdefinitions()` animation metadata. Enemies spawn alternately from randomized left/right edges, move across the scene with a small vertical flight oscillation, and are removed after leaving the viewport. They are decorative menu actors and do not participate in gameplay collision or combat.
