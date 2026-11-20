@@ -116,8 +116,9 @@ Other fields are intentionally left unmapped until their initialization and all 
 | Field12[1] | Boss type ID | High – passed to `makeboss()` |
 | Field13[1] / Field14[1] | Boss spawn X/Y | High – passed to `makeboss()` |
 | Field15[1..6] | Background-enemy type IDs | High – passed to `makebackgroundenemy()` |
-| Field16[1..6] / Field17[1..6] | Background-enemy parameters/position | Medium – passed to `makebackgroundenemy()` |
-| Field18[1..6] / Field19[1..6] | Background-enemy X/Y or motion parameters | Medium – passed to `makebackgroundenemy()` |
+| Field16[1..6] | First numeric parameter for background actor creation; copied to actor archetype 39 Fields45/46 | Medium – traced through `dolevels()` → `makebackgroundenemy()` |
+| Field17[1..6] | Second numeric parameter for background actor creation; copied to runtime actor Field47 | Medium – traced through `dolevels()` → `makebackgroundenemy()` |
+| Field18[1..6] / Field19[1..6] | Background actor spawn X/Y | High – passed as the first two arguments to `makebackgroundenemy()` |
 | Field22[1..5] | Enemy type IDs used for dynamic waves | High – used by `controlenemies()` |
 | Field23[1..5] | Spawn interval/randomization parameter | Medium – used to derive random spawn cadence |
 | Field24[1..5] | Maximum active count per enemy type | High – compared with current type count |
