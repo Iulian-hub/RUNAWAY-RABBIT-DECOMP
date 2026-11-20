@@ -21,12 +21,14 @@ func _ready() -> void:
 func _build_shell() -> void:
 	var background := ColorRect.new()
 	background.color = Color("#07101f")
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
 	_add_stars()
 
 	var top_glow := ColorRect.new()
 	top_glow.color = Color(0.03, 0.25, 0.36, 0.22)
+	top_glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top_glow.position = Vector2(0, 0)
 	top_glow.size = Vector2(1280, 170)
 	add_child(top_glow)
@@ -95,6 +97,7 @@ func _add_stars() -> void:
 		star.position = Vector2(x, y)
 		star.size = Vector2(star_size, star_size)
 		star.color = Color(0.58, 0.79, 1.0, 0.28)
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(star)
 
 
