@@ -50,7 +50,7 @@ Confidence labels:
 | 14 | integer | Projectile texture-layer ID | confirmed | Passed through getweaptexlayer() and used for impact particles. |
 | 15 | integer | Projectile kind ID | confirmed | Set from makeweaponshot arg3; used by findtarget() to read faction mask. |
 | 16 | float | Unresolved copied parameter | unknown | Copied from kind definition; no meaning established in the traced lifecycle functions. |
-| 17 | float | Vertical acceleration / gravity term | confirmed | Subtracted from vertical velocity each update. |
+| 17 | float | Projectile height growth rate / gravity term | confirmed | Subtracted from vertical velocity each update. |
 | 18 | float | Heading / rotation angle | confirmed | Used to orient sprite, steer homing and derive velocity direction. |
 | 19 | float | Base speed magnitude | confirmed | Copied from definition; used for homing velocity and beam collision extension. Do not confuse with sprite lifetime Field19. |
 | 20 | float | Maximum speed magnitude | confirmed | Caps velocity vector magnitude when positive. |
@@ -82,14 +82,14 @@ Confidence labels:
 | 46 | integer | Random angular spread magnitude | confirmed | Used to randomize initial firing angle. |
 | 47 | float | Scale growth rate | confirmed | Added to Field48 each frame. |
 | 48 | float | Current projectile visual scale | confirmed | Updated by Field47 and passed to setsprite(). |
-| 49 | float | Horizontal acceleration | confirmed | Added to Field31 each frame; Field31 is also used as visual width/color channel in rendering, so inspect per-kind values before normalizing. |
+| 49 | float | Projectile width growth rate | confirmed | Added to Field31 each frame; Field31 is also used as visual width/color channel in rendering, so inspect per-kind values before normalizing. |
 | 50 | float | Vertical acceleration | confirmed | Added to Field32 each frame. |
 | 51 | float | Angular velocity | confirmed | Added to Field18 each frame. |
 | 52 | float | Trail emission interval | confirmed | Compared with Field53 to decide when to emit a trail particle. |
 | 53 | float | Trail emission timer | confirmed | Accumulates frame time and resets after trail emission. |
-| 54 | float | Trail particle velocity parameter | partial | Passed negated into makeparticle() as a particle motion argument. |
+| 54 | float | Trail particle speed parameter | partial | Negated and passed as makeparticle() speed magnitude. |
 | 55 | float | Trail particle size multiplier | confirmed | Scales randomized trail particle size. |
-| 56 | float | Trail particle color/size parameter | partial | Passed twice as particle color/size arguments; exact semantic split depends on makeparticle signature. |
+| 56 | float | Trail particle width and height | partial | Passed as both width and height to makeparticle(). |
 | 57 | integer | Trail texture/effect identifier | confirmed | Passed as particle texture/effect selector. |
 | 58 | float | Unresolved field | unknown | Declared float; no assignment found in makeweaponshot() or use in the traced update/collision paths. |
 | 59 | float | Unresolved field | unknown | Declared float; no assignment found in makeweaponshot() or use in the traced update/collision paths. |
@@ -107,6 +107,8 @@ Confidence labels:
 | 71 | integer | Active projectile slot flag | confirmed | 1 means slot is active; 0 means free. |
 
 Important caution: fields can have different roles in the definition record and the runtime record. In particular, `Field19` in a projectile record is a speed magnitude used by homing/beam logic; `Field19` in the associated `sprite` record is a lifetime timer. These are different objects with the same field index.
+
+`makeparticle()` and `setsprite()` map projectile `Field31` and `Field32` into sprite width and height; `Field49` and `Field50` are width and height growth rates. `Field54` supplies trail-particle speed, `Field56` trail width/height, and `Field55` trail rotation speed.
 
 ## 3. Creation pipeline
 
