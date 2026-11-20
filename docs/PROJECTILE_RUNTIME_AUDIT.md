@@ -14,6 +14,9 @@
 | `Functions/doweaponcollision.bb` | `7460f6f19828f65b3827a776a8fc0d944dfba53e` |
 | `Functions/findtarget.bb` | traced in this pass |
 | `Functions/stopweapons.bb` | traced in this pass |
+| `Functions/makeparticle.bb` | `064d875303dfe72039e3b164d29cdc59db1b99b0` |
+| `Functions/setsprite.bb` | `736310c4ddb889cb9caf13d92fc3d5aee6df200a` |
+| `Functions/updatesprites.bb` | `b09f2e70dcbb5e31924398714faf04eecc0ade97`
 
 ## 1. Structural facts
 
