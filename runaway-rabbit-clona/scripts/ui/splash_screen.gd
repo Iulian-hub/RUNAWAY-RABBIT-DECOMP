@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 		_finish()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if _finished:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -46,12 +46,14 @@ func _unhandled_input(event: InputEvent) -> void:
 func _build_screen() -> void:
 	var background := ColorRect.new()
 	background.color = Color("#050b19")
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
 	_add_stars()
 
 	var glow := ColorRect.new()
 	glow.color = Color(0.04, 0.24, 0.38, 0.22)
+	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	glow.position = Vector2(0, 390)
 	glow.size = Vector2(1280, 330)
 	add_child(glow)
@@ -123,6 +125,7 @@ func _add_stars() -> void:
 		star.position = Vector2(x, y)
 		star.size = Vector2(star_size, star_size)
 		star.color = Color(0.58, 0.79, 1.0, 0.38)
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(star)
 
 
