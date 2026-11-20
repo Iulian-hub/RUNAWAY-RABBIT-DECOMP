@@ -100,7 +100,7 @@ Tabelul următor descrie datele brute inițializate în `EntryPoint.bb`, înaint
 | 14 | 16 | 18000 | 4, 5, 8, 9, 10, 14, 15, 16, 17 | 15 | — |
 | 15 | 14 | 14700 | 4, 8, 14, 15, 16, 17, 18 | — | 5 |
 
-Valorile temporale sunt praguri interne din Field0. În cele cinci template-uri de boss (3, 6, 9, 12, 15), evenimentul boss apare la pragul 14700 în datele brute. În fiecare dintre ele există un eveniment de schimbare muzicală la track 3 înainte de evenimentul boss.
+Valorile temporale sunt praguri interne din Field0. În cele cinci template-uri de boss (3, 6, 9, 12, 15), evenimentul boss apare la pragul 14700 în datele brute. După remapare, acestea devin nivelurile-seed 3, 7, 13, 21 și 29. În fiecare template există un eveniment de schimbare muzicală la track 3 înainte de evenimentul boss.
 
 ### Observație despre evenimente
 
@@ -124,9 +124,9 @@ Un singur eveniment poate activa mai multe dintre aceste subsisteme.
 
 ### 4.2. Tabelul de remapare
 
-Pentru nivelurile 1–15, generatorul selectează următoarele surse:
+Pentru fiecare template-sursă 1–15, generatorul îl copiază într-un slot de nivel rezultat. Direcția copierii este importantă: `levels(local2, local1)` primește datele din `levels2(local0, local1)`. Tabelul corect este:
 
-| Nivel rezultat | Template sursă |
+| Template sursă | Nivel-seed rezultat |
 |---:|---:|
 | 1 | 1 |
 | 2 | 2 |
@@ -144,11 +144,11 @@ Pentru nivelurile 1–15, generatorul selectează următoarele surse:
 | 14 | 27 |
 | 15 | 29 |
 
-Pentru sloturile 36–40, generatorul copiază fiecare slot din el însuși. Sloturile 16–35 nu primesc un template direct prin această etapă.
+Pentru sloturile 36–40, generatorul copiază fiecare slot din el însuși. În intervalul campaniei 1–29, nivelurile-seed sunt 1, 2, 3, 4, 5, 7, 9, 11, 13, 16, 19, 21, 24, 27 și 29. Celelalte niveluri din interval sunt completate procedural în etapa următoare.
 
 ### 4.3. Umplerea nivelurilor 1–29
 
-A doua parte a funcției parcurge nivelurile 1–29. Pentru fiecare nivel care încă nu are Field2 setat în primul eveniment:
+A doua parte a funcției parcurge nivelurile 1–29. Nivelurile-seed sunt cele enumerate în tabel; sloturile dintre ele sunt completate procedural. Pentru fiecare nivel care încă nu are Field2 setat în primul eveniment:
 
 1. Caută spre dreapta și spre stânga cel mai apropiat nivel-sursă eligibil.
 2. Alege aleator unul dintre cei doi vecini, folosind `rand(1,2)`.
@@ -162,7 +162,7 @@ Generatorul folosește și condiții de vecinătate bazate pe `Field2` din primu
 
 ### 4.4. Implicații
 
-- Nivelurile 16–29 sunt construite procedural din datele vecinilor; nu sunt pur și simplu 14 seturi independente de date statice.
+- Nivelurile intermediare dintre seed-uri sunt construite procedural din datele vecinilor; nu sunt seturi independente de date statice.
 - Secvențele de boss sunt tratate separat prin detectarea muzicii track 3.
 - Alegerea aleatorie a vecinului înseamnă că ordinea de conținut poate varia.
 - Nu trebuie reconstruită campania doar prin exportarea datelor brute din EntryPoint: este necesară și reproducerea algoritmului `makemorelevels()`, sau înlocuirea lui intenționată cu o progresie deterministă documentată.
