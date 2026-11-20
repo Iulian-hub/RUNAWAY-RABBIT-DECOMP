@@ -24,6 +24,6 @@ Godot now replaces the static `mainpic.jpg` menu backdrop with the original fore
 
 ## Live menu enemy traffic and forest foreground sizing
 
-The forest foreground is constrained to 32 logical pixels at the bottom of the 1280x720 design viewport. This follows the original forest background definition's 42.5 height multiplied by its 0.75 vertical scale (approximately 31.9 px), instead of stretching the ground texture over a large part of the screen.
+The forest foreground is constrained to a 32-pixel strip at the bottom of the 1280x720 design viewport. This follows the original forest background definition's 42.5 height multiplied by its 0.75 vertical scale (approximately 31.9 px). The water/forest layers are no longer stretched across the full viewport: the island-and-water layer and two separate shallow wave layers are placed in lower screen bands, with their original independent horizontal scroll speeds.
 
 The main menu now creates ambient enemy fly-bys using the original sprite sheets imported unchanged from `gfx/`: `basicflyer.png`, `advancedflyer.png`, `sauceranim.png`, `divefighter.png`, `kamikaze.png`, and `zipjet.png`. Each atlas is split into 128x128 frames, consistent with the original `artdefinitions()` animation metadata. Enemies spawn alternately from randomized left/right edges, move across the scene with a small vertical flight oscillation, and are removed after leaving the viewport. They are decorative menu actors and do not participate in gameplay collision or combat.
