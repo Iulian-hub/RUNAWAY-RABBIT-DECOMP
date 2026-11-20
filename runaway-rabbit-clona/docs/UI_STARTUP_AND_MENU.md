@@ -14,3 +14,9 @@
 
 ## Fidelity note
 All imported artwork and audio are unchanged assets from the Gusto-modified Runaway Rabbit source repository. Their use does not prove exact parity with the original Mighty Rodent executable. The regular campaign `music/main.ogg` is present in the source repository but was not imported in this pass; the menu loop therefore continues during the prototype gameplay. Boss music is imported for later runtime integration.
+
+## Animated main-menu scene
+
+The original `startgame()` displays `gfx/mainpic.jpg` only during the transition. It then calls `startmenubkg(38, 0)`; that function sets `currentlevel=38`, selects the background from level 38's first event, and the main game loop continues calling `dobackgrounds()`, `doactors()`, and the other world-update routines while the menu is active. Level 38's first event selects background set 2 (the forest set).
+
+Godot now replaces the static `mainpic.jpg` menu backdrop with the original forest assets: `forestsky.jpg`, `forestbkg2.png`, `forestbkg1.png`, and `forestground.png`. Each layer uses a separate scrolling shader; relative speeds are based on the source's per-frame texture-scroll values (converted approximately to seconds at 60 FPS). Menu controls remain a foreground UI layer. This recreates the source's continuously moving parallax backdrop, not the full Blitz3D actor simulation of level 38; actor/enemy animation parity remains future work.
