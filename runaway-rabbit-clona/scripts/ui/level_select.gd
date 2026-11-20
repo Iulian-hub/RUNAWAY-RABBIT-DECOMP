@@ -19,8 +19,10 @@ const MAP_POINTS: Array[Vector2] = [
 	Vector2(493, 102)
 ]
 const BOSS_LEVELS: Array[int] = [3, 7, 13, 21, 29]
-const MAP_ORIGIN: Vector2 = Vector2(160.0, 0.0)
-const MAP_SCALE: float = 1.5
+const DESIGN_SIZE: Vector2 = Vector2(1280.0, 720.0)
+const MAP_ORIGIN: Vector2 = Vector2.ZERO
+const MAP_SCALE: float = 2.0
+var _map_canvas: Control
 var _unlocked_level: int = 1
 var _detail_label: Label
 var _pointer: TextureRect
@@ -28,37 +30,53 @@ var _pointer: TextureRect
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_load_progress()
+	_map_canvas = Control.new()
+	_map_canvas.name = "MapCanvas"
+	_map_canvas.set_anchors_preset(Control.PRESET_CENTER)
+	_map_canvas.position = -DESIGN_SIZE * 0.5
+	_map_canvas.size = DESIGN_SIZE
+	_map_canvas.pivot_offset = DESIGN_SIZE * 0.5
+	add_child(_map_canvas)
 	_build_map()
+	_update_canvas_scale()
 	_update_selection(_unlocked_level)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED and is_instance_valid(_map_canvas):
+		_update_canvas_scale()
+
+func _update_canvas_scale() -> void:
+	var viewport_size := get_viewport_rect().size
+	var uniform_scale := minf(viewport_size.x / DESIGN_SIZE.x, viewport_size.y / DESIGN_SIZE.y)
+	_map_canvas.scale = Vector2.ONE * uniform_scale
 
 func _build_map() -> void:
 	var background := TextureRect.new()
 	background.texture = MAP_TEXTURE
 	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	background.position = MAP_ORIGIN
-	background.size = Vector2(960.0, 720.0)
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(background)
+	_map_canvas.add_child(background)
 
 	var shade := ColorRect.new()
 	shade.color = Color(0.015, 0.025, 0.055, 0.16)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(shade)
+	_map_canvas.add_child(shade)
 
 	var title := Label.new()
 	title.text = "SELECT LEVEL"
 	title.position = Vector2(36, 24)
 	title.add_theme_font_size_override("font_size", 28)
 	title.add_theme_color_override("font_color", Color("#eff8ff"))
-	add_child(title)
+	_map_canvas.add_child(title)
 	var subtitle := Label.new()
 	subtitle.text = "CAMPAIGN MAP  ·  29 STAGES"
 	subtitle.position = Vector2(38, 60)
 	subtitle.add_theme_font_size_override("font_size", 12)
 	subtitle.add_theme_color_override("font_color", Color("#70d8ed"))
-	add_child(subtitle)
+	_map_canvas.add_child(subtitle)
 
 	for index in range(MAP_POINTS.size()):
 		var level_number := index + 1
@@ -80,7 +98,7 @@ func _build_map() -> void:
 		marker.disabled = not unlocked
 		marker.tooltip_text = "LEVEL %02d%s" % [level_number, " · BOSS" if boss_stage else ""] if unlocked else "LOCKED"
 		marker.pressed.connect(_on_level_pressed.bind(level_number))
-		add_child(marker)
+		_map_canvas.add_child(marker)
 		var number := Label.new()
 		number.text = str(level_number)
 		number.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -97,13 +115,13 @@ func _build_map() -> void:
 	_pointer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_pointer.size = Vector2(40, 40)
 	_pointer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_pointer)
+	_map_canvas.add_child(_pointer)
 
 	var info_panel := PanelContainer.new()
 	info_panel.position = Vector2(30, 590)
 	info_panel.size = Vector2(520, 92)
 	info_panel.add_theme_stylebox_override("panel", _panel_style())
-	add_child(info_panel)
+	_map_canvas.add_child(info_panel)
 	_detail_label = Label.new()
 	_detail_label.add_theme_font_size_override("font_size", 15)
 	_detail_label.add_theme_color_override("font_color", Color("#e8f5ff"))
@@ -114,13 +132,13 @@ func _build_map() -> void:
 	back.position = Vector2(1030, 635)
 	back.custom_minimum_size = Vector2(210, 48)
 	back.pressed.connect(func() -> void: back_requested.emit())
-	add_child(back)
+	_map_canvas.add_child(back)
 	var progress := Label.new()
 	progress.text = "UNLOCKED: %02d / 29" % _unlocked_level
 	progress.position = Vector2(1032, 600)
 	progress.add_theme_font_size_override("font_size", 13)
 	progress.add_theme_color_override("font_color", Color("#d5e8f5"))
-	add_child(progress)
+	_map_canvas.add_child(progress)
 
 func _panel_style() -> StyleBoxTexture:
 	var style := StyleBoxTexture.new()
