@@ -4,7 +4,7 @@ const SPLASH_SCENE: PackedScene = preload("res://ui/splash_screen.tscn")
 const MENU_SCENE: PackedScene = preload("res://ui/main_menu.tscn")
 const GAME_SCENE: PackedScene = preload("res://scenes/main.tscn")
 
-var _active_screen: Control
+var _active_screen: Node
 
 
 func _ready() -> void:
