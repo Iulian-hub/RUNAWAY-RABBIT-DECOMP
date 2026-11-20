@@ -27,9 +27,9 @@ The resulting distinction is important: **100 allocated slots ≠ 100 configured
 
 ### Actor summary
 
-Graphic IDs are resolved against `actorgraphicpath()` assignments in the same source file. A blank path or graphic ID zero is retained as such; animation may instead be provided through the animation-loop field.
+The source initializes `actorgraphicpath(1..100)` to `gfx/blank.bmp`. No per-ID actor graphic path assignments were found in `Functions/EntryPoint.bb` or `Functions/artdefinitions.bb` during this pass. Therefore graphic IDs are recorded, but their intended image paths remain unresolved; animation may instead be provided through the animation-loop field.
 
-| Archetype ID | Graphic ID (Field17) | Graphic path | Animation ID (Field16) | Health (Field25) | Faction (Field49) | Mounts observed |
+| Archetype ID | Graphic ID (Field17) | Actor image path | Animation ID (Field16) | Health (Field25) | Faction (Field49) | Mounts observed |
 |---:|---:|---|---:|---:|---:|---|
 | 3 | $03 | — | $00 | 3.0 | $02 | 1: shot $0B, turret $00, rate 1.0, offset(15.0, -10.0) |
 | 4 | $04 | — | $00 | 5.0 | $02 | 1: shot $0B, turret $00, rate 0.5, offset(0.0, -10.0) |
