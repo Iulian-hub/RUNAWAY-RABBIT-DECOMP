@@ -16,10 +16,9 @@ const ZIPJET: Texture2D = preload("res://assets/original_enemies/zipjet.png")
 const MENU_ENEMY_SCRIPT = preload("res://scripts/ui/menu_enemy.gd")
 const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
 const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
-const MENU_BORDER_TEXTURE: Texture2D = preload("res://assets/original_ui/menu/menuborder.png")
 var _content: VBoxContainer
 var _enemy_layer: Node2D
-var _enemy_spawn_timer: float = 0.6
+var _enemy_spawn_timer: float = 1.0
 var _next_enemy_direction: float = 1.0
 var _enemy_frame_sets: Array[SpriteFrames] = []
 var _music_enabled: bool = true
@@ -36,28 +35,23 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_enemy_spawn_timer -= delta
 	if _enemy_spawn_timer <= 0.0:
-		if _enemy_layer.get_child_count() < 6:
+		if _enemy_layer.get_child_count() < 4:
 			_spawn_menu_enemy()
-		_enemy_spawn_timer = randf_range(0.85, 1.45)
+		_enemy_spawn_timer = randf_range(1.25, 1.9)
 
 func get_music_enabled() -> bool:
 	return _music_enabled
 
 func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
-	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 280.0, 210.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 405.0, 125.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 510.0, 125.0)
-	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0)
+	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 260.0, 250.0, 1.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 475.0, 105.0, 5.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 575.0, 113.0, 5.0)
+	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0, 1.0)
 	_enemy_layer = Node2D.new()
 	_enemy_layer.name = "LiveMenuEnemies"
 	_enemy_layer.position = Vector2.ZERO
 	add_child(_enemy_layer)
-	var glow := ColorRect.new()
-	glow.color = Color(0.03, 0.25, 0.36, 0.22)
-	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	glow.size = Vector2(1280, 170)
-	add_child(glow)
 	var header := VBoxContainer.new()
 	header.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	header.offset_top = 38
@@ -134,14 +128,13 @@ func _spawn_menu_enemy() -> void:
 	enemy.set("travel_direction", direction)
 	enemy.set("travel_speed", randf_range(75.0, 135.0))
 	enemy.set("vertical_phase", randf_range(0.0, TAU))
-	enemy.scale = Vector2.ONE * randf_range(0.42, 0.62)
+	enemy.scale = Vector2.ONE * randf_range(0.68, 0.82)
 	enemy.position = Vector2(-70.0 if direction > 0.0 else viewport_size.x + 70.0, randf_range(145.0, viewport_size.y - 90.0))
 	enemy.flip_h = direction < 0.0
-	enemy.z_index = 1
 	_enemy_layer.add_child(enemy)
 	enemy.play("default")
 
-func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, layer_top: float = -1.0, layer_height: float = -1.0) -> void:
+func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, layer_top: float = -1.0, layer_height: float = -1.0, repeat_count: float = 1.0) -> void:
 	var layer := TextureRect.new()
 	layer.texture = texture
 	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -159,20 +152,20 @@ func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tin
 	material.shader = PARALLAX_SHADER
 	material.set_shader_parameter("layer_texture", texture)
 	material.set_shader_parameter("scroll_speed", scroll_speed)
+	material.set_shader_parameter("repeat_count", repeat_count)
 	layer.material = material
 	add_child(layer)
 
-func _panel_style() -> StyleBoxTexture:
-	var style := StyleBoxTexture.new()
-	style.texture = MENU_BORDER_TEXTURE
-	style.texture_margin_left = 24.0
-	style.texture_margin_top = 24.0
-	style.texture_margin_right = 24.0
-	style.texture_margin_bottom = 24.0
-	style.content_margin_left = 34.0
-	style.content_margin_right = 34.0
-	style.content_margin_top = 28.0
-	style.content_margin_bottom = 28.0
+func _panel_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.025, 0.075, 0.12, 0.42)
+	style.border_color = Color(0.30, 0.72, 0.86, 0.42)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(12)
+	style.content_margin_left = 30.0
+	style.content_margin_right = 30.0
+	style.content_margin_top = 24.0
+	style.content_margin_bottom = 24.0
 	return style
 
 func _make_button(label_text: String) -> Button:

@@ -27,3 +27,11 @@ Godot now replaces the static `mainpic.jpg` menu backdrop with the original fore
 The forest foreground is constrained to a 32-pixel strip at the bottom of the 1280x720 design viewport. This follows the original forest background definition's 42.5 height multiplied by its 0.75 vertical scale (approximately 31.9 px). The water/forest layers are no longer stretched across the full viewport: the island-and-water layer and two separate shallow wave layers are placed in lower screen bands, with their original independent horizontal scroll speeds.
 
 The main menu now creates ambient enemy fly-bys using the original sprite sheets imported unchanged from `gfx/`: `basicflyer.png`, `advancedflyer.png`, `sauceranim.png`, `divefighter.png`, `kamikaze.png`, and `zipjet.png`. Each atlas is split into 128x128 frames, consistent with the original `artdefinitions()` animation metadata. Enemies spawn alternately from randomized left/right edges, move across the scene with a small vertical flight oscillation, and are removed after leaving the viewport. They are decorative menu actors and do not participate in gameplay collision or combat.
+
+
+## Menu composition corrections
+
+- Menu enemies are rendered at the background's normal canvas Z and are added before the menu controls. They therefore pass behind the header, panel, labels and buttons. Their scale is increased to 0.68–0.82; the ambient population is capped at four with a slower spawn interval to reduce clutter.
+- Removed the oversized translucent header strip that created a hard horizontal seam.
+- Replaced the incorrect full-texture `menuborder.png` StyleBoxTexture (which stretched the green carrot pattern across the panel) with a restrained translucent blue StyleBoxFlat and a subtle border.
+- Adjusted the island/water bands to fill the lower part of the scene without the large blank gap above the ground. The wave texture now repeats horizontally instead of being stretched into a single oversized wave. The shader exposes a repeat-count parameter for that purpose.

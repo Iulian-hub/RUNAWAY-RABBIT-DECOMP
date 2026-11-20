@@ -13,7 +13,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_age += delta
 	position.x += travel_direction * travel_speed * delta
-	position.y = _origin_y + sin(_age * 1.8 + vertical_phase) * 16.0
+	position.y = _origin_y + sin(_age * 1.8 + vertical_phase) * 12.0
 	rotation = sin(_age * 1.4 + vertical_phase) * 0.045
 	var width := get_viewport_rect().size.x
 	if position.x < -110.0 or position.x > width + 110.0:
