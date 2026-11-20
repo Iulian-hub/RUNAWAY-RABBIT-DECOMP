@@ -32,7 +32,7 @@ func _start_game() -> void:
 	_clear_screen()
 	var game := GAME_SCENE.instantiate()
 	add_child(game)
-	_active_screen = game as Control
+	_active_screen = game
 
 
 func _quit_game() -> void:
