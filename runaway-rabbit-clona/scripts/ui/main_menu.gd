@@ -4,6 +4,9 @@ signal start_requested
 signal quit_requested
 
 const SETTINGS_PATH: String = "user://settings.cfg"
+const BACKGROUND_TEXTURE: Texture2D = preload("res://assets/original_ui/mainpic.jpg")
+const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
+const MENU_BORDER_TEXTURE: Texture2D = preload("res://assets/original_ui/menu/menuborder.png")
 
 var _content: VBoxContainer
 var _page_title: Label
@@ -14,17 +17,19 @@ var _sound_enabled: bool = true
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_load_settings()
+	Input.set_custom_mouse_cursor(load("res://assets/original_ui/menu/mouse.png"), Input.CURSOR_ARROW)
 	_build_shell()
 	_show_home()
 
 
 func _build_shell() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#07101f")
+	var background := TextureRect.new()
+	background.texture = BACKGROUND_TEXTURE
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
-	_add_stars()
 
 	var top_glow := ColorRect.new()
 	top_glow.color = Color(0.03, 0.25, 0.36, 0.22)
@@ -101,16 +106,17 @@ func _add_stars() -> void:
 		add_child(star)
 
 
-func _panel_style() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color("#0c1b2d")
-	style.border_color = Color("#1e526b")
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	style.content_margin_left = 34
-	style.content_margin_right = 34
-	style.content_margin_top = 28
-	style.content_margin_bottom = 28
+func _panel_style() -> StyleBoxTexture:
+	var style := StyleBoxTexture.new()
+	style.texture = MENU_BORDER_TEXTURE
+	style.texture_margin_left = 24.0
+	style.texture_margin_top = 24.0
+	style.texture_margin_right = 24.0
+	style.texture_margin_bottom = 24.0
+	style.content_margin_left = 34.0
+	style.content_margin_right = 34.0
+	style.content_margin_top = 28.0
+	style.content_margin_bottom = 28.0
 	return style
 
 
@@ -175,12 +181,15 @@ func _show_home() -> void:
 
 func _show_instructions() -> void:
 	_clear_content()
-	_add_page_heading("INSTRUCTIONS", "CONTROLS")
-	_add_text("MOUSE", "Aim and position your ship horizontally.")
-	_add_text("LEFT MOUSE BUTTON", "Fire the primary weapon.")
-	_add_text("RIGHT MOUSE BUTTON", "Use a bomb.")
-	_add_text("A / D", "Fine horizontal movement.")
-	_add_text("ARROW KEYS / ENTER", "Navigate and activate focused menu buttons.")
+	_add_page_heading("INSTRUCTIONS", "ORIGINAL SOURCE ARTWORK")
+	var artwork := TextureRect.new()
+	artwork.texture = INSTRUCTIONS_TEXTURE
+	artwork.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	artwork.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	artwork.custom_minimum_size = Vector2(340, 230)
+	artwork.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	artwork.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_content.add_child(artwork)
 	_add_back_button()
 
 
