@@ -3,7 +3,11 @@ signal start_requested
 signal quit_requested
 signal music_enabled_changed(enabled: bool)
 const SETTINGS_PATH: String = "user://settings.cfg"
-const BACKGROUND_TEXTURE: Texture2D = preload("res://assets/original_ui/mainpic.jpg")
+const FOREST_SKY: Texture2D = preload("res://assets/original_background/forest/forestsky.jpg")
+const FOREST_FAR: Texture2D = preload("res://assets/original_background/forest/forestbkg2.png")
+const FOREST_MID: Texture2D = preload("res://assets/original_background/forest/forestbkg1.png")
+const FOREST_GROUND: Texture2D = preload("res://assets/original_background/forest/forestground.png")
+const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
 const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
 const MENU_BORDER_TEXTURE: Texture2D = preload("res://assets/original_ui/menu/menuborder.png")
 var _content: VBoxContainer
@@ -20,13 +24,10 @@ func get_music_enabled() -> bool:
 	return _music_enabled
 
 func _build_shell() -> void:
-	var background := TextureRect.new()
-	background.texture = BACKGROUND_TEXTURE
-	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
+	_add_animated_background_layer(FOREST_SKY, -0.0007, Color(1, 1, 1, 1))
+	_add_animated_background_layer(FOREST_FAR, -0.002, Color(1, 1, 1, 0.92))
+	_add_animated_background_layer(FOREST_MID, -0.0055, Color(1, 1, 1, 0.96))
+	_add_animated_background_layer(FOREST_GROUND, -0.01, Color(1, 1, 1, 1))
 	var glow := ColorRect.new()
 	glow.color = Color(0.03, 0.25, 0.36, 0.22)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -75,6 +76,21 @@ func _build_shell() -> void:
 	footer.add_theme_font_size_override("font_size", 11)
 	footer.add_theme_color_override("font_color", Color("#52677e"))
 	add_child(footer)
+
+func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color) -> void:
+	var layer := TextureRect.new()
+	layer.texture = texture
+	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.modulate = tint
+	var material := ShaderMaterial.new()
+	material.shader = PARALLAX_SHADER
+	material.set_shader_parameter("layer_texture", texture)
+	material.set_shader_parameter("scroll_speed", scroll_speed)
+	layer.material = material
+	add_child(layer)
 
 func _panel_style() -> StyleBoxTexture:
 	var style := StyleBoxTexture.new()
