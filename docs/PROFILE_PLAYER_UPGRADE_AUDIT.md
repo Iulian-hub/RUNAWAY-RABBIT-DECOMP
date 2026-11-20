@@ -199,8 +199,8 @@ These are the multipliers written into actor mount Field76. The runtime firing i
 | 13 | Weapon-setup transition timer | Drives temporary red actor tint and delayed weapon reconfiguration. |
 | 14 | Player actor alpha | Applied to actor and turret entities; modulated during shield/invulnerability transitions. |
 | 15 | Re-entry fade direction | Alternates between positive and negative values while the player actor fades during the 120-unit re-entry timer. |
-| 16 | Death-sequence active flag | Selects the death animation/escape path in doplayerhits(), doplayersend() and doplayers().
-| 17 | Death-sequence vertical velocity | Decreases over time and moves the dead player actor downward.
+| 16 | Death-sequence active flag | Selects the death animation/escape path in doplayerhits(), doplayersend() and doplayers(). |
+| 17 | Death-sequence vertical velocity | Decreases over time and moves the dead player actor downward. |
 | 18 | Shield sprite/entity | Created in loadplayers(). |
 | 19 | Shield alpha factor | Oscillates between configured bounds to animate shield visibility. |
 | 20 | Shield alpha direction | Positive/negative direction used to oscillate Field19. |
