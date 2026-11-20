@@ -20,6 +20,7 @@ const MENU_BORDER_TEXTURE: Texture2D = preload("res://assets/original_ui/menu/me
 var _content: VBoxContainer
 var _enemy_layer: Node2D
 var _enemy_spawn_timer: float = 0.6
+var _next_enemy_direction: float = 1.0
 var _enemy_frame_sets: Array[SpriteFrames] = []
 var _music_enabled: bool = true
 var _sound_enabled: bool = true
@@ -125,7 +126,8 @@ func _create_enemy_frames(atlas: Texture2D, frame_count: int, animation_fps: flo
 func _spawn_menu_enemy() -> void:
 	if _enemy_frame_sets.is_empty():
 		return
-	var direction := 1.0 if randf() < 0.5 else -1.0
+	var direction := _next_enemy_direction
+	_next_enemy_direction *= -1.0
 	var viewport_size := get_viewport_rect().size
 	var enemy = MENU_ENEMY_SCRIPT.new() as AnimatedSprite2D
 	enemy.sprite_frames = _enemy_frame_sets[randi_range(0, _enemy_frame_sets.size() - 1)]
