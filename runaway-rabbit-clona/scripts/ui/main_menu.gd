@@ -46,6 +46,7 @@ func _build_shell() -> void:
 	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
 	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 260.0, 250.0, 1.0)
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 475.0, 105.0, 5.0)
+	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 525.0, 105.0, 5.0)
 	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 575.0, 113.0, 5.0)
 	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0, 1.0)
 	_enemy_layer = Node2D.new()
