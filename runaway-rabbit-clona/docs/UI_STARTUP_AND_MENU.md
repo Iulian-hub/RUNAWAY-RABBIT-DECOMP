@@ -27,7 +27,7 @@ The source's menu system is based on custom GUI entities and string event identi
 - `ui/boot.tscn` is now the configured application main scene.
 - `scripts/ui/boot.gd` routes Splash -> Main Menu -> existing gameplay prototype.
 - `ui/splash_screen.tscn` and `scripts/ui/splash_screen.gd` implement a timed, skippable title presentation with fade-in/fade-out.
-- `ui/main_menu.tscn` and `scripts/ui/main_menu.gd` implement the menu panel and its pages.
+- `ui/main_menu.tscn` and `scripts/ui/main_menu.gd` implement the menu panel and its pages, using source `gfx/mainpic.jpg`, `gfx/instructions.jpg`, `gfx/menu/menuborder.png` and `gfx/menu/mouse.png`.
 - Menu navigation uses typed signals rather than string dispatch.
 - Music and sound preference toggles are persisted to `user://settings.cfg`.
 
@@ -39,9 +39,11 @@ The source's menu system is based on custom GUI entities and string event identi
 - Options: persists music and sound preference flags. Audio playback integration is not implemented yet.
 - Exit Game: closes the application.
 
-## Fidelity and limitations
+## Imported source artwork and fidelity
 
-This is a first UI shell, not a pixel-accurate port. The splash currently uses native Godot labels and generated starfield elements; original title/logo images have not yet been imported. The modified source is based on Runaway Rabbit, so its logo and marketing artwork must not be assumed to be correct Mighty Rodent assets.
+The following source assets are copied without modification into `assets/original_ui/`: `jaggedlogo.jpg`, `mainpic.jpg`, `instructions.jpg`, `titlepic1.png`, `titlepic2.png`, the menu texture set (`menutex.bmp`, `menuborder.png`, `menuborderspecial.png`, `menucorner.png`, `mouse.png`) and both bitmap font sheets. The Godot splash now displays `jaggedlogo.jpg`; the menu uses `mainpic.jpg` as its background, `menuborder.png` for its panel frame, `mouse.png` as the cursor and `instructions.jpg` on the instructions page.
+
+These files are the artwork actually referenced by the checked-in Blitz3D source. Their use is source-faithful, but the repository is a Gusto-modified Runaway Rabbit build, so exact parity with the original Mighty Rodent executable still needs visual comparison. The imported assets are not recolored or redrawn.
 
 The original profile selection flow is not implemented yet. It should be added before treating Start Game as the final game flow. The current gameplay prototype is launched directly so the UI can be exercised end-to-end.
 
