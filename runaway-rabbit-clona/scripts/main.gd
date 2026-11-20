@@ -57,11 +57,11 @@ func _check_hits() -> void:
 	var projectiles := projectiles_root.get_children()
 
 	for projectile_node in projectiles:
-		if not is_instance_valid(projectile_node):
+		if not is_instance_valid(projectile_node) or projectile_node.is_queued_for_deletion():
 			continue
 		var projectile := projectile_node as Projectile
 		for enemy_node in enemies:
-			if not is_instance_valid(enemy_node):
+			if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 				continue
 			var enemy := enemy_node as Enemy
 			if projectile.global_position.distance_squared_to(enemy.global_position) < 420.0:
@@ -72,7 +72,7 @@ func _check_hits() -> void:
 				break
 
 	for enemy_node in enemies:
-		if not is_instance_valid(enemy_node):
+		if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 			continue
 		var enemy := enemy_node as Enemy
 		if player.global_position.distance_squared_to(enemy.global_position) < 1150.0:
