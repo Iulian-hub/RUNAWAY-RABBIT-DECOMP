@@ -23,6 +23,7 @@ func _build_shell() -> void:
 	background.color = Color("#07101f")
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
+	_add_stars()
 
 	var top_glow := ColorRect.new()
 	top_glow.color = Color(0.03, 0.25, 0.36, 0.22)
@@ -82,6 +83,19 @@ func _build_shell() -> void:
 	footer.add_theme_font_size_override("font_size", 11)
 	footer.add_theme_color_override("font_color", Color("#52677e"))
 	add_child(footer)
+
+
+func _add_stars() -> void:
+	var viewport_size := get_viewport_rect().size
+	for index in range(95):
+		var star := ColorRect.new()
+		var x := fposmod(float(index * 173 + 31), viewport_size.x)
+		var y := fposmod(float(index * 97 + 17), viewport_size.y)
+		var star_size := 2.0 if index % 9 == 0 else 1.0
+		star.position = Vector2(x, y)
+		star.size = Vector2(star_size, star_size)
+		star.color = Color(0.58, 0.79, 1.0, 0.28)
+		add_child(star)
 
 
 func _panel_style() -> StyleBoxFlat:
