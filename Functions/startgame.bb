@@ -1,0 +1,47 @@
+Function startgame%()
+    gamemode = $02
+    currentlevel = $01
+    currentevent = $01
+    text((graphicswidth() Sar $01), (graphicsheight() Sar $01), "Loading, please wait...", $01, $01)
+    flip($00)
+    loadcamera()
+    initialize_ngui()
+    loadfullscreen()
+    showfullscreen("gfx/jaggedlogo.jpg")
+    setspeedfactor()
+    setspeedfactor()
+    renderworld(1.0)
+    flip($00)
+    loadmenu()
+    loadgui()
+    hideentity(gui_getobjectentity(menumouse))
+    gui_hidegroup($01)
+    currentmenu = $00
+    musics($02) = loadsound("music/menu.ogg")
+    soundvolume(musics($02), 0.45)
+    loopsound(musics($02))
+    waittimer(secondstime)
+    waittimer(secondstime)
+    setspeedfactor()
+    setspeedfactor()
+    fadeout2($01, $00, $01, $00, $00)
+    changemenu($07, 0.0, 0.0)
+    startmusic($02)
+    showfullscreen("gfx/mainpic.jpg")
+    fadein2($01, $00, $01, $00, $00, $00)
+    loadthings()
+    waittimer(secondstime)
+    waittimer(secondstime)
+    waittimer(secondstime)
+    fadeout2($01, $00, $01, $01, $00)
+    hidefullscreen()
+    changemenu($02, -1.0, 0.0)
+    If (currentprofile = $00) Then
+        changemenu($05, -1.0, 0.0)
+    EndIf
+    startmenubkg($26, $00)
+    dobackgrounds()
+    fadein2($00, $00, $00, $01, $00, $00)
+    gameloop()
+    Return $00
+End Function

@@ -1,0 +1,33 @@
+Type levelevent
+    Field Field0#
+    Field Field1%
+    Field Field2%
+    Field Field3%
+    Field Field4%
+    Field Field5%[5]
+    Field Field6#[5]
+    Field Field7#[5]
+    Field Field8#[5]
+    Field Field9#[5]
+    Field Field10#[5]
+    Field Field11%[5]
+    Field Field12%[1]
+    Field Field13#[1]
+    Field Field14#[1]
+    Field Field15%[6]
+    Field Field16%[6]
+    Field Field17%[6]
+    Field Field18#[6]
+    Field Field19#[6]
+    Field Field20%[6]
+    Field Field21#
+    Field Field22%[5]
+    Field Field23#[5]
+    Field Field24%[5]
+    Field Field25$
+    Field Field26%
+    Field Field27%
+    Field Field28%
+    Field Field29$
+    Field Field30$
+End Type

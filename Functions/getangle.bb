@@ -1,0 +1,6 @@
+Function getangle#(arg0#, arg1#, arg2#, arg3#)
+    Local local0#
+    local0 = atan2((arg3 - arg1), (arg2 - arg0))
+    Return local0
+    Return 0.0
+End Function

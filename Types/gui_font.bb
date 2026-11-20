@@ -1,0 +1,13 @@
+Type gui_font
+    Field Field0$
+    Field Field1%
+    Field Field2%[256]
+    Field Field3%[256]
+    Field Field4%
+    Field Field5%[256]
+    Field Field6#[256]
+    Field Field7#[256]
+    Field Field8#[256]
+    Field Field9#[256]
+    Field Field10#[256]
+End Type

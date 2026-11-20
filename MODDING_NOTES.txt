@@ -1,0 +1,42 @@
+Runaway Robbit decompiled source notes
+=====================================
+
+Entry point
+-----------
+Run Main.bb in Blitz3D. It includes Globals.bb, the generated Functions folder, and the generated Types folder.
+
+Important game systems
+----------------------
+- Functions/EntryPoint.bb contains most startup constants: build flags, video modes, actors, weapons, levels, menus, and upgrade definitions.
+- Functions/menuevent.bb handles menu button actions such as play, options, profile selection, upgrades, scores, and pause menu choices.
+- Functions/dospecialmenucode.bb updates dynamic menu text such as upgrade descriptions, costs, score screens, and map state.
+- Functions/startlevel.bb sets up the selected level and copies profile weapon/life/shield values into the active players.
+- Functions/doplayerweaponsetup.bb converts profile upgrades into active weapons: chain cannons, beam laser, homing missiles, auto turret, and wave laser.
+- Functions/dolevels.bb advances scripted level events and handles win/lose transitions.
+
+Save/config files
+-----------------
+- scores.dat stores local high scores.
+- res.dat stores the selected display mode.
+- profiles.dat is created at runtime and stores profile slots, audio settings, progress, cash, upgrades, and player count.
+
+Known decompiler artifacts
+--------------------------
+Many Type fields are named Field0, Field1, etc. These names are generated and should be renamed carefully only after confirming their meaning from load/save code and the systems that use them.
+
+Low-risk cleanup already applied
+--------------------------------
+- Window/title text now says Runaway Robbit instead of the old Mighty Rodent label.
+- Obvious text typos were corrected.
+- Stale locked-content text now references Runaway Robbit instead of Desperate Space.
+- Shop placeholder text now has useful fallback copy before dynamic update code replaces it.
+- res.dat is clamped back to a valid display mode if it is corrupted.
+- currentprofile is clamped if profiles.dat contains an invalid active slot.
+
+Debug-only helpers
+------------------
+Run the game with the command-line argument dbug to enable these test hotkeys:
+- Ctrl adds $10000 to the current profile stash and saves profiles.dat.
+- Alt advances the current profile's unlocked map level by one, capped at level 29, and saves profiles.dat.
+
+These keys are ignored in a normal launch.
