@@ -29,6 +29,7 @@ This directory contains the source audit, reconstruction plan and machine-readab
 ## Field-level and structured extraction
 
 - [Type field map](TYPE_FIELD_MAP.md) — legacy type field cross-reference.
+- [Actor runtime audit](ACTOR_RUNTIME_AUDIT.md) — actor pool, component hierarchy, update order, combat and death lifecycle.
 - [Entity definitions audit](ENTITY_DEFINITIONS_AUDIT.md) — actor archetypes, weapon mounts and projectile-kind definitions.
 - [Projectile runtime audit](PROJECTILE_RUNTIME_AUDIT.md) — all 72 typeweaponshot fields, creation, update, collision, homing and pooling.
 - [Profile, player and upgrade audit](PROFILE_PLAYER_UPGRADE_AUDIT.md) — profile persistence, all 34 player runtime fields, upgrade prices and weapon progression.
