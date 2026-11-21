@@ -9,6 +9,8 @@ const RESOURCE_ICON_WIDTH := 24.0
 @onready var score_text: BitmapText = $Content/Player1Score
 @onready var bombs_bar: TextureRect = $Content/Player1Bombs
 @onready var shield_bar: TextureRect = $Content/Player1Shields
+@onready var bombs_source_texture: Texture2D = bombs_bar.texture
+@onready var shield_source_texture: Texture2D = shield_bar.texture
 @onready var beam_bar: ColorRect = $Content/Player1BeamLaser
 @onready var completion_text: BitmapText = $Content/CompletionText
 @onready var center_message: BitmapText = $Content/CenterMessage
@@ -42,16 +44,15 @@ func set_lives(value: int) -> void:
 	lives_text.text = str(maxi(0, value))
 
 func set_bombs(value: int) -> void:
-	_set_resource_bar(bombs_bar, value, 24.0)
+	_set_resource_bar(bombs_bar, bombs_source_texture, value, 24.0)
 
 func set_score(value: int) -> void:
 	score_text.text = "$" + str(maxi(0, value)).pad_zeros(7)
 
 func set_shields(value: int) -> void:
-	_set_resource_bar(shield_bar, value, 16.0)
+	_set_resource_bar(shield_bar, shield_source_texture, value, 16.0)
 
-func _set_resource_bar(bar: TextureRect, count: int, display_height: float) -> void:
-	var source_texture := bar.texture
+func _set_resource_bar(bar: TextureRect, source_texture: Texture2D, count: int, display_height: float) -> void:
 	if source_texture == null:
 		return
 	var safe_count := clampi(count, 0, 3)
