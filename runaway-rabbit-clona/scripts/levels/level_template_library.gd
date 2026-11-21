@@ -87,19 +87,19 @@ static func _get_template_data(template_id: int) -> Dictionary:
 			return value
 	return {}
 
-static func _field_array(fields: Dictionary, field_name: String, max_index: int) -> Dictionary:
+static func _field_array(fields: Dictionary, field_name: String) -> Dictionary:
 	var value: Variant = fields.get(field_name, {})
 	return value if value is Dictionary else {}
 
 static func _build_scripted_spawns(fields: Dictionary) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	var types := _field_array(fields, "Field5", 5)
-	var xs := _field_array(fields, "Field6", 5)
-	var ys := _field_array(fields, "Field7", 5)
-	var angles := _field_array(fields, "Field8", 5)
-	var health_multipliers := _field_array(fields, "Field9", 5)
-	var speed_multipliers := _field_array(fields, "Field10", 5)
-	var flags := _field_array(fields, "Field11", 5)
+	var types := _field_array(fields, "Field5")
+	var xs := _field_array(fields, "Field6")
+	var ys := _field_array(fields, "Field7")
+	var angles := _field_array(fields, "Field8")
+	var health_multipliers := _field_array(fields, "Field9")
+	var speed_multipliers := _field_array(fields, "Field10")
+	var flags := _field_array(fields, "Field11")
 	for index in range(1, 6):
 		var enemy_type := int(types.get(str(index), 0))
 		if enemy_type <= 0:
@@ -116,23 +116,23 @@ static func _build_scripted_spawns(fields: Dictionary) -> Array[Dictionary]:
 	return result
 
 static func _build_boss_spawn(fields: Dictionary) -> Dictionary:
-	var types := _field_array(fields, "Field12", 1)
+	var types := _field_array(fields, "Field12")
 	var boss_type := int(types.get("1", 0))
 	if boss_type <= 0:
 		return {}
 	return {
 		"boss_type": boss_type,
-		"x": float(_field_array(fields, "Field13", 1).get("1", 0.0)),
-		"y": float(_field_array(fields, "Field14", 1).get("1", 0.0))
+		"x": float(_field_array(fields, "Field13").get("1", 0.0)),
+		"y": float(_field_array(fields, "Field14").get("1", 0.0))
 	}
 
 static func _build_background_spawns(fields: Dictionary) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	var types := _field_array(fields, "Field15", 6)
-	var xs := _field_array(fields, "Field16", 6)
-	var ys := _field_array(fields, "Field17", 6)
-	var depths := _field_array(fields, "Field18", 6)
-	var scales := _field_array(fields, "Field19", 6)
+	var types := _field_array(fields, "Field15")
+	var xs := _field_array(fields, "Field16")
+	var ys := _field_array(fields, "Field17")
+	var depths := _field_array(fields, "Field18")
+	var scales := _field_array(fields, "Field19")
 	for index in range(1, 7):
 		var actor_type := int(types.get(str(index), 0))
 		if actor_type <= 0:
@@ -148,10 +148,10 @@ static func _build_background_spawns(fields: Dictionary) -> Array[Dictionary]:
 
 static func _build_dynamic_spawn_groups(fields: Dictionary) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	var tracked_types := _field_array(fields, "Field22", 5)
-	var intervals := _field_array(fields, "Field23", 5)
-	var limits := _field_array(fields, "Field24", 5)
-	var group_modes := _field_array(fields, "Field20", 6)
+	var tracked_types := _field_array(fields, "Field22")
+	var intervals := _field_array(fields, "Field23")
+	var limits := _field_array(fields, "Field24")
+	var group_modes := _field_array(fields, "Field20")
 	for index in range(1, 6):
 		var enemy_type := int(tracked_types.get(str(index), 0))
 		if enemy_type <= 0:
