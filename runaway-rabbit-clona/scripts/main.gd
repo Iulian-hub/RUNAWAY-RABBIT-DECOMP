@@ -6,6 +6,8 @@ const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
 const EXPLOSION_SCENE: PackedScene = preload("res://scenes/explosion.tscn")
 const MAIN_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/main.ogg")
 const BOSS_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/boss.ogg")
+const GROUND_TOP_RATIO: float = 0.92
+const PLAYER_SPRITE_HALF_HEIGHT: float = 44.8
 
 @onready var player: Player = $Player
 @onready var enemies_root: Node2D = $Enemies
@@ -54,7 +56,7 @@ func _ready() -> void:
 	ProfileManager.record_level_started(selected_level)
 
 	var viewport_size := get_viewport_rect().size
-	player.global_position = Vector2(90.0, viewport_size.y * 0.78)
+	player.global_position = Vector2(90.0, viewport_size.y * GROUND_TOP_RATIO - PLAYER_SPRITE_HALF_HEIGHT)
 	player.configure(projectiles_root)
 	player.health_changed.connect(_on_health_changed)
 	player.shields_changed.connect(_on_shields_changed)
@@ -191,7 +193,7 @@ func _set_music(music_id: int) -> void:
 
 func _check_hits() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
-	var ground_impact_y := get_viewport_rect().size.y * 0.80
+	var ground_impact_y := get_viewport_rect().size.y * GROUND_TOP_RATIO
 
 	for projectile_node in projectiles_root.get_children():
 		if not is_instance_valid(projectile_node) or projectile_node.is_queued_for_deletion():
