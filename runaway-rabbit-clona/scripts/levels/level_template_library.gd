@@ -108,6 +108,7 @@ static func _build_scripted_spawns(fields: Dictionary) -> Array[Dictionary]:
 			"angle": float(angles.get(str(index), 0.0)),
 			"health_multiplier": float(health_multipliers.get(str(index), 0.0)),
 			"fire_rate_multiplier": float(speed_multipliers.get(str(index), 0.0)),
+			"flags": int(flags.get(str(index), 0))
 		})
 	return result
 
