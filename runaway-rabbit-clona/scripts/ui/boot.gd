@@ -68,6 +68,7 @@ func _show_level_select() -> void:
 	selection.back_requested.connect(_show_menu)
 
 func _start_game(level_number: int) -> void:
+	_music_player.stop()
 	_clear_screen()
 	var game := GAME_SCENE.instantiate()
 	game.set("selected_level", level_number)
