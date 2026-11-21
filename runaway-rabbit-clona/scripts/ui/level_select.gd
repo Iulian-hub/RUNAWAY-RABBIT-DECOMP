@@ -9,14 +9,14 @@ const LOCKED_ICON: Texture2D = preload("res://assets/original_ui/mapbuttongrey.p
 const LOCKED_BOSS_ICON: Texture2D = preload("res://assets/original_ui/mapbutton2grey.png")
 const POINTER_TEXTURE: Texture2D = preload("res://assets/original_ui/mappointer.png")
 const MAP_POINTS: Array[Vector2] = [
-	Vector2(68, 270), Vector2(84, 255), Vector2(104, 237), Vector2(147, 235),
-	Vector2(178, 226), Vector2(215, 219), Vector2(252, 224), Vector2(308, 236),
+	Vector2(68, 270), Vector2(84, 255), Vector2(131, 220), Vector2(147, 235),
+	Vector2(178, 226), Vector2(215, 219), Vector2(263, 199), Vector2(308, 236),
 	Vector2(332, 245), Vector2(361, 233), Vector2(383, 220), Vector2(415, 220),
-	Vector2(442, 233), Vector2(466, 250), Vector2(478, 267), Vector2(502, 283),
+	Vector2(416, 282), Vector2(466, 250), Vector2(478, 267), Vector2(502, 283),
 	Vector2(530, 291), Vector2(556, 285), Vector2(567, 267), Vector2(560, 245),
-	Vector2(563, 218), Vector2(565, 178), Vector2(575, 158), Vector2(578, 135),
+	Vector2(519, 220), Vector2(565, 178), Vector2(575, 158), Vector2(578, 135),
 	Vector2(575, 114), Vector2(566, 94), Vector2(542, 82), Vector2(514, 87),
-	Vector2(493, 102)
+	Vector2(500, 86)
 ]
 const BOSS_LEVELS: Array[int] = [3, 7, 13, 21, 29]
 const DESIGN_SIZE: Vector2 = Vector2(1280.0, 720.0)
