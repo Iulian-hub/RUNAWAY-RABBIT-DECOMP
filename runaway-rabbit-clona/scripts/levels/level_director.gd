@@ -8,6 +8,7 @@ signal level_completed
 
 const SOURCE_TICKS_PER_SECOND := 60.0
 const NORMAL_GET_READY_TICKS := 180.0
+const MAX_SOURCE_FRAME_FACTOR := 3.0
 
 var definition: LevelDefinition
 var level_time: float = 0.0
@@ -37,7 +38,7 @@ func _process(delta: float) -> void:
 	if not running or definition == null:
 		return
 	if not has_begun:
-		_get_ready_remaining = maxf(0.0, _get_ready_remaining - delta * SOURCE_TICKS_PER_SECOND)
+		_get_ready_remaining = maxf(0.0, _get_ready_remaining - minf(delta * SOURCE_TICKS_PER_SECOND, MAX_SOURCE_FRAME_FACTOR))
 		if _get_ready_remaining <= 0.0:
 			has_begun = true
 			level_begun.emit()
@@ -48,7 +49,7 @@ func _process(delta: float) -> void:
 		if next_event != null:
 			if next_event.trigger_time > 0.0 and level_time < next_event.trigger_time:
 				# fl\\Field1 is frame-scaled in the Blitz3D source, not seconds.
-				var source_delta := delta * SOURCE_TICKS_PER_SECOND
+				var source_delta := minf(delta * SOURCE_TICKS_PER_SECOND, MAX_SOURCE_FRAME_FACTOR)
 				level_time = minf(
 					level_time + source_delta * definition.level_time_multiplier,
 					next_event.trigger_time
