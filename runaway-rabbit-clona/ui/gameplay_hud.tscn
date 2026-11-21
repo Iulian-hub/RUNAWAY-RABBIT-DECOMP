@@ -57,8 +57,6 @@ offset_top = 75.0
 offset_right = 69.0
 offset_bottom = 91.0
 texture = ExtResource("5_shield")
-region_enabled = true
-region_rect = Rect2(0, 0, 64, 64)
 mouse_filter = 2
 
 [node name="Player1Bombs" type="TextureRect" parent="Content"]
@@ -67,8 +65,6 @@ offset_top = 100.0
 offset_right = 77.0
 offset_bottom = 124.0
 texture = ExtResource("6_bombs")
-region_enabled = true
-region_rect = Rect2(0, 0, 64, 64)
 mouse_filter = 2
 
 [node name="Player1BeamLaser" type="ColorRect" parent="Content"]
@@ -120,8 +116,6 @@ offset_top = 75.0
 offset_right = 601.0
 offset_bottom = 91.0
 texture = ExtResource("5_shield")
-region_enabled = true
-region_rect = Rect2(0, 0, 64, 64)
 mouse_filter = 2
 
 [node name="Player2Bombs" type="TextureRect" parent="Content"]
@@ -130,8 +124,6 @@ offset_top = 100.0
 offset_right = 609.0
 offset_bottom = 124.0
 texture = ExtResource("6_bombs")
-region_enabled = true
-region_rect = Rect2(0, 0, 64, 64)
 mouse_filter = 2
 
 [node name="Player2BeamLaser" type="ColorRect" parent="Content"]
