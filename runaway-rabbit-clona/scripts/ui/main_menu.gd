@@ -25,6 +25,7 @@ const MENU_ENEMY_LANES: Array[float] = [175.0, 300.0, 425.0, 550.0]
 @onready var _options_page: VBoxContainer = $MenuPanel/MenuContent/OptionsPage
 @onready var _music_toggle: CheckButton = $MenuPanel/MenuContent/OptionsPage/MusicToggle
 @onready var _sound_toggle: CheckButton = $MenuPanel/MenuContent/OptionsPage/SoundToggle
+@onready var _hints_toggle: CheckButton = $MenuPanel/MenuContent/OptionsPage/HintsToggle
 @onready var _players_option: OptionButton = $MenuPanel/MenuContent/OptionsPage/PlayersOption
 
 var _enemy_spawn_timer: float = 1.0
@@ -32,6 +33,7 @@ var _next_enemy_direction: float = 1.0
 var _enemy_frame_sets: Array[SpriteFrames] = []
 var _music_enabled: bool = true
 var _sound_enabled: bool = true
+var _hints_enabled: bool = true
 
 func _ready() -> void:
 	randomize()
@@ -41,6 +43,7 @@ func _ready() -> void:
 	_connect_controls()
 	_music_toggle.button_pressed = _music_enabled
 	_sound_toggle.button_pressed = _sound_enabled
+	_hints_toggle.button_pressed = _hints_enabled
 	_players_option.clear()
 	_players_option.add_item("1 PLAYER", 1)
 	_players_option.add_item("2 PLAYERS", 2)
@@ -72,6 +75,7 @@ func _connect_controls() -> void:
 	$MenuPanel/MenuContent/OptionsPage/OptionsBackButton.pressed.connect(_show_home)
 	_music_toggle.toggled.connect(_on_music_toggled)
 	_sound_toggle.toggled.connect(_on_sound_toggled)
+	_hints_toggle.toggled.connect(_on_hints_toggled)
 	_players_option.item_selected.connect(_on_players_selected)
 	for button in $MenuPanel/MenuContent.get_children():
 		for control in button.get_children():
@@ -132,6 +136,10 @@ func _on_music_toggled(value: bool) -> void:
 
 func _on_sound_toggled(value: bool) -> void:
 	_sound_enabled = value
+	_save_settings()
+
+func _on_hints_toggled(value: bool) -> void:
+	_hints_enabled = value
 	_save_settings()
 
 func _on_players_selected(index: int) -> void:
@@ -206,10 +214,13 @@ func _load_settings() -> void:
 	if profile.is_empty():
 		_music_enabled = true
 		_sound_enabled = true
+		_hints_enabled = true
 		return
 	_music_enabled = bool(profile.get("music_enabled", true))
 	_sound_enabled = bool(profile.get("sound_enabled", true))
+	_hints_enabled = bool(profile.get("hints_enabled", true))
 
 func _save_settings() -> void:
 	ProfileManager.set_active_preference("music_enabled", _music_enabled)
 	ProfileManager.set_active_preference("sound_enabled", _sound_enabled)
+	ProfileManager.set_active_preference("hints_enabled", _hints_enabled)
