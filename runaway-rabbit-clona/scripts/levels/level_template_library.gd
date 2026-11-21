@@ -107,7 +107,7 @@ static func _build_scripted_spawns(fields: Dictionary) -> Array[Dictionary]:
 			"y": float(ys.get(str(index), 0.0)),
 			"angle": float(angles.get(str(index), 0.0)),
 			"health_multiplier": float(health_multipliers.get(str(index), 0.0)),
-			"speed_multiplier": float(speed_multipliers.get(str(index), 0.0)),
+			"fire_rate_multiplier": float(speed_multipliers.get(str(index), 0.0)),
 		})
 	return result
 
@@ -135,10 +135,10 @@ static func _build_background_spawns(fields: Dictionary) -> Array[Dictionary]:
 			continue
 		result.append({
 			"actor_type": actor_type,
-			"x": float(xs.get(str(index), 0.0)),
-			"y": float(ys.get(str(index), 0.0)),
-			"depth": float(depths.get(str(index), 0.0)),
-			"scale": float(scales.get(str(index), 0.0)),
+			"parameter_a": float(xs.get(str(index), 0.0)),
+			"parameter_b": float(ys.get(str(index), 0.0)),
+			"position_x": float(depths.get(str(index), 0.0)),
+			"position_y": float(scales.get(str(index), 0.0)),
 			"flags": int(flags.get(str(index), 0))
 		})
 	return result
