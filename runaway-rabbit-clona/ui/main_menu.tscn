@@ -222,6 +222,18 @@ theme_override_font_sizes/font_size = 11
 text = "SELECT YOUR NEXT MOVE"
 horizontal_alignment = 1
 
+[node name="CurrentProfileLabel" type="Label" parent="MenuPanel/MenuContent/HomePage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 12
+text = "ACTIVE PROFILE: NONE"
+horizontal_alignment = 1
+
+[node name="ProfileButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "PLAYER PROFILES"
+
 [node name="StartButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
 custom_minimum_size = Vector2(330, 43)
 layout_mode = 2
