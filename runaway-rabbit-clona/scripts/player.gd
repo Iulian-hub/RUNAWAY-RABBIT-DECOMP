@@ -9,6 +9,7 @@ signal died
 
 const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile.tscn")
 const PLAYER_SPRITE: Texture2D = preload("res://assets/original_player/hamsteranim.png")
+const SHIELD_SHEET: Texture2D = preload("res://assets/original_gameplay/energyshield.png")
 const SPRITE_FRAME_SIZE := Vector2i(128, 128)
 const SPRITE_FRAME_COUNT := 8
 
@@ -27,14 +28,17 @@ var _damage_flash: float = 0.0
 var _is_dead: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var shield_visual: AnimatedSprite2D = $ShieldVisual
 
 func _ready() -> void:
 	health = max_health
 	shields = max_shields
 	bombs = starting_bombs
 	_setup_original_animation()
+	_setup_shield_visual()
 	health_changed.emit(health)
 	shields_changed.emit(shields)
+	shield_visual.visible = shields > 0
 	bombs_changed.emit(bombs)
 
 func _setup_original_animation() -> void:
@@ -56,6 +60,24 @@ func _setup_original_animation() -> void:
 	sprite.animation = "idle"
 	sprite.play()
 	sprite.scale = Vector2(0.70, 0.70)
+
+func _setup_shield_visual() -> void:
+	var frames := SpriteFrames.new()
+	frames.add_animation("active")
+	frames.set_animation_speed("active", 8.0)
+	frames.set_animation_loop("active", true)
+	for frame_index in range(3):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = SHIELD_SHEET
+		atlas.region = Rect2(float(frame_index * 128), 0.0, 128.0, 128.0)
+		frames.add_frame("active", atlas)
+	shield_visual.sprite_frames = frames
+	shield_visual.animation = "active"
+	shield_visual.position = Vector2(0.0, -42.0)
+	shield_visual.scale = Vector2(0.48, 0.48)
+	shield_visual.z_index = 2
+	shield_visual.visible = shields > 0
+	shield_visual.play()
 
 func configure(projectile_root: Node2D) -> void:
 	projectile_parent = projectile_root
@@ -87,12 +109,9 @@ func _physics_process(delta: float) -> void:
 func _fire() -> void:
 	if _fire_timer > 0.0 or projectile_parent == null:
 		return
-	var direction: Vector2 = get_global_mouse_position() - global_position
-	if direction.length_squared() < 1.0:
-		direction = Vector2.RIGHT
 	var projectile := PROJECTILE_SCENE.instantiate() as Projectile
 	projectile_parent.add_child(projectile)
-	projectile.launch(global_position, direction.normalized())
+	projectile.launch_player(global_position + Vector2(0.0, -34.0))
 	_fire_timer = fire_interval
 
 func take_damage(amount: int = 1) -> void:
@@ -102,6 +121,7 @@ func take_damage(amount: int = 1) -> void:
 	if shields > 0:
 		shields = maxi(0, shields - amount)
 		shields_changed.emit(shields)
+		shield_visual.visible = shields > 0
 		return
 	health = maxi(0, health - amount)
 	health_changed.emit(health)
