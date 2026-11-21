@@ -6,10 +6,10 @@ const DESIGN_SIZE := Vector2(640.0, 480.0)
 @onready var content: Control = $Content
 @onready var lives_text: BitmapText = $Content/Player1LivesText
 @onready var score_text: BitmapText = $Content/Player1Score
-@onready var bombs_bar: TextureRect = $Content/Player1Bombs
-@onready var shield_bar: TextureRect = $Content/Player1Shields
-@onready var bombs_source_texture: Texture2D = bombs_bar.texture
-@onready var shield_source_texture: Texture2D = shield_bar.texture
+@onready var bombs_bar: Control = $Content/Player1Bombs
+@onready var shield_bar: Control = $Content/Player1Shields
+@onready var bombs_source_texture: Texture2D = $Content/Player1Bombs/Bomb1.texture
+@onready var shield_source_texture: Texture2D = $Content/Player1Shields/Shield1.texture
 @onready var bomb_icons: Array[TextureRect] = [
 	$Content/Player1Bombs/Bomb1,
 	$Content/Player1Bombs/Bomb2,
