@@ -22,6 +22,7 @@ var _level_director: LevelDirector
 var _level_definition: LevelDefinition
 var _active_dynamic_groups: Array[Dictionary] = []
 var _aggregate_enemy_limit: int = 10
+var _current_music_id: int = -1
 
 func _ready() -> void:
 	randomize()
@@ -167,13 +168,19 @@ func _count_enemies_of_type(type_id: int) -> int:
 	return count
 
 func _set_music(music_id: int) -> void:
-	var source: AudioStreamOggVorbis = BOSS_MUSIC if music_id == 3 else MAIN_MUSIC
-	if music_player.playing and music_player.stream == source:
+	var profile := ProfileManager.get_active_profile()
+	if not bool(profile.get("music_enabled", true)):
+		music_player.stop()
+		_current_music_id = -1
 		return
+	if music_player.playing and _current_music_id == music_id:
+		return
+	var source: AudioStreamOggVorbis = BOSS_MUSIC if music_id == 3 else MAIN_MUSIC
 	var stream := source.duplicate() as AudioStreamOggVorbis
 	stream.loop = true
 	music_player.stream = stream
 	music_player.play()
+	_current_music_id = music_id
 
 func _check_hits() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
