@@ -16,6 +16,11 @@ class_name LevelEventData
 @export var boss_spawn: Dictionary = {}
 @export var background_actor_spawns: Array[Dictionary] = []
 
+@export_group("Original Blitz3D data")
+@export var source_fields: Dictionary = {}
+@export var source_line_start: int = 0
+@export var source_line_end: int = 0
+
 @export_group("Flow")
 @export var announcement: String = ""
 @export var completes_level: bool = false
