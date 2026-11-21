@@ -1,12 +1,27 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/original_background/forest/forestsky.jpg" id="1_sky"]
 [ext_resource type="Texture2D" path="res://assets/original_background/forest/forestbkg1.png" id="2_far"]
 [ext_resource type="Texture2D" path="res://assets/original_background/forest/forestbkg2.png" id="3_mid"]
 [ext_resource type="Texture2D" path="res://assets/original_background/forest/forestground.png" id="4_ground"]
+[ext_resource type="Script" path="res://scripts/ui/gameplay_backdrop.gd" id="5_backdrop_script"]
+[ext_resource type="Shader" path="res://shaders/scrolling_background.gdshader" id="6_scroll_shader"]
+
+[sub_resource type="ShaderMaterial" id="SkyScrollMaterial"]
+shader = ExtResource("6_scroll_shader")
+
+[sub_resource type="ShaderMaterial" id="FarScrollMaterial"]
+shader = ExtResource("6_scroll_shader")
+
+[sub_resource type="ShaderMaterial" id="MidScrollMaterial"]
+shader = ExtResource("6_scroll_shader")
+
+[sub_resource type="ShaderMaterial" id="GroundScrollMaterial"]
+shader = ExtResource("6_scroll_shader")
 
 [node name="GameplayBackdrop" type="CanvasLayer"]
 layer = -1
+script = ExtResource("5_backdrop_script")
 
 [node name="Layers" type="Control" parent="."]
 layout_mode = 3
@@ -25,8 +40,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_sky")
+material = SubResource("SkyScrollMaterial")
 expand_mode = 1
 stretch_mode = 6
+texture_repeat = 1
 mouse_filter = 2
 
 [node name="FarForest" type="TextureRect" parent="Layers"]
@@ -37,8 +54,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_far")
+material = SubResource("FarScrollMaterial")
 expand_mode = 1
 stretch_mode = 6
+texture_repeat = 1
 mouse_filter = 2
 
 [node name="MidForest" type="TextureRect" parent="Layers"]
@@ -49,8 +68,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_mid")
+material = SubResource("MidScrollMaterial")
 expand_mode = 1
 stretch_mode = 6
+texture_repeat = 1
 mouse_filter = 2
 
 [node name="ForestGround" type="TextureRect" parent="Layers"]
@@ -62,6 +83,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("4_ground")
+material = SubResource("GroundScrollMaterial")
 expand_mode = 1
 stretch_mode = 6
+texture_repeat = 1
 mouse_filter = 2
