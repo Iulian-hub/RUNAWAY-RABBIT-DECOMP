@@ -2,6 +2,7 @@ extends Area2D
 class_name Enemy
 
 const FRAME_SIZE := Vector2i(128, 128)
+const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile.tscn")
 const LEVEL_ONE_ENEMY_TYPES := {
 	1: {"path": "res://assets/original_enemies/hangglider4.png", "frames": 4, "speed": 10.0},
 	2: {"path": "res://assets/original_enemies/basicflyer.png", "frames": 2, "speed": 10.0},
@@ -20,18 +21,27 @@ const FALLBACK_ANIMATIONS: Array[Dictionary] = [
 
 @export var minimum_speed: float = 150.0
 @export var maximum_speed: float = 245.0
+@export var minimum_shot_interval: float = 2.8
+@export var maximum_shot_interval: float = 4.4
 
 var speed: float
 var enemy_type_id: int = 0
+var projectile_parent: Node2D
+var _shot_timer: float = 0.0
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func configure_enemy_type(type_id: int) -> void:
 	enemy_type_id = type_id
 
+func configure_projectile_parent(parent: Node2D) -> void:
+	projectile_parent = parent
+
 func _ready() -> void:
 	add_to_group("enemies")
 	set_meta("enemy_type_id", enemy_type_id)
 	speed = randf_range(minimum_speed, maximum_speed)
+	_shot_timer = randf_range(minimum_shot_interval, maximum_shot_interval)
 	_setup_original_animation()
 
 func _setup_original_animation() -> void:
@@ -68,3 +78,11 @@ func _process(delta: float) -> void:
 	global_position.x -= speed * delta
 	if global_position.x < -48.0:
 		queue_free()
+		return
+
+	_shot_timer -= delta
+	if _shot_timer <= 0.0 and is_instance_valid(projectile_parent):
+		var projectile := PROJECTILE_SCENE.instantiate() as Projectile
+		projectile_parent.add_child(projectile)
+		projectile.launch_enemy(global_position + Vector2(0.0, 20.0))
+		_shot_timer = randf_range(minimum_shot_interval, maximum_shot_interval)

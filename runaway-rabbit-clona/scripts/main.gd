@@ -3,6 +3,7 @@ extends Node2D
 signal return_to_menu_requested
 
 const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
+const EXPLOSION_SCENE: PackedScene = preload("res://scenes/explosion.tscn")
 const MAIN_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/main.ogg")
 const BOSS_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/boss.ogg")
 
@@ -152,6 +153,7 @@ func _update_dynamic_spawns(delta: float) -> void:
 func _spawn_enemy(type_id: int, spawn_position: Vector2) -> void:
 	var enemy := ENEMY_SCENE.instantiate() as Enemy
 	enemy.configure_enemy_type(type_id)
+	enemy.configure_projectile_parent(projectiles_root)
 	enemies_root.add_child(enemy)
 	enemy.global_position = spawn_position
 
@@ -189,28 +191,51 @@ func _set_music(music_id: int) -> void:
 
 func _check_hits() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
-	var projectiles := projectiles_root.get_children()
-	for projectile_node in projectiles:
+	var ground_impact_y := get_viewport_rect().size.y * 0.80
+
+	for projectile_node in projectiles_root.get_children():
 		if not is_instance_valid(projectile_node) or projectile_node.is_queued_for_deletion():
 			continue
 		var projectile := projectile_node as Projectile
+		if projectile == null:
+			continue
+
+		if projectile.is_enemy_shot:
+			if projectile.global_position.distance_squared_to(player.global_position) < 1800.0:
+				_spawn_explosion(projectile.global_position, 0.65)
+				projectile.queue_free()
+				player.take_damage()
+			elif projectile.global_position.y >= ground_impact_y:
+				_spawn_explosion(projectile.global_position, 0.60)
+				projectile.queue_free()
+			continue
+
 		for enemy_node in enemies:
 			if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 				continue
 			var enemy := enemy_node as Enemy
 			if projectile.global_position.distance_squared_to(enemy.global_position) < 2600.0:
+				_spawn_explosion(enemy.global_position, 0.95)
 				projectile.queue_free()
 				enemy.queue_free()
 				score += 100
 				_update_score()
 				break
+
 	for enemy_node in enemies:
 		if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 			continue
 		var enemy := enemy_node as Enemy
 		if player.global_position.distance_squared_to(enemy.global_position) < 3000.0:
+			_spawn_explosion(enemy.global_position, 0.85)
 			enemy.queue_free()
 			player.take_damage()
+
+func _spawn_explosion(world_position: Vector2, size: float = 1.0) -> void:
+	var effect := EXPLOSION_SCENE.instantiate() as ExplosionEffect
+	effect.effect_scale = size
+	effect.global_position = world_position
+	projectiles_root.add_child(effect)
 
 func _on_health_changed(value: int) -> void:
 	gameplay_hud.set_lives(value)
