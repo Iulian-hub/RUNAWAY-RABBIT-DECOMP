@@ -62,7 +62,7 @@ mouse_filter = 2
 offset_right = 16.0
 offset_bottom = 16.0
 texture = ExtResource("5_shield")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Shield2" type="TextureRect" parent="Content/Player1Shields"]
@@ -70,7 +70,7 @@ offset_left = 19.0
 offset_right = 35.0
 offset_bottom = 16.0
 texture = ExtResource("5_shield")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Shield3" type="TextureRect" parent="Content/Player1Shields"]
@@ -78,7 +78,7 @@ offset_left = 38.0
 offset_right = 54.0
 offset_bottom = 16.0
 texture = ExtResource("5_shield")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Player1Bombs" type="Control" parent="Content"]
@@ -93,7 +93,7 @@ offset_top = 4.0
 offset_right = 16.0
 offset_bottom = 20.0
 texture = ExtResource("6_bombs")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Bomb2" type="TextureRect" parent="Content/Player1Bombs"]
@@ -102,7 +102,7 @@ offset_top = 4.0
 offset_right = 35.0
 offset_bottom = 20.0
 texture = ExtResource("6_bombs")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Bomb3" type="TextureRect" parent="Content/Player1Bombs"]
@@ -111,7 +111,7 @@ offset_top = 4.0
 offset_right = 54.0
 offset_bottom = 20.0
 texture = ExtResource("6_bombs")
-stretch_mode = 5
+stretch_mode = 0
 mouse_filter = 2
 
 [node name="Player1BeamLaser" type="ColorRect" parent="Content"]
