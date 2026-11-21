@@ -73,6 +73,7 @@ func _start_game(level_number: int) -> void:
 	game.set("selected_level", level_number)
 	add_child(game)
 	_active_screen = game
+	game.return_to_menu_requested.connect(_show_menu)
 
 func _set_music_enabled(enabled: bool) -> void:
 	if enabled:
