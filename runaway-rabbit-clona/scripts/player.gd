@@ -27,6 +27,7 @@ var _fire_timer: float = 0.0
 var _damage_flash: float = 0.0
 var _is_dead: bool = false
 var _configured_health: int = -1
+var _configured_bombs: int = -1
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shield_visual: Sprite2D = $ShieldVisual
@@ -35,7 +36,7 @@ var _configured_health: int = -1
 func _ready() -> void:
 	health = max_health if _configured_health < 0 else clampi(_configured_health, 0, max_health)
 	shields = max_shields
-	bombs = starting_bombs
+	bombs = starting_bombs if _configured_bombs < 0 else clampi(_configured_bombs, 0, starting_bombs)
 	_setup_original_animation()
 	_setup_shield_visual()
 	health_changed.emit(health)
@@ -73,9 +74,10 @@ func _setup_shield_visual() -> void:
 	shield_visual.material = additive_material
 	shield_visual.visible = shields > 0
 
-func configure(projectile_root: Node2D, health_value: int = -1) -> void:
+func configure(projectile_root: Node2D, health_value: int = -1, bombs_value: int = -1) -> void:
 	projectile_parent = projectile_root
 	_configured_health = health_value
+	_configured_bombs = bombs_value
 
 func _physics_process(delta: float) -> void:
 	if _is_dead:
