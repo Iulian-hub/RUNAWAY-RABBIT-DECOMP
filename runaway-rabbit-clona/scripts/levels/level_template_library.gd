@@ -53,7 +53,7 @@ static func get_template(source_template_id: int, campaign_level: int = 0) -> Le
 
 	if not definition.events.is_empty():
 		definition.initial_background_id = definition.events[0].background_id
-		definition.initial_dynamic_spawn_groups = definition.events[0].dynamic_spawn_groups.duplicate(true)
+		definition.initial_dynamic_spawn_groups = definition.events[0].dynamic_spawn_groups
 		definition.initial_aggregate_enemy_limit = definition.events[0].aggregate_enemy_limit
 	return definition
 
