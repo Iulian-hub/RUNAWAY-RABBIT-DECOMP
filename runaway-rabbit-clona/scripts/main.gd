@@ -140,9 +140,11 @@ func _update_dynamic_spawns(delta: float) -> void:
 		var type_limit := maxi(0, int(group_data.get("source_field_24", 0)))
 		if type_id <= 0 or type_limit <= 0 or _count_enemies_of_type(type_id) >= type_limit:
 			continue
-		# controlenemies.bb uses roughly one successful roll per interval of source ticks.
-		var spawn_chance := clampf((60.0 * delta) / interval, 0.0, 1.0)
-		if randf() < spawn_chance:
+		# Exact probability structure from controlenemies.bb: rand(1, interval / fl.Field1) == 2,
+		# with the original minimum denominator of 2 and frame-factor cap of 3.
+		var source_frame_factor := minf(delta * 60.0, 3.0)
+		var denominator := maxi(2, int(interval / maxf(source_frame_factor, 0.001)))
+		if randi_range(1, denominator) == 2:
 			_spawn_enemy(type_id, Vector2(viewport_size.x + 36.0, randf_range(spawn_y_min, spawn_y_max)))
 
 func _spawn_enemy(type_id: int, spawn_position: Vector2) -> void:
@@ -179,6 +181,7 @@ func _set_music(music_id: int) -> void:
 	var stream := source.duplicate() as AudioStreamOggVorbis
 	stream.loop = true
 	music_player.stream = stream
+	music_player.volume_db = -6.0 if music_id == 3 else -9.1
 	music_player.play()
 	_current_music_id = music_id
 
