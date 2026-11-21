@@ -29,6 +29,7 @@ func _build_glyph_map() -> void:
 	if atlas_01 == null or atlas_02 == null:
 		return
 	var textures: Array[Texture2D] = [atlas_01, atlas_02]
+	var images: Array[Image] = [atlas_01.get_image(), atlas_02.get_image()]
 	_cell_size = float(atlas_01.get_width()) / 8.0
 	for char_index in range(CHARACTER_SET.length()):
 		var sheet_index := int(char_index / 64)
@@ -38,7 +39,7 @@ func _build_glyph_map() -> void:
 		var cell_index := char_index % 64
 		var cell_x := (cell_index % 8) * int(_cell_size)
 		var cell_y := int(cell_index / 8) * int(_cell_size)
-		var image := atlas.get_image()
+		var image: Image = images[sheet_index]
 		var min_x := int(_cell_size) - 1
 		var max_x := 0
 		for x in range(int(_cell_size)):
