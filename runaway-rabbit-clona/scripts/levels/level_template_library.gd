@@ -108,7 +108,6 @@ static func _build_scripted_spawns(fields: Dictionary) -> Array[Dictionary]:
 			"angle": float(angles.get(str(index), 0.0)),
 			"health_multiplier": float(health_multipliers.get(str(index), 0.0)),
 			"speed_multiplier": float(speed_multipliers.get(str(index), 0.0)),
-			"flags": int(flags.get(str(index), 0))
 		})
 	return result
 
@@ -130,7 +129,6 @@ static func _build_background_spawns(fields: Dictionary) -> Array[Dictionary]:
 	var ys := _field_array(fields, "Field17", 6)
 	var depths := _field_array(fields, "Field18", 6)
 	var scales := _field_array(fields, "Field19", 6)
-	var flags := _field_array(fields, "Field20", 6)
 	for index in range(1, 7):
 		var actor_type := int(types.get(str(index), 0))
 		if actor_type <= 0:
