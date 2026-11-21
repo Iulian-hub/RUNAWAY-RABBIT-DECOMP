@@ -1,0 +1,183 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/gameplay_hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://scripts/ui/bitmap_text.gd" id="2_bitmap"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/p1lives.png" id="3_p1"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/p2lives.png" id="4_p2"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/hudshield.png" id="5_shield"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/hudbombs.png" id="6_bombs"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/fonts/font01.png" id="7_font1"]
+[ext_resource type="Texture2D" path="res://assets/original_gameplay/fonts/font02.png" id="8_font2"]
+
+[node name="GameplayHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Content" type="Control" parent="."]
+offset_right = 640.0
+offset_bottom = 480.0
+mouse_filter = 2
+
+[node name="Player1Lives" type="TextureRect" parent="Content"]
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 53.0
+offset_bottom = 78.0
+texture = ExtResource("3_p1")
+mouse_filter = 2
+
+[node name="Player1LivesText" type="Control" parent="Content"]
+offset_left = 58.0
+offset_top = 37.0
+offset_right = 150.0
+offset_bottom = 70.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "3"
+font_height = 30.0
+font_color = Color(0.196078, 1, 0.196078, 1)
+
+[node name="Player1Score" type="Control" parent="Content"]
+offset_left = 5.0
+offset_top = 0.0
+offset_right = 260.0
+offset_bottom = 32.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "$0000000"
+font_height = 27.0
+font_color = Color(0.196078, 1, 0.196078, 1)
+
+[node name="Player1Shields" type="TextureRect" parent="Content"]
+offset_left = 5.0
+offset_top = 75.0
+offset_right = 69.0
+offset_bottom = 91.0
+texture = ExtResource("5_shield")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+mouse_filter = 2
+
+[node name="Player1Bombs" type="TextureRect" parent="Content"]
+offset_left = 5.0
+offset_top = 100.0
+offset_right = 77.0
+offset_bottom = 124.0
+texture = ExtResource("6_bombs")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+mouse_filter = 2
+
+[node name="Player1BeamLaser" type="ColorRect" parent="Content"]
+offset_left = 5.0
+offset_top = 126.0
+offset_right = 21.0
+offset_bottom = 222.0
+color = Color(0.2, 1, 0.2, 1)
+mouse_filter = 2
+visible = false
+
+[node name="Player2Lives" type="TextureRect" parent="Content"]
+offset_left = 567.0
+offset_top = 30.0
+offset_right = 615.0
+offset_bottom = 78.0
+texture = ExtResource("4_p2")
+mouse_filter = 2
+
+[node name="Player2LivesText" type="Control" parent="Content"]
+offset_left = 620.0
+offset_top = 37.0
+offset_right = 638.0
+offset_bottom = 70.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "3"
+font_height = 30.0
+font_color = Color(1, 0.196078, 0.196078, 1)
+
+[node name="Player2Score" type="Control" parent="Content"]
+offset_left = 505.0
+offset_top = 0.0
+offset_right = 638.0
+offset_bottom = 32.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "$0000000"
+font_height = 27.0
+font_color = Color(1, 0.196078, 0.196078, 1)
+
+[node name="Player2Shields" type="TextureRect" parent="Content"]
+offset_left = 537.0
+offset_top = 75.0
+offset_right = 601.0
+offset_bottom = 91.0
+texture = ExtResource("5_shield")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+mouse_filter = 2
+
+[node name="Player2Bombs" type="TextureRect" parent="Content"]
+offset_left = 537.0
+offset_top = 100.0
+offset_right = 609.0
+offset_bottom = 124.0
+texture = ExtResource("6_bombs")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+mouse_filter = 2
+
+[node name="Player2BeamLaser" type="ColorRect" parent="Content"]
+offset_left = 585.0
+offset_top = 126.0
+offset_right = 601.0
+offset_bottom = 222.0
+color = Color(1, 0.196078, 0.196078, 1)
+mouse_filter = 2
+visible = false
+
+[node name="CompletionText" type="Control" parent="Content"]
+offset_left = 120.0
+offset_top = 5.0
+offset_right = 520.0
+offset_bottom = 35.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "0% COMPLETED"
+font_height = 22.5
+centered_horizontal = true
+
+[node name="CenterMessage" type="Control" parent="Content"]
+offset_left = 20.0
+offset_top = 180.0
+offset_right = 620.0
+offset_bottom = 300.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+font_height = 60.0
+centered_horizontal = true
+centered_vertical = true
+
+[node name="DebugText" type="Control" parent="Content"]
+offset_left = 10.0
+offset_top = 460.0
+offset_right = 180.0
+offset_bottom = 480.0
+mouse_filter = 2
+script = ExtResource("2_bitmap")
+atlas_01 = ExtResource("7_font1")
+atlas_02 = ExtResource("8_font2")
+text = "FPS:"
+font_height = 22.5
+visible = false
