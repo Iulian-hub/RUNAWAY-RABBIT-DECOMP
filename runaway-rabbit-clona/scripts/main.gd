@@ -3,6 +3,7 @@ const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
 @onready var player: Player = $Player
 @onready var enemies_root: Node2D = $Enemies
 @onready var projectiles_root: Node2D = $Projectiles
+@onready var sector_label: Label = $HUD/SectorLabel
 @onready var score_label: Label = $HUD/ScoreLabel
 @onready var health_label: Label = $HUD/HealthLabel
 @onready var bomb_label: Label = $HUD/BombLabel
@@ -15,12 +16,7 @@ var _game_over: bool = false
 
 func _ready() -> void:
 	randomize()
-	var sector_label := Label.new()
 	sector_label.text = "SECTOR %02d" % selected_level
-	sector_label.position = Vector2(550, 16)
-	sector_label.add_theme_font_size_override("font_size", 18)
-	sector_label.add_theme_color_override("font_color", Color("#79d9ee"))
-	add_child(sector_label)
 	var viewport_size := get_viewport_rect().size
 	player.global_position = Vector2(90.0, viewport_size.y * 0.78)
 	player.configure(projectiles_root)
