@@ -19,10 +19,10 @@ const FALLBACK_ANIMATIONS: Array[Dictionary] = [
 	{"path": "res://assets/original_enemies/sauceranim.png", "frames": 4, "speed": 5.0}
 ]
 
-@export var minimum_speed: float = 150.0
-@export var maximum_speed: float = 245.0
-@export var minimum_shot_interval: float = 2.8
-@export var maximum_shot_interval: float = 4.4
+@export var minimum_speed: float = 180.0
+@export var maximum_speed: float = 285.0
+@export var minimum_shot_interval: float = 2.2
+@export var maximum_shot_interval: float = 3.7
 
 var speed: float
 var enemy_type_id: int = 0

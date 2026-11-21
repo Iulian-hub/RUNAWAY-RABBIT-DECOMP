@@ -1,10 +1,10 @@
 extends CanvasLayer
 ## Multi-speed horizontal parallax for the original ice artwork.
 
-@export var sky_speed: float = 0.001
-@export var far_ice_speed: float = 0.008
-@export var mid_ice_speed: float = 0.018
-@export var ground_speed: float = 0.040
+@export var sky_speed: float = 0.0017
+@export var far_ice_speed: float = 0.0136
+@export var mid_ice_speed: float = 0.0306
+@export var ground_speed: float = 0.068
 
 @onready var sky: TextureRect = $Layers/Sky
 @onready var far_ice: TextureRect = $Layers/FarIce

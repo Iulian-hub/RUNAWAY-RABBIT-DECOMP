@@ -9,7 +9,7 @@ signal died
 
 const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile.tscn")
 const PLAYER_SPRITE: Texture2D = preload("res://assets/original_player/hamsteranim.png")
-const SHIELD_SHEET: Texture2D = preload("res://assets/original_gameplay/energyshield.png")
+const SHIELD_TEXTURE: Texture2D = preload("res://assets/original_gameplay/shield.jpg")
 const SPRITE_FRAME_SIZE := Vector2i(128, 128)
 const SPRITE_FRAME_COUNT := 8
 
@@ -28,7 +28,7 @@ var _damage_flash: float = 0.0
 var _is_dead: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var shield_visual: AnimatedSprite2D = $ShieldVisual
+@onready var shield_visual: Sprite2D = $ShieldVisual
 
 func _ready() -> void:
 	health = max_health
@@ -62,22 +62,14 @@ func _setup_original_animation() -> void:
 	sprite.scale = Vector2(0.70, 0.70)
 
 func _setup_shield_visual() -> void:
-	var frames := SpriteFrames.new()
-	frames.add_animation("active")
-	frames.set_animation_speed("active", 8.0)
-	frames.set_animation_loop("active", true)
-	for frame_index in range(3):
-		var atlas := AtlasTexture.new()
-		atlas.atlas = SHIELD_SHEET
-		atlas.region = Rect2(float(frame_index * 128), 0.0, 128.0, 128.0)
-		frames.add_frame("active", atlas)
-	shield_visual.sprite_frames = frames
-	shield_visual.animation = "active"
-	shield_visual.position = Vector2(0.0, -42.0)
-	shield_visual.scale = Vector2(0.48, 0.48)
+	shield_visual.texture = SHIELD_TEXTURE
+	shield_visual.position = Vector2(0.0, -37.0)
+	shield_visual.scale = Vector2(0.62, 0.62)
 	shield_visual.z_index = 2
+	var additive_material := CanvasItemMaterial.new()
+	additive_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	shield_visual.material = additive_material
 	shield_visual.visible = shields > 0
-	shield_visual.play()
 
 func configure(projectile_root: Node2D) -> void:
 	projectile_parent = projectile_root
