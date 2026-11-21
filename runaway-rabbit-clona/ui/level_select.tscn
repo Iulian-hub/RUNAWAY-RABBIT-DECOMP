@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_levels"]
+[ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mappic.jpg" id="2_map"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mapbutton.png" id="3_level"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mapbutton2.png" id="4_boss"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mapbuttongrey.png" id="5_locked"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mapbutton2grey.png" id="6_locked_boss"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/mappointer.png" id="7_pointer"]
+
+[sub_resource type="StyleBoxFlat" id="InfoPanel"]
+bg_color = Color(0.015, 0.035, 0.065, 0.82)
+border_color = Color(0.28, 0.68, 0.82, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -9,4 +31,803 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_levels")
+script = ExtResource("1_script")
+
+[node name="MapCanvas" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="MapCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_map")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Shade" type="ColorRect" parent="MapCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.025, 0.055, 0.16)
+
+[node name="Title" type="Label" parent="MapCanvas"]
+offset_left = 36.0
+offset_top = 24.0
+offset_right = 420.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.937, 0.973, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "SELECT LEVEL"
+
+[node name="Subtitle" type="Label" parent="MapCanvas"]
+offset_left = 38.0
+offset_top = 60.0
+offset_right = 450.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.439, 0.847, 0.929, 1)
+theme_override_font_sizes/font_size = 12
+text = "CAMPAIGN MAP  ·  29 STAGES"
+
+[node name="Markers" type="Control" parent="MapCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Level01" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 122
+offset_top = 526
+offset_right = 150
+offset_bottom = 554
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level01"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level02" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 154
+offset_top = 496
+offset_right = 182
+offset_bottom = 524
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level02"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level03" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 245
+offset_top = 423
+offset_right = 279
+offset_bottom = 457
+ignore_texture_size = true
+texture_normal = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_pressed = ExtResource("4")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level03"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level04" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 280
+offset_top = 456
+offset_right = 308
+offset_bottom = 484
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level04"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level05" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 342
+offset_top = 438
+offset_right = 370
+offset_bottom = 466
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level05"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level06" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 416
+offset_top = 424
+offset_right = 444
+offset_bottom = 452
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level06"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level07" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 509
+offset_top = 381
+offset_right = 543
+offset_bottom = 415
+ignore_texture_size = true
+texture_normal = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_pressed = ExtResource("4")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level07"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level08" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 602
+offset_top = 458
+offset_right = 630
+offset_bottom = 486
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level08"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level09" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 650
+offset_top = 476
+offset_right = 678
+offset_bottom = 504
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level09"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level10" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 708
+offset_top = 452
+offset_right = 736
+offset_bottom = 480
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level11" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 752
+offset_top = 426
+offset_right = 780
+offset_bottom = 454
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "11"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level12" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 816
+offset_top = 426
+offset_right = 844
+offset_bottom = 454
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level12"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "12"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level13" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 815
+offset_top = 547
+offset_right = 849
+offset_bottom = 581
+ignore_texture_size = true
+texture_normal = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_pressed = ExtResource("4")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level13"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level14" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 918
+offset_top = 486
+offset_right = 946
+offset_bottom = 514
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level14"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "14"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level15" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 942
+offset_top = 520
+offset_right = 970
+offset_bottom = 548
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level15"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "15"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level16" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 990
+offset_top = 552
+offset_right = 1018
+offset_bottom = 580
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level16"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "16"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level17" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1046
+offset_top = 568
+offset_right = 1074
+offset_bottom = 596
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level17"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "17"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level18" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1098
+offset_top = 556
+offset_right = 1126
+offset_bottom = 584
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level18"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "18"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level19" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1120
+offset_top = 520
+offset_right = 1148
+offset_bottom = 548
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level19"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "19"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level20" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1106
+offset_top = 476
+offset_right = 1134
+offset_bottom = 504
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level20"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level21" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1021
+offset_top = 423
+offset_right = 1055
+offset_bottom = 457
+ignore_texture_size = true
+texture_normal = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_pressed = ExtResource("4")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level21"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "21"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level22" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1116
+offset_top = 342
+offset_right = 1144
+offset_bottom = 370
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level22"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "22"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level23" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1136
+offset_top = 302
+offset_right = 1164
+offset_bottom = 330
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level23"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "23"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level24" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1142
+offset_top = 256
+offset_right = 1170
+offset_bottom = 284
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level24"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "24"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level25" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1136
+offset_top = 214
+offset_right = 1164
+offset_bottom = 242
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level25"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level26" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1118
+offset_top = 174
+offset_right = 1146
+offset_bottom = 202
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level26"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "26"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level27" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1070
+offset_top = 150
+offset_right = 1098
+offset_bottom = 178
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level27"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "27"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level28" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 1014
+offset_top = 160
+offset_right = 1042
+offset_bottom = 188
+ignore_texture_size = true
+texture_normal = ExtResource("3")
+texture_hover = ExtResource("3")
+texture_pressed = ExtResource("3")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level28"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "28"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Level29" type="TextureButton" parent="MapCanvas/Markers"]
+layout_mode = 0
+offset_left = 983
+offset_top = 155
+offset_right = 1017
+offset_bottom = 189
+ignore_texture_size = true
+texture_normal = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_pressed = ExtResource("4")
+
+[node name="Number" type="Label" parent="MapCanvas/Markers/Level29"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "29"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="Pointer" type="TextureRect" parent="MapCanvas"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("7_pointer")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InfoPanel" type="PanelContainer" parent="MapCanvas"]
+offset_left = 30.0
+offset_top = 590.0
+offset_right = 550.0
+offset_bottom = 682.0
+theme_override_styles/panel = SubResource("InfoPanel")
+
+[node name="DetailLabel" type="Label" parent="MapCanvas/InfoPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.91, 0.96, 1, 1)
+text = "LEVEL 01  ·  CAMPAIGN STAGE"
+
+[node name="ProgressLabel" type="Label" parent="MapCanvas"]
+offset_left = 1032.0
+offset_top = 600.0
+offset_right = 1250.0
+offset_bottom = 624.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.84, 0.91, 0.96, 1)
+text = "UNLOCKED: 01 / 29"
+
+[node name="BackButton" type="Button" parent="MapCanvas"]
+offset_left = 1030.0
+offset_top = 635.0
+offset_right = 1240.0
+offset_bottom = 683.0
+theme_override_font_sizes/font_size = 16
+text = "BACK TO MENU"
