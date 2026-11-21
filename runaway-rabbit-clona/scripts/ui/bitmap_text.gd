@@ -75,10 +75,10 @@ func _draw() -> void:
 		return
 	var lines := text.split("\n", true)
 	var total_height := float(lines.size()) * font_height * line_spacing
-	var y := -total_height * 0.5 if centered_vertical else 0.0
+	var y := (size.y - total_height) * 0.5 if centered_vertical else 0.0
 	for line in lines:
 		var line_width := _measure_line(line)
-		var x := -line_width * 0.5 if centered_horizontal else 0.0
+		var x := (size.x - line_width) * 0.5 if centered_horizontal else 0.0
 		for index in range(line.length()):
 			var character := line.substr(index, 1)
 			if character == " ":
