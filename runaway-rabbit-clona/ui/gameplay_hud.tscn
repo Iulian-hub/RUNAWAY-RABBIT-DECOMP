@@ -51,65 +51,20 @@ text = "$0000000"
 font_height = 27.0
 font_color = Color(0.196078, 1, 0.196078, 1)
 
-[node name="Player1Shields" type="Control" parent="Content"]
+[node name="Player1Shields" type="TextureRect" parent="Content"]
 offset_left = 5.0
-offset_top = 82.0
-offset_right = 56.0
-offset_bottom = 98.0
-mouse_filter = 2
-
-[node name="Shield1" type="TextureRect" parent="Content/Player1Shields"]
-offset_right = 16.0
-offset_bottom = 16.0
+offset_top = 75.0
+offset_right = 77.0
+offset_bottom = 91.0
 texture = ExtResource("5_shield")
 stretch_mode = 0
 mouse_filter = 2
 
-[node name="Shield2" type="TextureRect" parent="Content/Player1Shields"]
-offset_left = 19.0
-offset_right = 35.0
-offset_bottom = 16.0
-texture = ExtResource("5_shield")
-stretch_mode = 0
-mouse_filter = 2
-
-[node name="Shield3" type="TextureRect" parent="Content/Player1Shields"]
-offset_left = 38.0
-offset_right = 54.0
-offset_bottom = 16.0
-texture = ExtResource("5_shield")
-stretch_mode = 0
-mouse_filter = 2
-
-[node name="Player1Bombs" type="Control" parent="Content"]
+[node name="Player1Bombs" type="TextureRect" parent="Content"]
 offset_left = 5.0
 offset_top = 100.0
-offset_right = 56.0
+offset_right = 77.0
 offset_bottom = 124.0
-mouse_filter = 2
-
-[node name="Bomb1" type="TextureRect" parent="Content/Player1Bombs"]
-offset_top = 4.0
-offset_right = 16.0
-offset_bottom = 20.0
-texture = ExtResource("6_bombs")
-stretch_mode = 0
-mouse_filter = 2
-
-[node name="Bomb2" type="TextureRect" parent="Content/Player1Bombs"]
-offset_left = 19.0
-offset_top = 4.0
-offset_right = 35.0
-offset_bottom = 20.0
-texture = ExtResource("6_bombs")
-stretch_mode = 0
-mouse_filter = 2
-
-[node name="Bomb3" type="TextureRect" parent="Content/Player1Bombs"]
-offset_left = 38.0
-offset_top = 4.0
-offset_right = 54.0
-offset_bottom = 20.0
 texture = ExtResource("6_bombs")
 stretch_mode = 0
 mouse_filter = 2
@@ -157,21 +112,25 @@ text = "$0000000"
 font_height = 27.0
 font_color = Color(1, 0.196078, 0.196078, 1)
 
-[node name="Player2Shields" type="Control" parent="Content"]
+[node name="Player2Shields" type="TextureRect" parent="Content"]
 offset_left = 537.0
-offset_top = 82.0
+offset_top = 75.0
 offset_right = 609.0
-offset_bottom = 98.0
+offset_bottom = 91.0
 texture = ExtResource("5_shield")
+stretch_mode = 0
 mouse_filter = 2
+visible = false
 
-[node name="Player2Bombs" type="Control" parent="Content"]
+[node name="Player2Bombs" type="TextureRect" parent="Content"]
 offset_left = 537.0
 offset_top = 100.0
 offset_right = 609.0
 offset_bottom = 124.0
 texture = ExtResource("6_bombs")
+stretch_mode = 0
 mouse_filter = 2
+visible = false
 
 [node name="Player2BeamLaser" type="ColorRect" parent="Content"]
 offset_left = 585.0
