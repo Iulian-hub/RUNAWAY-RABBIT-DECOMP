@@ -63,7 +63,9 @@ func _connect_controls() -> void:
 	_sound_toggle.toggled.connect(_on_sound_toggled)
 	for button in $MenuPanel/MenuContent.get_children():
 		for control in button.get_children():
-			if control is Button:
+			if control is CheckButton:
+				_style_check_button(control)
+			elif control is Button:
 				_style_button(control)
 
 func _show_home() -> void:
@@ -103,6 +105,11 @@ func _button_style(fill: String, border: String) -> StyleBoxFlat:
 	style.content_margin_top = 8
 	style.content_margin_bottom = 8
 	return style
+
+func _style_check_button(button: CheckButton) -> void:
+	button.add_theme_font_size_override("font_size", 17)
+	button.add_theme_color_override("font_color", Color("#dceaf5"))
+	button.add_theme_color_override("font_hover_color", Color("#70dff2"))
 
 func _on_music_toggled(value: bool) -> void:
 	_music_enabled = value
