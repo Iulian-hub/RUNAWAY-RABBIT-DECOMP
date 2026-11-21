@@ -71,8 +71,6 @@ func _set_meter(bar: TextureRect, source_texture: Texture2D, count: int, unit_wi
 	if safe_count == 0:
 		bar.visible = false
 		return
-	# TextureRect has no region_enabled/region_rect properties in Godot 4.
-	# AtlasTexture provides the equivalent source-image crop.
 	var cropped_texture := AtlasTexture.new()
 	cropped_texture.atlas = source_texture
 	cropped_texture.region = Rect2(
