@@ -1,6 +1,7 @@
 extends Control
 const SPLASH_SCENE: PackedScene = preload("res://ui/splash_screen.tscn")
 const MENU_SCENE: PackedScene = preload("res://ui/main_menu.tscn")
+const INSTRUCTIONS_SCENE: PackedScene = preload("res://ui/instructions.tscn")
 const LEVEL_SELECT_SCENE: PackedScene = preload("res://ui/level_select.tscn")
 const GAME_SCENE: PackedScene = preload("res://scenes/main.tscn")
 const MENU_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/menu.ogg")
@@ -30,9 +31,17 @@ func _show_menu() -> void:
 	add_child(menu)
 	_active_screen = menu
 	menu.start_requested.connect(_show_level_select)
+	menu.instructions_requested.connect(_show_instructions)
 	menu.quit_requested.connect(_quit_game)
 	menu.music_enabled_changed.connect(_set_music_enabled)
 	_set_music_enabled(menu.get_music_enabled())
+
+func _show_instructions() -> void:
+	_clear_screen()
+	var instructions := INSTRUCTIONS_SCENE.instantiate() as Control
+	add_child(instructions)
+	_active_screen = instructions
+	instructions.back_requested.connect(_show_menu)
 
 func _show_level_select() -> void:
 	_clear_screen()
