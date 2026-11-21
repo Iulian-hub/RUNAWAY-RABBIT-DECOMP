@@ -1,41 +1,59 @@
 # Campaign level system reconstruction
 
-## Scope and source contract
+## Source contract
 
-This document tracks the Godot port of the original Blitz3D level pipeline. The source of truth is the decompiled Gusto-modified codebase, not the temporary Godot spawn prototype.
+The decompiled Gusto-modified Blitz3D project is the source of truth. Its campaign pipeline has three stages:
+1. EntryPoint.bb initializes 15 source templates and auxiliary level slots.
+2. makemorelevels.bb maps the templates to campaign seed levels and procedurally fills intermediate levels.
+3. startlevel.bb and dolevels.bb initialize and execute the event stream.
 
-The original pipeline has three distinct stages:
-1. `EntryPoint.bb` initializes 15 campaign templates and auxiliary level slots.
-2. `makemorelevels.bb` remaps those templates to campaign seed levels and procedurally fills the gaps.
-3. `startlevel.bb` and `dolevels.bb` initialize and execute the event stream.
+The verified seed mapping is 1→1, 2→2, 3→3, 4→4, 5→5, 6→7, 7→9, 8→11, 9→13, 10→16, 11→19, 12→21, 13→24, 14→27, 15→29.
 
-The verified source-template mapping is: 1→1, 2→2, 3→3, 4→4, 5→5, 6→7, 7→9, 8→11, 9→13, 10→16, 11→19, 12→21, 13→24, 14→27, 15→29.
+## Runtime port currently connected
 
-The original `levelevent` fields are mapped in `docs/LEVEL_DATA_CATALOG.md`. The Godot port uses named properties rather than anonymous `Field0`…`Field30` members.
+- scripts/levels/level_event.gd: typed event resource with original event fields mapped to named properties.
+- scripts/levels/level_definition.gd: typed level resource.
+- scripts/levels/level_template_library.gd: loads the extracted 15 source templates from data/source_level_templates.json.
+- scripts/levels/level_director.gd: executes the next source event in order, checks boss gates, advances the source clock, and waits for the active enemy count to reach zero after a completion event.
+- scripts/main.gd: runs the LevelDirector, applies dynamic spawn groups and scripted spawns, updates the completion HUD and changes gameplay music.
+- scripts/enemy.gd: selects the correct original sprite sheet for the five enemy IDs used by the first level.
 
-## Godot runtime model added
+### Source clock and completion percentage
 
-- `scripts/levels/level_event.gd`: typed Resource for trigger conditions, background/music changes, scripted spawns, dynamic spawn groups, boss spawns, background actors, announcements and completion.
-- `scripts/levels/level_definition.gd`: typed Resource representing one generated campaign level and its ordered event list.
-- `scripts/levels/level_director.gd`: event sequencer. It advances the level clock, checks the next event only, gates events on bosses defeated, and delays victory until the active enemy count reaches zero. This mirrors the important control flow in `dolevels.bb`.
+The original dolevels.bb increments leveltime using frame-scaled fl\\Field1, not seconds. The Godot director converts delta to 60 source ticks per second and applies the original level-1 multiplier of 2.2. It pauses the level clock at the next event threshold until its boss requirement is satisfied.
 
-The 15 original source templates have now been extracted into `data/source_level_templates.json`. `LevelTemplateLibrary` loads them into the typed Resources while retaining all original Field0–Field30 data in `source_fields`. This does not yet generate the 14 intermediate campaign levels or execute source enemy archetypes; those remain separate porting tasks.
+For level 1, the final source trigger is 10800. The HUD follows the progress model used by the original special-mode logic: level_time / longest_time * 99. It stays capped at 99% after the final trigger until the completion event's remaining enemies are cleared; only then does it become 100%.
 
-## Difficulty selection removed
+The original normal-mode start delay is 180 source ticks (3 seconds) and is represented by the director's GET READY phase.
 
-The Godot profile creation screen no longer asks for EASY/NORMAL/HARD/EXPERT. New profiles use the original default starting upgrade values corresponding to the former NORMAL preset. Existing saved upgrade values are preserved; the obsolete difficulty field is discarded during profile normalization.
+### Level 1 event flow
 
-The temporary per-run spawn-rate difficulty ramp is also removed. Difficulty progression will come from authored level events, dynamic spawn groups, enemy archetypes and boss encounters, rather than an independent timer multiplier.
+Level 1 is loaded from source template 1. Its first event's dynamic spawn groups are active at level start. Later events replace the active group definitions using Field22–Field24 and enforce Field3 as the aggregate active-enemy cap. Spawn probability is approximated from the source interval in Field23; the per-type limit comes from Field24.
 
-## Remaining implementation sequence
+At the final event, Field4=3 changes the music to the original boss track, Field5[1]=13 spawns the original enemy type 13, and Field26=1 marks the level as complete-pending. The director waits until that enemy is removed before firing level_completed, setting 100%, and calling ProfileManager.complete_level().
 
-1. Verify the extracted 15 source templates and their field mapping against `docs/LEVEL_DATA_CATALOG.md`.
-2. Port the exact procedural campaign-generation rules, including boss-template handling and deterministic seed support.
-3. Port enemy archetypes and their movement/weapon/health configuration from `enemytypes`, `enemytype`, and actor definitions.
-4. Connect event execution to scripted spawns, dynamic spawn groups, boss creation, music, backgrounds and announcements.
-5. Replace the current prototype spawn loop with the LevelDirector and validate levels 1, 3, 7, 13, 21 and 29 first.
-6. Connect successful level completion to `ProfileManager.complete_level()`.
+The original enemy IDs used by level 1 map through makeenemy() to actor animation IDs:
+- enemy 1 → actor 3 → hangglider4.png
+- enemy 2 → actor 4 → basicflyer.png
+- enemy 7 → actor 9 → alientub.png
+- enemy 12 → actor 14 → pogo.png
+- enemy 13 → actor 15 → energysphere.png
+
+These source sprites are imported under assets/original_enemies/.
+
+### Gameplay environment and audio
+
+The gameplay scene now uses the original forest sky, two forest background layers and forest ground assets from gfx/background/, layered behind the player and HUD. The original music/main.ogg and music/boss.ogg are used as looping gameplay tracks. startlevel.bb starts track 1; the final level-1 event switches to track 3. Menu music is stopped while the gameplay scene is active and resumes when returning to the menu. The profile's music-enabled preference is respected.
+
+## Known parity limits
+
+This is the first connected runtime slice, not a complete port of the original 3D engine:
+- Dynamic spawn timing and caps follow the source data, but spawn-side selection and enemy AI/movement are still simplified.
+- Enemy sprite selection is source-mapped for level 1; health, weapon behavior, actor physics and animation details are not yet fully ported.
+- The forest background layers are arranged as a 2D layered scene; original texture-scroll speeds, sprite scales and actor parallax from dobackgrounds.bb are not yet reproduced exactly.
+- Boss archetypes and notify_boss_defeated() are not yet wired because level 1's final event is a scripted enemy spawn rather than a boss spawn.
+- The 14 intermediate campaign levels generated by makemorelevels() are not yet ported. Selecting a campaign level without an extracted seed template reports missing level data rather than silently substituting another level.
 
 ## Validation status
 
-Static source mapping has been reviewed. Godot runtime validation has not yet been performed for the newly added Resource and director scripts.
+GitHub contents and resource references were statically checked after each write. Godot 4.7 runtime validation and visual comparison against the original executable have not yet been performed.
