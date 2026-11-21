@@ -5,6 +5,7 @@ class_name LevelEventData
 @export_group("Trigger")
 @export_range(0.0, 100000.0, 1.0) var trigger_time: float = 0.0
 @export_range(0, 10, 1) var required_bosses_defeated: int = 0
+@export_range(0, 100, 1) var aggregate_enemy_limit: int = 0
 
 @export_group("Scene")
 @export_range(0, 10, 1) var background_id: int = 0
