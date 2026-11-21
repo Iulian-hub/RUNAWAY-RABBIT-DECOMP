@@ -3,11 +3,7 @@ const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
 @onready var player: Player = $Player
 @onready var enemies_root: Node2D = $Enemies
 @onready var projectiles_root: Node2D = $Projectiles
-@onready var sector_label: Label = $HUD/SectorLabel
-@onready var score_label: Label = $HUD/ScoreLabel
-@onready var health_label: Label = $HUD/HealthLabel
-@onready var bomb_label: Label = $HUD/BombLabel
-@onready var game_over_label: Label = $HUD/GameOverLabel
+@onready var gameplay_hud: GameplayHUD = $GameplayHUD
 var selected_level: int = 1
 var score: int = 0
 var _spawn_timer: float = 0.8
@@ -15,7 +11,7 @@ var _game_over: bool = false
 
 func _ready() -> void:
 	randomize()
-	sector_label.text = "SECTOR %02d" % selected_level
+	gameplay_hud.set_completion_percent(0.0)
 	ProfileManager.record_level_started(selected_level)
 	var viewport_size := get_viewport_rect().size
 	player.global_position = Vector2(90.0, viewport_size.y * 0.78)
@@ -24,8 +20,7 @@ func _ready() -> void:
 	player.bombs_changed.connect(_on_bombs_changed)
 	player.bomb_triggered.connect(_on_bomb_triggered)
 	player.died.connect(_on_player_died)
-	_on_health_changed(player.health)
-	_on_bombs_changed(player.bombs)
+	gameplay_hud.set_player_state(player.health, player.bombs, score)
 	_update_score()
 
 func _process(delta: float) -> void:
@@ -77,9 +72,9 @@ func _check_hits() -> void:
 			player.take_damage()
 
 func _on_health_changed(value: int) -> void:
-	health_label.text = "HULL  %d" % value
+	gameplay_hud.set_lives(value)
 func _on_bombs_changed(value: int) -> void:
-	bomb_label.text = "BOMBS  %d" % value
+	gameplay_hud.set_bombs(value)
 func _on_bomb_triggered() -> void:
 	var cleared_enemies := get_tree().get_nodes_in_group("enemies").size()
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -90,10 +85,10 @@ func _on_bomb_triggered() -> void:
 	_update_score()
 func _on_player_died() -> void:
 	_game_over = true
-	game_over_label.visible = true
+	gameplay_hud.show_center_message("GAME OVER")
 	ProfileManager.record_run(score)
 func _update_score() -> void:
-	score_label.text = "SCORE  %07d" % score
+	gameplay_hud.set_score(score)
 func _draw() -> void:
 	var size := get_viewport_rect().size
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.025, 0.045, 0.095))
