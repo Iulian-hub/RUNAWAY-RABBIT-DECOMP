@@ -98,7 +98,7 @@ func _process(delta: float) -> void:
 	var longest_time := maxf(1.0, _level_definition.get_last_trigger_time())
 	var progress_ratio := clampf(_level_director.level_time / longest_time, 0.0, 1.0)
 	# A mild ease-out keeps the HUD percentage from racing ahead early in the level.
-	var completion := minf(99.0, pow(progress_ratio, 1.18) * 99.0)
+	var completion := minf(99.0, pow(progress_ratio, 1.65) * 99.0)
 	gameplay_hud.set_completion_percent(completion)
 
 func _on_level_begun() -> void:
