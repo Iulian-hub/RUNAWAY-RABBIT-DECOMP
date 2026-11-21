@@ -1,16 +1,24 @@
 extends Node2D
+
+signal return_to_menu_requested
+
 const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
 @onready var player: Player = $Player
 @onready var enemies_root: Node2D = $Enemies
 @onready var projectiles_root: Node2D = $Projectiles
 @onready var gameplay_hud: GameplayHUD = $GameplayHUD
+@onready var pause_menu: GameplayPauseMenu = $GameplayPauseMenu
 var selected_level: int = 1
 var score: int = 0
 var _spawn_timer: float = 0.8
 var _game_over: bool = false
+var _is_paused: bool = false
 
 func _ready() -> void:
 	randomize()
+	pause_menu.resume_requested.connect(_resume_game)
+	pause_menu.restart_requested.connect(_restart_level)
+	pause_menu.main_menu_requested.connect(_return_to_menu)
 	gameplay_hud.set_completion_percent(0.0)
 	ProfileManager.record_level_started(selected_level)
 	var viewport_size := get_viewport_rect().size
@@ -25,8 +33,33 @@ func _ready() -> void:
 	gameplay_hud.set_shields(player.shields)
 	_update_score()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") and not _game_over and not _is_paused:
+		_pause_game()
+		get_viewport().set_input_as_handled()
+
+func _pause_game() -> void:
+	if _game_over or _is_paused:
+		return
+	_is_paused = true
+	get_tree().paused = true
+	pause_menu.open_menu()
+
+func _resume_game() -> void:
+	pause_menu.close_menu()
+	_is_paused = false
+	get_tree().paused = false
+
+func _restart_level() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+func _return_to_menu() -> void:
+	get_tree().paused = false
+	return_to_menu_requested.emit()
+
 func _process(delta: float) -> void:
-	if _game_over:
+	if _game_over or _is_paused:
 		return
 	_spawn_timer -= delta
 	if _spawn_timer <= 0.0:
