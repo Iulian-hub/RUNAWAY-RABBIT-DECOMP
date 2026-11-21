@@ -30,18 +30,18 @@ func _process(delta: float) -> void:
 	if not running or definition == null:
 		return
 
-	level_time += delta * definition.level_time_multiplier
-
-	# The original game checks only the next event. A boss-gated event therefore
-	# blocks later events even if their time threshold has already elapsed.
+	# Match dolevels.bb: the clock advances only up to the next event threshold.
+	# If its boss gate is closed, level time waits at that threshold.
 	if current_event_index < definition.events.size():
 		var next_event := definition.events[current_event_index]
-		if next_event != null and next_event.trigger_time > 0.0 and next_event.trigger_time <= level_time and bosses_defeated >= next_event.required_bosses_defeated:
-			current_event_index += 1
-			event_started.emit(next_event, current_event_index)
-			if next_event.completes_level:
-				_completion_pending = true
-
+		if next_event != null:
+			if next_event.trigger_time > 0.0 and level_time < next_event.trigger_time:
+				level_time = minf(level_time + delta * definition.level_time_multiplier, next_event.trigger_time)
+			if next_event.trigger_time > 0.0 and next_event.trigger_time <= level_time and bosses_defeated >= next_event.required_bosses_defeated:
+				current_event_index += 1
+				event_started.emit(next_event, current_event_index)
+				if next_event.completes_level:
+					_completion_pending = true
 	_try_finish_level()
 
 func notify_boss_defeated() -> void:
