@@ -17,7 +17,7 @@ script = ExtResource("1_player")
 position = Vector2(0, 0)
 
 [node name="ShieldVisual" type="Sprite2D" parent="."]
-position = Vector2(0, -37)
+position = Vector2(0, 0)
 z_index = 2
 material = SubResource("ShieldAdditiveMaterial")
 

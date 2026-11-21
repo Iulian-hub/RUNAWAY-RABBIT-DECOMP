@@ -9,7 +9,7 @@ signal died
 
 const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile.tscn")
 const PLAYER_SPRITE: Texture2D = preload("res://assets/original_player/hamsteranim.png")
-const SHIELD_TEXTURE: Texture2D = preload("res://assets/original_gameplay/shield.jpg")
+const SHIELD_TEXTURE: Texture2D = preload("res://assets/original_gameplay/shield.png")
 const SPRITE_FRAME_SIZE := Vector2i(128, 128)
 const SPRITE_FRAME_COUNT := 8
 
@@ -63,8 +63,8 @@ func _setup_original_animation() -> void:
 
 func _setup_shield_visual() -> void:
 	shield_visual.texture = SHIELD_TEXTURE
-	shield_visual.position = Vector2(0.0, -37.0)
-	shield_visual.scale = Vector2(0.62, 0.62)
+	shield_visual.position = Vector2.ZERO
+	shield_visual.scale = Vector2(0.70, 0.70)
 	shield_visual.z_index = 2
 	var additive_material := CanvasItemMaterial.new()
 	additive_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
