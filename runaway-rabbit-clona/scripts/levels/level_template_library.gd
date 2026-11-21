@@ -36,6 +36,7 @@ static func get_template(source_template_id: int, campaign_level: int = 0) -> Le
 		var event := LevelEventData.new()
 		event.trigger_time = float(fields.get("Field0", 0.0))
 		event.required_bosses_defeated = int(fields.get("Field1", 0))
+		event.aggregate_enemy_limit = int(fields.get("Field3", 0))
 		event.background_id = int(fields.get("Field2", 0))
 		event.music_id = int(fields.get("Field4", 0))
 		event.announcement = str(fields.get("Field25", ""))
@@ -52,6 +53,8 @@ static func get_template(source_template_id: int, campaign_level: int = 0) -> Le
 
 	if not definition.events.is_empty():
 		definition.initial_background_id = definition.events[0].background_id
+		definition.initial_dynamic_spawn_groups = definition.events[0].dynamic_spawn_groups.duplicate(true)
+		definition.initial_aggregate_enemy_limit = definition.events[0].aggregate_enemy_limit
 	return definition
 
 static func get_campaign_level(campaign_level: int) -> LevelDefinition:
