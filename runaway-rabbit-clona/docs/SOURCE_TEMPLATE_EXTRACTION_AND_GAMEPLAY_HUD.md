@@ -30,7 +30,7 @@ Maparea seed: 1→1, 2→2, 3→3, 4→4, 5→5, 6→7, 7→9, 8→11, 9→13, 1
 
 Interfața este definită în `Functions/loadgui.bb` și actualizată în `Functions/dohud.bb`. Scene Godot: `ui/gameplay_hud.tscn`, script: `scripts/ui/gameplay_hud.gd`.
 
-Au fost copiate în `assets/original_gameplay/` resursele originale `p1lives.png`, `p2lives.png`, `hudshield.png`, `hudbombs.png`, `fonts/font01.png` și `fonts/font02.png`.
+Au fost copiate în `assets/original_gameplay/` resursele originale `p1lives.png`, `p2lives.png`, `hudshield.png` și `hudbombs.png`. Fonturile `font01.png` și `font02.png` sunt reutilizate direct din `assets/original_ui/fonts/`, fără duplicate.
 
 `scripts/ui/bitmap_text.gd` reconstruiește randarea fontului Blitz3D: două atlasuri 8×8, ordinea caracterelor din `character_set`, tăierea marginilor transparente pe orizontală, spațiu de 0.3 din înălțimea fontului și aliniere centrală. Scenele HUD păstrează elementele ca noduri editabile.
 
