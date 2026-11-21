@@ -55,7 +55,6 @@ var _unlocked_level: int = 1
 func _ready() -> void:
 	_load_progress()
 	_update_canvas_scale()
-	_map_canvas.resized.connect(_update_canvas_scale)
 	_back_button.pressed.connect(func() -> void: back_requested.emit())
 	for index in range(_markers.get_child_count()):
 		var level_number := index + 1
@@ -70,6 +69,10 @@ func _ready() -> void:
 		marker.tooltip_text = "LEVEL %02d%s" % [level_number, " · BOSS" if boss_stage else ""] if unlocked else "LOCKED"
 		marker.pressed.connect(_on_level_pressed.bind(level_number))
 	_update_selection(_unlocked_level)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED and is_instance_valid(_map_canvas):
+		_update_canvas_scale()
 
 func _update_canvas_scale() -> void:
 	var viewport_size := get_viewport_rect().size
