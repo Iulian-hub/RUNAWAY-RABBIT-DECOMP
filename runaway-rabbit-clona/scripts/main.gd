@@ -17,10 +17,12 @@ func _ready() -> void:
 	player.global_position = Vector2(90.0, viewport_size.y * 0.78)
 	player.configure(projectiles_root)
 	player.health_changed.connect(_on_health_changed)
+	player.shields_changed.connect(_on_shields_changed)
 	player.bombs_changed.connect(_on_bombs_changed)
 	player.bomb_triggered.connect(_on_bomb_triggered)
 	player.died.connect(_on_player_died)
 	gameplay_hud.set_player_state(player.health, player.bombs, score)
+	gameplay_hud.set_shields(player.shields)
 	_update_score()
 
 func _process(delta: float) -> void:
@@ -57,7 +59,7 @@ func _check_hits() -> void:
 			if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 				continue
 			var enemy := enemy_node as Enemy
-			if projectile.global_position.distance_squared_to(enemy.global_position) < 420.0:
+			if projectile.global_position.distance_squared_to(enemy.global_position) < 1800.0:
 				projectile.queue_free()
 				enemy.queue_free()
 				score += 100
@@ -67,14 +69,19 @@ func _check_hits() -> void:
 		if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 			continue
 		var enemy := enemy_node as Enemy
-		if player.global_position.distance_squared_to(enemy.global_position) < 1150.0:
+		if player.global_position.distance_squared_to(enemy.global_position) < 2200.0:
 			enemy.queue_free()
 			player.take_damage()
 
 func _on_health_changed(value: int) -> void:
 	gameplay_hud.set_lives(value)
+
+func _on_shields_changed(value: int) -> void:
+	gameplay_hud.set_shields(value)
+
 func _on_bombs_changed(value: int) -> void:
 	gameplay_hud.set_bombs(value)
+
 func _on_bomb_triggered() -> void:
 	var cleared_enemies := get_tree().get_nodes_in_group("enemies").size()
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -83,12 +90,15 @@ func _on_bomb_triggered() -> void:
 		projectile.queue_free()
 	score += 250 * cleared_enemies
 	_update_score()
+
 func _on_player_died() -> void:
 	_game_over = true
 	gameplay_hud.show_center_message("GAME OVER")
 	ProfileManager.record_run(score)
+
 func _update_score() -> void:
 	gameplay_hud.set_score(score)
+
 func _draw() -> void:
 	var size := get_viewport_rect().size
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.025, 0.045, 0.095))
