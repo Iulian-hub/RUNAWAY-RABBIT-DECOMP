@@ -22,7 +22,7 @@ func start_level(level_definition: LevelDefinition) -> void:
 	level_time = 0.0
 	bosses_defeated = 0
 	active_enemy_count = 0
-	current_event_index = 0
+	current_event_index = 1
 	_completion_pending = false
 	running = true
 
