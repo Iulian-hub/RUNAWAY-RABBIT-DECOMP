@@ -261,8 +261,8 @@ func _on_bomb_triggered() -> void:
 func _player_ground_y() -> float:
 	return get_viewport_rect().size.y * GROUND_TOP_RATIO - PLAYER_SPRITE_HALF_HEIGHT + PLAYER_GROUND_SINK
 
-func _connect_player(candidate: Player) -> void:
-	candidate.configure(projectiles_root)
+func _connect_player(candidate: Player, health_value: int = -1) -> void:
+	candidate.configure(projectiles_root, health_value)
 	candidate.health_changed.connect(_on_health_changed)
 	candidate.shields_changed.connect(_on_shields_changed)
 	candidate.bombs_changed.connect(_on_bombs_changed)
@@ -287,8 +287,7 @@ func _on_player_life_lost(remaining_health: int) -> void:
 		return
 
 	var replacement := preload("res://scenes/player.tscn").instantiate() as Player
-	replacement.configure(projectiles_root, remaining_health)
-	_connect_player(replacement)
+	_connect_player(replacement, remaining_health)
 	add_child(replacement)
 	player = replacement
 	var viewport_size := get_viewport_rect().size

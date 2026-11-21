@@ -120,9 +120,8 @@ func take_damage(amount: int = 1) -> void:
 		return
 	health = maxi(0, health - amount)
 	health_changed.emit(health)
-	if health == 0:
-		_is_dead = true
-		life_lost.emit(health)
+	_is_dead = true
+	life_lost.emit(health)
 
 
 func play_death_animation() -> void:
