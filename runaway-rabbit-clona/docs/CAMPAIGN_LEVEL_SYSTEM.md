@@ -20,7 +20,7 @@ The verified seed mapping is 1→1, 2→2, 3→3, 4→4, 5→5, 6→7, 7→9, 8�
 
 ### Source clock and completion percentage
 
-The original dolevels.bb increments leveltime using frame-scaled fl\\Field1, not seconds. The Godot director converts delta to 60 source ticks per second and applies the original level-1 multiplier of 2.2. It pauses the level clock at the next event threshold until its boss requirement is satisfied.
+The original setspeedfactor.bb calculates fl\\Field1 as elapsed milliseconds divided by the 60 FPS frame duration, capped at 3.0. The Godot director reproduces that frame factor from delta, applies the original level-1 multiplier of 2.2, and pauses the level clock at the next event threshold until its boss requirement is satisfied.
 
 For level 1, the final source trigger is 10800. The HUD follows the progress model used by the original special-mode logic: level_time / longest_time * 99. It stays capped at 99% after the final trigger until the completion event's remaining enemies are cleared; only then does it become 100%.
 
@@ -28,7 +28,7 @@ The original normal-mode start delay is 180 source ticks (3 seconds) and is repr
 
 ### Level 1 event flow
 
-Level 1 is loaded from source template 1. Its first event's dynamic spawn groups are active at level start. Later events replace the active group definitions using Field22–Field24 and enforce Field3 as the aggregate active-enemy cap. Spawn probability is approximated from the source interval in Field23; the per-type limit comes from Field24.
+Level 1 is loaded from source template 1. Its first event's dynamic spawn groups are active at level start. Later events replace the active group definitions using Field22–Field24 and enforce Field3 as the aggregate active-enemy cap. Spawn rolls reproduce controlenemies.bb: a random integer from 1 to max(2, int(Field23 / frame_factor)) must equal 2; the per-type limit comes from Field24.
 
 At the final event, Field4=3 changes the music to the original boss track, Field5[1]=13 spawns the original enemy type 13, and Field26=1 marks the level as complete-pending. The director waits until that enemy is removed before firing level_completed, setting 100%, and calling ProfileManager.complete_level().
 
