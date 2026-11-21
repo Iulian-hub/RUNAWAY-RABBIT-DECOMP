@@ -1,0 +1,166 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/profile_select.gd" id="1_script"]
+
+[node name="ProfileSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.012, 0.025, 0.05, 1)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -325.0
+offset_right = 490.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "PLAYER PROFILES"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 13
+text = "TEN INDEPENDENT SAVE SLOTS"
+horizontal_alignment = 1
+
+[node name="SelectedLabel" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
+text = "SELECT A PROFILE OR CREATE A NEW ONE"
+horizontal_alignment = 1
+
+[node name="Body" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="SlotGrid" type="GridContainer" parent="Panel/Content/Body"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="Slot01" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "01  ·  EMPTY SLOT"
+[node name="Slot02" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "02  ·  EMPTY SLOT"
+[node name="Slot03" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "03  ·  EMPTY SLOT"
+[node name="Slot04" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "04  ·  EMPTY SLOT"
+[node name="Slot05" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "05  ·  EMPTY SLOT"
+[node name="Slot06" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "06  ·  EMPTY SLOT"
+[node name="Slot07" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "07  ·  EMPTY SLOT"
+[node name="Slot08" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "08  ·  EMPTY SLOT"
+[node name="Slot09" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "09  ·  EMPTY SLOT"
+[node name="Slot10" type="Button" parent="Panel/Content/Body/SlotGrid"]
+custom_minimum_size = Vector2(270, 54)
+layout_mode = 2
+text = "10  ·  EMPTY SLOT"
+
+[node name="CreatePanel" type="VBoxContainer" parent="Panel/Content/Body"]
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CreateTitle" type="Label" parent="Panel/Content/Body/CreatePanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "NEW PROFILE"
+horizontal_alignment = 1
+
+[node name="ProfileName" type="LineEdit" parent="Panel/Content/Body/CreatePanel"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+placeholder_text = "PLAYER NAME"
+max_length = 16
+
+[node name="DifficultyLabel" type="Label" parent="Panel/Content/Body/CreatePanel"]
+layout_mode = 2
+text = "DIFFICULTY"
+
+[node name="Difficulty" type="OptionButton" parent="Panel/Content/Body/CreatePanel"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CreateProfileButton" type="Button" parent="Panel/Content/Body/CreatePanel"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "CREATE PROFILE"
+
+[node name="UseProfileButton" type="Button" parent="Panel/Content/Body/CreatePanel"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+disabled = true
+text = "USE SELECTED PROFILE"
+
+[node name="DeleteProfileButton" type="Button" parent="Panel/Content/Body/CreatePanel"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+disabled = true
+text = "DELETE PROFILE"
+
+[node name="BackButton" type="Button" parent="Panel/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "BACK TO MENU"
+
+[node name="ConfirmDelete" type="ConfirmationDialog" parent="."]
+title = "DELETE PROFILE"
+dialog_text = "Delete this profile and all of its saved progress?"
