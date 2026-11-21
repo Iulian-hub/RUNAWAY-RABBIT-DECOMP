@@ -9,6 +9,8 @@ Fișierul `runaway-rabbit-clona/data/source_level_templates.json` conține toate
 - indexurile array-urilor originale (1-based);
 - expresia brută și numărul liniei pentru fiecare atribuire, inclusiv expresiile care nu sunt literali.
 
+În total au fost extrase 220 de evenimente și 3.316 atribuiri de câmp. Patru atribuiri folosesc `local6`/`local7`; am verificat că aceste variabile locale nu sunt inițializate nicăieri în `EntryPoint()`, deci valoarea numerică implicită Blitz BASIC este 0. Expresia originală rămâne păstrată în `raw_assignments`, împreună cu valoarea rezolvată.
+
 Numărul de evenimente extrase per template este: 1=11, 2=12, 3=14, 4=16, 5=16, 6=14, 7=15, 8=16, 9=14, 10=16, 11=16, 12=14, 13=16, 14=16, 15=14.
 
 ## Loader Godot
