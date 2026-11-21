@@ -36,7 +36,7 @@ func _normalize_profile(raw: Variant) -> Dictionary:
 		return {}
 	var profile: Dictionary = raw.duplicate(true)
 	profile["name"] = str(profile.get("name", "PLAYER"))
-	profile["difficulty"] = clampi(int(profile.get("difficulty", 2)), 1, 4)
+	profile.erase("difficulty")
 	profile["current_level"] = clampi(int(profile.get("current_level", 1)), 1, MAX_LEVEL)
 	profile["sound_enabled"] = bool(profile.get("sound_enabled", true))
 	profile["music_enabled"] = bool(profile.get("music_enabled", true))
@@ -48,30 +48,26 @@ func _normalize_profile(raw: Variant) -> Dictionary:
 	profile["best_score"] = maxi(0, int(profile.get("best_score", 0)))
 	profile["total_score"] = maxi(0, int(profile.get("total_score", 0)))
 	var upgrades: Dictionary = profile.get("upgrades", {})
-	var defaults := _default_upgrades(profile["difficulty"])
+	var defaults := _default_upgrades()
 	for key in defaults:
 		upgrades[key] = maxi(0, int(upgrades.get(key, defaults[key])))
 	profile["upgrades"] = upgrades
 	return profile
 
-func _default_upgrades(difficulty: int) -> Dictionary:
-	var starting_values := {
-		1: {"weapon_primary": 2, "weapon_secondary": 4, "weapon_special": 3},
-		2: {"weapon_primary": 2, "weapon_secondary": 3, "weapon_special": 2},
-		3: {"weapon_primary": 2, "weapon_secondary": 2, "weapon_special": 1},
-		4: {"weapon_primary": 2, "weapon_secondary": 1, "weapon_special": 1}
-	}
-	var selected: Dictionary = starting_values.get(difficulty, starting_values[2]).duplicate(true)
-	selected.merge({
+func _default_upgrades() -> Dictionary:
+	# Fixed original starting loadout (the former NORMAL preset).
+	return {
+		"weapon_primary": 2,
+		"weapon_secondary": 3,
+		"weapon_special": 2,
 		"upgrade_1": 1,
 		"upgrade_2": 1,
 		"upgrade_3": 0,
 		"upgrade_4": 0,
 		"upgrade_5": 0
-	}, true)
-	return selected
+	}
 
-func create_profile(profile_name: String, difficulty: int) -> int:
+func create_profile(profile_name: String) -> int:
 	var clean_name := profile_name.strip_edges()
 	if clean_name.is_empty():
 		return 0
@@ -80,7 +76,6 @@ func create_profile(profile_name: String, difficulty: int) -> int:
 		if slots[index].is_empty():
 			slots[index] = {
 				"name": clean_name,
-				"difficulty": clampi(difficulty, 1, 4),
 				"current_level": 1,
 				"sound_enabled": true,
 				"music_enabled": true,
@@ -91,7 +86,7 @@ func create_profile(profile_name: String, difficulty: int) -> int:
 				"last_played_level": 1,
 				"best_score": 0,
 				"total_score": 0,
-				"upgrades": _default_upgrades(difficulty)
+				"upgrades": _default_upgrades()
 			}
 			active_slot = index + 1
 			save_profiles()
