@@ -5,7 +5,7 @@ signal health_changed(value: int)
 signal shields_changed(value: int)
 signal bombs_changed(value: int)
 signal bomb_triggered
-signal died
+signal life_lost(remaining_health: int)
 
 const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile.tscn")
 const PLAYER_SPRITE: Texture2D = preload("res://assets/original_player/hamsteranim.png")
@@ -26,12 +26,14 @@ var projectile_parent: Node2D
 var _fire_timer: float = 0.0
 var _damage_flash: float = 0.0
 var _is_dead: bool = false
+var _configured_health: int = -1
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shield_visual: Sprite2D = $ShieldVisual
+@onready var death_visual: Sprite2D = $DeathVisual
 
 func _ready() -> void:
-	health = max_health
+	health = max_health if _configured_health < 0 else clampi(_configured_health, 0, max_health)
 	shields = max_shields
 	bombs = starting_bombs
 	_setup_original_animation()
@@ -71,8 +73,9 @@ func _setup_shield_visual() -> void:
 	shield_visual.material = additive_material
 	shield_visual.visible = shields > 0
 
-func configure(projectile_root: Node2D) -> void:
+func configure(projectile_root: Node2D, health_value: int = -1) -> void:
 	projectile_parent = projectile_root
+	_configured_health = health_value
 
 func _physics_process(delta: float) -> void:
 	if _is_dead:
@@ -119,4 +122,17 @@ func take_damage(amount: int = 1) -> void:
 	health_changed.emit(health)
 	if health == 0:
 		_is_dead = true
-		died.emit()
+		life_lost.emit(health)
+
+
+func play_death_animation() -> void:
+	_is_dead = true
+	sprite.visible = false
+	shield_visual.visible = false
+	$CollisionShape2D.set_deferred("disabled", true)
+	death_visual.visible = true
+	death_visual.position = Vector2.ZERO
+	var death_tween := create_tween()
+	death_tween.tween_property(death_visual, "position", Vector2(0.0, -28.0), 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	death_tween.tween_property(death_visual, "position", Vector2.ZERO, 0.28).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	await death_tween.finished

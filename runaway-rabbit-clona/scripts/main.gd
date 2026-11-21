@@ -8,6 +8,7 @@ const MAIN_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/ma
 const BOSS_MUSIC: AudioStreamOggVorbis = preload("res://assets/original_audio/boss.ogg")
 const GROUND_TOP_RATIO: float = 0.92
 const PLAYER_SPRITE_HALF_HEIGHT: float = 44.8
+const PLAYER_GROUND_SINK: float = 12.0
 
 @onready var player: Player = $Player
 @onready var enemies_root: Node2D = $Enemies
@@ -26,6 +27,7 @@ var _level_definition: LevelDefinition
 var _active_dynamic_groups: Array[Dictionary] = []
 var _aggregate_enemy_limit: int = 10
 var _current_music_id: int = -1
+var _respawning: bool = false
 
 func _ready() -> void:
 	randomize()
@@ -56,13 +58,8 @@ func _ready() -> void:
 	ProfileManager.record_level_started(selected_level)
 
 	var viewport_size := get_viewport_rect().size
-	player.global_position = Vector2(90.0, viewport_size.y * GROUND_TOP_RATIO - PLAYER_SPRITE_HALF_HEIGHT)
-	player.configure(projectiles_root)
-	player.health_changed.connect(_on_health_changed)
-	player.shields_changed.connect(_on_shields_changed)
-	player.bombs_changed.connect(_on_bombs_changed)
-	player.bomb_triggered.connect(_on_bomb_triggered)
-	player.died.connect(_on_player_died)
+	player.global_position = Vector2(90.0, _player_ground_y())
+	_connect_player(player)
 	gameplay_hud.set_player_state(player.health, player.bombs, score)
 	gameplay_hud.set_shields(player.shields)
 	_update_score()
@@ -93,7 +90,7 @@ func _return_to_menu() -> void:
 	return_to_menu_requested.emit()
 
 func _process(delta: float) -> void:
-	if _game_over or _level_finished or _is_paused or _level_director == null or not _level_director.has_begun:
+	if _game_over or _level_finished or _is_paused or _respawning or _level_director == null or not _level_director.has_begun:
 		return
 	_update_dynamic_spawns(delta)
 	_check_hits()
@@ -192,6 +189,8 @@ func _set_music(music_id: int) -> void:
 	_current_music_id = music_id
 
 func _check_hits() -> void:
+	if _respawning or not is_instance_valid(player):
+		return
 	var enemies := get_tree().get_nodes_in_group("enemies")
 	var ground_impact_y := get_viewport_rect().size.y * GROUND_TOP_RATIO
 
@@ -259,12 +258,45 @@ func _on_bomb_triggered() -> void:
 	if _level_director != null:
 		_level_director.set_active_enemy_count(0)
 
-func _on_player_died() -> void:
-	_game_over = true
-	if _level_director != null:
-		_level_director.stop_level()
-	gameplay_hud.show_center_message("GAME OVER")
-	ProfileManager.record_run(score)
+func _player_ground_y() -> float:
+	return get_viewport_rect().size.y * GROUND_TOP_RATIO - PLAYER_SPRITE_HALF_HEIGHT + PLAYER_GROUND_SINK
+
+func _connect_player(candidate: Player) -> void:
+	candidate.configure(projectiles_root)
+	candidate.health_changed.connect(_on_health_changed)
+	candidate.shields_changed.connect(_on_shields_changed)
+	candidate.bombs_changed.connect(_on_bombs_changed)
+	candidate.bomb_triggered.connect(_on_bomb_triggered)
+	candidate.life_lost.connect(_on_player_life_lost)
+
+func _on_player_life_lost(remaining_health: int) -> void:
+	if _respawning or _game_over:
+		return
+	_respawning = true
+	var defeated_player := player
+	await defeated_player.play_death_animation()
+	_spawn_explosion(defeated_player.global_position, 1.15)
+	defeated_player.queue_free()
+
+	if remaining_health <= 0:
+		_game_over = true
+		if _level_director != null:
+			_level_director.stop_level()
+		gameplay_hud.show_center_message("GAME OVER")
+		ProfileManager.record_run(score)
+		return
+
+	var replacement := preload("res://scenes/player.tscn").instantiate() as Player
+	replacement.configure(projectiles_root, remaining_health)
+	_connect_player(replacement)
+	add_child(replacement)
+	player = replacement
+	var viewport_size := get_viewport_rect().size
+	player.global_position = Vector2(-64.0, _player_ground_y())
+	var arrival := create_tween()
+	arrival.tween_property(player, "global_position", Vector2(viewport_size.x * 0.5, _player_ground_y()), 0.85).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await arrival.finished
+	_respawning = false
 
 func _on_level_completed() -> void:
 	_level_finished = true
