@@ -3,14 +3,13 @@ class_name GameplayHUD
 ## Recreates the original loadgui.bb / dohud.bb gameplay HUD layout.
 
 const DESIGN_SIZE := Vector2(640.0, 480.0)
-const RESOURCE_ICON_WIDTH := 24.0
 @onready var content: Control = $Content
 @onready var lives_text: BitmapText = $Content/Player1LivesText
 @onready var score_text: BitmapText = $Content/Player1Score
 @onready var bombs_bar: TextureRect = $Content/Player1Bombs
 @onready var shield_bar: TextureRect = $Content/Player1Shields
-@onready var bombs_source_texture: Texture2D = bombs_bar.texture
-@onready var shield_source_texture: Texture2D = shield_bar.texture
+@onready var bombs_text: BitmapText = $Content/Player1BombsText
+@onready var shields_text: BitmapText = $Content/Player1ShieldsText
 @onready var beam_bar: ColorRect = $Content/Player1BeamLaser
 @onready var completion_text: BitmapText = $Content/CompletionText
 @onready var center_message: BitmapText = $Content/CenterMessage
@@ -44,34 +43,17 @@ func set_lives(value: int) -> void:
 	lives_text.text = str(maxi(0, value))
 
 func set_bombs(value: int) -> void:
-	_set_resource_bar(bombs_bar, bombs_source_texture, value, 24.0)
+	bombs_text.text = str(maxi(0, value))
+	bombs_bar.visible = value > 0
+	bombs_text.visible = value > 0
 
 func set_score(value: int) -> void:
 	score_text.text = "$" + str(maxi(0, value)).pad_zeros(7)
 
 func set_shields(value: int) -> void:
-	_set_resource_bar(shield_bar, shield_source_texture, value, 16.0)
-
-func _set_resource_bar(bar: TextureRect, source_texture: Texture2D, count: int, display_height: float) -> void:
-	if source_texture == null:
-		return
-	var safe_count := clampi(count, 0, 3)
-	bar.visible = safe_count > 0
-	if safe_count == 0:
-		return
-
-	# Blitz3D's ScaleTexture(tex, 1/count, 1) displayed the first
-	# 1/count portion of the source texture across a count*24 by H sprite.
-	var frame := AtlasTexture.new()
-	frame.atlas = source_texture
-	frame.region = Rect2(
-		0.0,
-		0.0,
-		source_texture.get_width() / float(safe_count),
-		source_texture.get_height()
-	)
-	bar.texture = frame
-	bar.size = Vector2(RESOURCE_ICON_WIDTH * safe_count, display_height)
+	shields_text.text = str(maxi(0, value))
+	shield_bar.visible = value > 0
+	shields_text.visible = value > 0
 
 func set_beam_charge(value: float) -> void:
 	var ratio := clampf(value, 0.01, 1.0)
