@@ -2,7 +2,14 @@ extends Area2D
 class_name Enemy
 
 const FRAME_SIZE := Vector2i(128, 128)
-const ENEMY_ANIMATIONS: Array[Dictionary] = [
+const LEVEL_ONE_ENEMY_TYPES := {
+	1: {"path": "res://assets/original_enemies/hangglider4.png", "frames": 4, "speed": 10.0},
+	2: {"path": "res://assets/original_enemies/basicflyer.png", "frames": 2, "speed": 10.0},
+	7: {"path": "res://assets/original_enemies/alientub.png", "frames": 1, "speed": 5.0},
+	12: {"path": "res://assets/original_enemies/pogo.png", "frames": 6, "speed": 2.0},
+	13: {"path": "res://assets/original_enemies/energysphere.png", "frames": 2, "speed": 5.0}
+}
+const FALLBACK_ANIMATIONS: Array[Dictionary] = [
 	{"path": "res://assets/original_enemies/basicflyer.png", "frames": 2, "speed": 10.0},
 	{"path": "res://assets/original_enemies/advancedflyer.png", "frames": 2, "speed": 10.0},
 	{"path": "res://assets/original_enemies/divefighter.png", "frames": 1, "speed": 5.0},
@@ -15,15 +22,24 @@ const ENEMY_ANIMATIONS: Array[Dictionary] = [
 @export var maximum_speed: float = 245.0
 
 var speed: float
+var enemy_type_id: int = 0
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+func configure_enemy_type(type_id: int) -> void:
+	enemy_type_id = type_id
 
 func _ready() -> void:
 	add_to_group("enemies")
+	set_meta("enemy_type_id", enemy_type_id)
 	speed = randf_range(minimum_speed, maximum_speed)
 	_setup_original_animation()
 
 func _setup_original_animation() -> void:
-	var definition: Dictionary = ENEMY_ANIMATIONS[randi_range(0, ENEMY_ANIMATIONS.size() - 1)]
+	var definition: Dictionary
+	if LEVEL_ONE_ENEMY_TYPES.has(enemy_type_id):
+		definition = LEVEL_ONE_ENEMY_TYPES[enemy_type_id]
+	else:
+		definition = FALLBACK_ANIMATIONS[randi_range(0, FALLBACK_ANIMATIONS.size() - 1)]
 	var texture := load(str(definition["path"])) as Texture2D
 	if texture == null:
 		push_warning("Could not load original enemy sprite: %s" % definition["path"])
