@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/splash_screen.gd" id="1_splash"]
+[ext_resource type="Script" path="res://scripts/ui/splash_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/jaggedlogo.jpg" id="2_logo"]
 
 [node name="SplashScreen" type="Control"]
 layout_mode = 3
@@ -9,4 +10,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_splash")
+script = ExtResource("1_script")
+
+[node name="Artwork" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.015, 0.04, 0.28)
+
+[node name="Prompt" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -78.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.027, 0.063, 0.122, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "PRESS ANY KEY TO CONTINUE"
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.753, 0.816, 0.863, 1)
+theme_override_font_sizes/font_size = 10
+text = "GODOT RECONSTRUCTION"
+horizontal_alignment = 1
