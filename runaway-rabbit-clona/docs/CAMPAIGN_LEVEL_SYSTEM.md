@@ -57,3 +57,11 @@ This is the first connected runtime slice, not a complete port of the original 3
 ## Validation status
 
 GitHub contents and resource references were statically checked after each write. Godot 4.7 runtime validation and visual comparison against the original executable have not yet been performed.
+
+## Visual adjustments after first gameplay integration
+
+- Player and enemy sprite scale increased from 0.55 to 0.70; their circular collision shapes were enlarged proportionally.
+- Projectile and player/enemy proximity thresholds were increased to reflect the larger character sprites.
+- Completion HUD uses a mild power curve (exponent 1.18) so the displayed percentage advances more gradually early in the level without changing the source event clock or spawn schedule.
+- Shield and bomb icon/count rows were shifted slightly down and aligned on the same baselines, with a clearer gap.
+- The original sky, far forest, mid forest and ground now scroll horizontally at separate rates through a shared CanvasItem shader, creating multi-plane parallax. The background controller is part of the gameplay scene and pauses with the scene tree.
