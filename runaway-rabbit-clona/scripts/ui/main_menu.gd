@@ -96,40 +96,6 @@ func _spawn_menu_enemy() -> void:
 	_enemy_layer.add_child(enemy)
 	enemy.play("default")
 
-func _add_animated_background_layer(texture: Texture2D, scroll_speed: float, tint: Color, layer_top: float = -1.0, layer_height: float = -1.0, repeat_count: float = 1.0) -> void:
-	var layer := TextureRect.new()
-	layer.texture = texture
-	layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	if layer_height > 0.0:
-		layer.stretch_mode = TextureRect.STRETCH_SCALE
-		layer.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-		layer.offset_top = layer_top
-		layer.offset_bottom = layer_top + layer_height
-	else:
-		layer.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-		layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.modulate = tint
-	var material := ShaderMaterial.new()
-	material.shader = PARALLAX_SHADER
-	material.set_shader_parameter("layer_texture", texture)
-	material.set_shader_parameter("scroll_speed", scroll_speed)
-	material.set_shader_parameter("repeat_count", repeat_count)
-	layer.material = material
-	add_child(layer)
-
-func _panel_style() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.025, 0.075, 0.12, 0.42)
-	style.border_color = Color(0.30, 0.72, 0.86, 0.42)
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(12)
-	style.content_margin_left = 30.0
-	style.content_margin_right = 30.0
-	style.content_margin_top = 24.0
-	style.content_margin_bottom = 24.0
-	return style
-
 func _make_button(label_text: String) -> Button:
 	var button := Button.new()
 	button.text = label_text
