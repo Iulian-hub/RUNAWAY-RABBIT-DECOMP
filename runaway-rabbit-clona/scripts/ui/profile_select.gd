@@ -22,7 +22,7 @@ func _ready() -> void:
 	_difficulty.select(1)
 	$Panel/Content/Body/CreatePanel/CreateProfileButton.pressed.connect(_create_profile)
 	_use_button.pressed.connect(_use_selected_profile)
-	_delete_button.pressed.connect(_confirm_delete.popup_centered)
+	_delete_button.pressed.connect(func() -> void: _confirm_delete.popup_centered())
 	$Panel/Content/BackButton.pressed.connect(func() -> void: back_requested.emit())
 	_confirm_delete.confirmed.connect(_delete_selected_profile)
 	for index in range(_slot_grid.get_child_count()):
@@ -32,6 +32,8 @@ func _ready() -> void:
 	_refresh_slots()
 
 func _on_slot_pressed(slot_number: int) -> void:
+	for child in _slot_grid.get_children():
+		(child as Button).button_pressed = false
 	var profile := ProfileManager.get_profile(slot_number)
 	if profile.is_empty():
 		_selected_slot = 0
