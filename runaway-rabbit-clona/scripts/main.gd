@@ -47,7 +47,14 @@ func _spawn_enemy() -> void:
 	var enemy := ENEMY_SCENE.instantiate() as Enemy
 	enemies_root.add_child(enemy)
 	var viewport_size := get_viewport_rect().size
-	enemy.global_position = Vector2(viewport_size.x + 36.0, randf_range(75.0, viewport_size.y - 75.0))
+	# Source parity: doenemiesend.bb uses the default Blitz3D spawn band Y=-50..275.
+	# Convert its center-origin, upward-positive Y coordinates to Godot's top-origin,
+	# downward-positive screen coordinates: screen_y = viewport_center_y - source_y.
+	var source_spawn_y_min := -50.0
+	var source_spawn_y_max := 275.0
+	var spawn_y_min := viewport_size.y * 0.5 - source_spawn_y_max
+	var spawn_y_max := viewport_size.y * 0.5 - source_spawn_y_min
+	enemy.global_position = Vector2(viewport_size.x + 36.0, randf_range(spawn_y_min, spawn_y_max))
 	enemy.speed += minf(_elapsed * 0.35, 90.0)
 
 func _check_hits() -> void:
