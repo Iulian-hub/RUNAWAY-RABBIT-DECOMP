@@ -203,6 +203,120 @@ size_flags_vertical = 3
 theme_override_constants/separation = 11
 alignment = 1
 
+[node name="HomePage" type="VBoxContainer" parent="MenuPanel/MenuContent"]
+layout_mode = 2
+theme_override_constants/separation = 11
+alignment = 1
+
+[node name="PageTitle" type="Label" parent="MenuPanel/MenuContent/HomePage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945, 0.969, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "MAIN MENU"
+horizontal_alignment = 1
+
+[node name="PageSubtitle" type="Label" parent="MenuPanel/MenuContent/HomePage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.847, 0.929, 1)
+theme_override_font_sizes/font_size = 11
+text = "SELECT YOUR NEXT MOVE"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "START GAME"
+
+[node name="InstructionsButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "INSTRUCTIONS"
+
+[node name="ScoresButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "HIGH SCORES"
+
+[node name="OptionsButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="QuitButton" type="Button" parent="MenuPanel/MenuContent/HomePage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "EXIT GAME"
+
+[node name="ScoresPage" type="VBoxContainer" parent="MenuPanel/MenuContent"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PageTitle" type="Label" parent="MenuPanel/MenuContent/ScoresPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945, 0.969, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "HIGH SCORES"
+horizontal_alignment = 1
+
+[node name="PageSubtitle" type="Label" parent="MenuPanel/MenuContent/ScoresPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.847, 0.929, 1)
+theme_override_font_sizes/font_size = 11
+text = "LOCAL SCORE TABLE"
+horizontal_alignment = 1
+
+[node name="EmptyScores" type="Label" parent="MenuPanel/MenuContent/ScoresPage"]
+custom_minimum_size = Vector2(330, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.71, 0.78, 0.85, 1)
+theme_override_font_sizes/font_size = 13
+text = "NO SCORES YET\nThe original score table will be connected in a later milestone."
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoresBackButton" type="Button" parent="MenuPanel/MenuContent/ScoresPage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "BACK"
+
+[node name="OptionsPage" type="VBoxContainer" parent="MenuPanel/MenuContent"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PageTitle" type="Label" parent="MenuPanel/MenuContent/OptionsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945, 0.969, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="PageSubtitle" type="Label" parent="MenuPanel/MenuContent/OptionsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.847, 0.929, 1)
+theme_override_font_sizes/font_size = 11
+text = "PREFERENCES ARE SAVED LOCALLY"
+horizontal_alignment = 1
+
+[node name="MusicToggle" type="CheckButton" parent="MenuPanel/MenuContent/OptionsPage"]
+custom_minimum_size = Vector2(330, 42)
+layout_mode = 2
+text = "MUSIC"
+
+[node name="SoundToggle" type="CheckButton" parent="MenuPanel/MenuContent/OptionsPage"]
+custom_minimum_size = Vector2(330, 42)
+layout_mode = 2
+text = "SOUND EFFECTS"
+
+[node name="OptionsBackButton" type="Button" parent="MenuPanel/MenuContent/OptionsPage"]
+custom_minimum_size = Vector2(330, 43)
+layout_mode = 2
+text = "BACK"
+
 [node name="Footer" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 12
