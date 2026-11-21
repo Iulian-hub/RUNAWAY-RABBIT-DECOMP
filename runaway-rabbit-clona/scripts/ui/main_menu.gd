@@ -88,7 +88,7 @@ func _show_home() -> void:
 
 func _show_scores() -> void:
 	var profile := ProfileManager.get_active_profile()
-	$MenuPanel/MenuContent/ScoresPage/EmptyScores.text = "BEST SCORE: %07d\\nTOTAL SCORE: %07d\\nCAMPAIGN PROGRESS: %02d / 29\\nCASH: $%d" % [int(profile.get("best_score", 0)), int(profile.get("total_score", 0)), int(profile.get("current_level", 1)), int(profile.get("cash", 0))]
+	$MenuPanel/MenuContent/ScoresPage/EmptyScores.text = "BEST SCORE: %07d\nTOTAL SCORE: %07d\nCAMPAIGN PROGRESS: %02d / 29\nCASH: $%d" % [int(profile.get("best_score", 0)), int(profile.get("total_score", 0)), int(profile.get("current_level", 1)), int(profile.get("cash", 0))]
 	_home_page.visible = false
 	_scores_page.visible = true
 	_options_page.visible = false
