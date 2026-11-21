@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" path="res://assets/original_gameplay/p2lives.png" id="4_p2"]
 [ext_resource type="Texture2D" path="res://assets/original_gameplay/hudshield.png" id="5_shield"]
 [ext_resource type="Texture2D" path="res://assets/original_gameplay/hudbombs.png" id="6_bombs"]
-[ext_resource type="Texture2D" path="res://assets/original_gameplay/fonts/font01.png" id="7_font1"]
-[ext_resource type="Texture2D" path="res://assets/original_gameplay/fonts/font02.png" id="8_font2"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/fonts/font01.png" id="7_font1"]
+[ext_resource type="Texture2D" path="res://assets/original_ui/fonts/font02.png" id="8_font2"]
 
 [node name="GameplayHUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
