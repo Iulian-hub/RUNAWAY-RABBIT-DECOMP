@@ -19,7 +19,7 @@ The original `levelevent` fields are mapped in `docs/LEVEL_DATA_CATALOG.md`. The
 - `scripts/levels/level_definition.gd`: typed Resource representing one generated campaign level and its ordered event list.
 - `scripts/levels/level_director.gd`: event sequencer. It advances the level clock, checks the next event only, gates events on bosses defeated, and delays victory until the active enemy count reaches zero. This mirrors the important control flow in `dolevels.bb`.
 
-These models are the foundation, not a claim that the 29 level datasets or enemy archetypes have already been ported. The event resources will be populated from the original `EntryPoint.bb` data after the source-template extractor and enemy catalog are completed.
+The 15 original source templates have now been extracted into `data/source_level_templates.json`. `LevelTemplateLibrary` loads them into the typed Resources while retaining all original Field0–Field30 data in `source_fields`. This does not yet generate the 14 intermediate campaign levels or execute source enemy archetypes; those remain separate porting tasks.
 
 ## Difficulty selection removed
 
@@ -29,7 +29,7 @@ The temporary per-run spawn-rate difficulty ramp is also removed. Difficulty pro
 
 ## Remaining implementation sequence
 
-1. Export all 15 source templates from `EntryPoint.bb` into named event data and verify event counts/timing against `LEVEL_DATA_CATALOG.md`.
+1. Verify the extracted 15 source templates and their field mapping against `docs/LEVEL_DATA_CATALOG.md`.
 2. Port the exact procedural campaign-generation rules, including boss-template handling and deterministic seed support.
 3. Port enemy archetypes and their movement/weapon/health configuration from `enemytypes`, `enemytype`, and actor definitions.
 4. Connect event execution to scripted spawns, dynamic spawn groups, boss creation, music, backgrounds and announcements.
