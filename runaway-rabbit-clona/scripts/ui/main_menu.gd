@@ -1,11 +1,11 @@
 extends Control
 
 signal start_requested
+signal profile_requested
 signal instructions_requested
 signal quit_requested
 signal music_enabled_changed(enabled: bool)
 
-const SETTINGS_PATH: String = "user://settings.cfg"
 const FOREST_SKY: Texture2D = preload("res://assets/original_background/forest/forestsky.jpg")
 const FOREST_FAR: Texture2D = preload("res://assets/original_background/forest/forestbkg2.png")
 const FOREST_MID: Texture2D = preload("res://assets/original_background/forest/forestbkg1.png")
@@ -35,6 +35,7 @@ var _sound_enabled: bool = true
 func _ready() -> void:
 	randomize()
 	_load_settings()
+	_refresh_profile_display()
 	_build_enemy_animations()
 	_connect_controls()
 	_music_toggle.button_pressed = _music_enabled
@@ -52,7 +53,11 @@ func get_music_enabled() -> bool:
 	return _music_enabled
 
 func _connect_controls() -> void:
-	$MenuPanel/MenuContent/HomePage/StartButton.pressed.connect(func() -> void: start_requested.emit())
+	$MenuPanel/MenuContent/HomePage/ProfileButton.pressed.connect(func() -> void: profile_requested.emit())
+	$MenuPanel/MenuContent/HomePage/StartButton.pressed.connect(func() -> void:
+		if ProfileManager.has_active_profile():
+			start_requested.emit()
+	)
 	$MenuPanel/MenuContent/HomePage/InstructionsButton.pressed.connect(func() -> void: instructions_requested.emit())
 	$MenuPanel/MenuContent/HomePage/ScoresButton.pressed.connect(_show_scores)
 	$MenuPanel/MenuContent/HomePage/OptionsButton.pressed.connect(_show_options)
@@ -173,15 +178,26 @@ func _spawn_menu_enemy() -> void:
 	_enemy_layer.add_child(enemy)
 	enemy.play("default")
 
+func _refresh_profile_display() -> void:
+	var profile := ProfileManager.get_active_profile()
+	var label: Label = $MenuPanel/MenuContent/HomePage/CurrentProfileLabel
+	var start_button: Button = $MenuPanel/MenuContent/HomePage/StartButton
+	if profile.is_empty():
+		label.text = "ACTIVE PROFILE: NONE — CREATE OR SELECT ONE"
+		start_button.disabled = true
+	else:
+		label.text = "PROFILE: %s  ·  LEVEL %02d" % [profile["name"], profile["current_level"]]
+		start_button.disabled = false
+
 func _load_settings() -> void:
-	var config := ConfigFile.new()
-	if config.load(SETTINGS_PATH) != OK:
+	var profile := ProfileManager.get_active_profile()
+	if profile.is_empty():
+		_music_enabled = true
+		_sound_enabled = true
 		return
-	_music_enabled = bool(config.get_value("audio", "music_enabled", true))
-	_sound_enabled = bool(config.get_value("audio", "sound_enabled", true))
+	_music_enabled = bool(profile.get("music_enabled", true))
+	_sound_enabled = bool(profile.get("sound_enabled", true))
 
 func _save_settings() -> void:
-	var config := ConfigFile.new()
-	config.set_value("audio", "music_enabled", _music_enabled)
-	config.set_value("audio", "sound_enabled", _sound_enabled)
-	config.save(SETTINGS_PATH)
+	ProfileManager.set_active_preference("music_enabled", _music_enabled)
+	ProfileManager.set_active_preference("sound_enabled", _sound_enabled)
