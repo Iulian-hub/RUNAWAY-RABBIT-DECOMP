@@ -96,7 +96,9 @@ func _process(delta: float) -> void:
 	_check_hits()
 	_level_director.set_active_enemy_count(_get_active_enemy_count())
 	var longest_time := maxf(1.0, _level_definition.get_last_trigger_time())
-	var completion := minf(99.0, (_level_director.level_time / longest_time) * 99.0)
+	var progress_ratio := clampf(_level_director.level_time / longest_time, 0.0, 1.0)
+	# A mild ease-out keeps the HUD percentage from racing ahead early in the level.
+	var completion := minf(99.0, pow(progress_ratio, 1.18) * 99.0)
 	gameplay_hud.set_completion_percent(completion)
 
 func _on_level_begun() -> void:
@@ -196,7 +198,7 @@ func _check_hits() -> void:
 			if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 				continue
 			var enemy := enemy_node as Enemy
-			if projectile.global_position.distance_squared_to(enemy.global_position) < 1800.0:
+			if projectile.global_position.distance_squared_to(enemy.global_position) < 2600.0:
 				projectile.queue_free()
 				enemy.queue_free()
 				score += 100
@@ -206,7 +208,7 @@ func _check_hits() -> void:
 		if not is_instance_valid(enemy_node) or enemy_node.is_queued_for_deletion():
 			continue
 		var enemy := enemy_node as Enemy
-		if player.global_position.distance_squared_to(enemy.global_position) < 2200.0:
+		if player.global_position.distance_squared_to(enemy.global_position) < 3000.0:
 			enemy.queue_free()
 			player.take_damage()
 
