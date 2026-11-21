@@ -1,5 +1,6 @@
 extends Control
 signal start_requested
+signal instructions_requested
 signal quit_requested
 signal music_enabled_changed(enabled: bool)
 const SETTINGS_PATH: String = "user://settings.cfg"
@@ -16,7 +17,6 @@ const ZIPJET: Texture2D = preload("res://assets/original_enemies/zipjet.png")
 const MENU_ENEMY_SCRIPT = preload("res://scripts/ui/menu_enemy.gd")
 const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
 const MENU_ENEMY_LANES: Array[float] = [175.0, 300.0, 425.0, 550.0]
-const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
 @onready var _content: VBoxContainer = $MenuPanel/MenuContent
 @onready var _enemy_layer: Node2D = $MenuEnemies
 var _enemy_spawn_timer: float = 1.0
@@ -134,7 +134,7 @@ func _show_home() -> void:
 	_content.add_child(start)
 	start.grab_focus()
 	var instructions := _make_button("INSTRUCTIONS")
-	instructions.pressed.connect(_show_instructions)
+	instructions.pressed.connect(func() -> void: instructions_requested.emit())
 	_content.add_child(instructions)
 	var scores := _make_button("HIGH SCORES")
 	scores.pressed.connect(_show_scores)
@@ -145,19 +145,6 @@ func _show_home() -> void:
 	var quit := _make_button("EXIT GAME")
 	quit.pressed.connect(func() -> void: quit_requested.emit())
 	_content.add_child(quit)
-
-func _show_instructions() -> void:
-	_clear_content()
-	_add_page_heading("INSTRUCTIONS", "ORIGINAL SOURCE ARTWORK")
-	var artwork := TextureRect.new()
-	artwork.texture = INSTRUCTIONS_TEXTURE
-	artwork.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	artwork.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	artwork.custom_minimum_size = Vector2(340, 230)
-	artwork.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	artwork.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_content.add_child(artwork)
-	_add_back_button()
 
 func _show_scores() -> void:
 	_clear_content()
