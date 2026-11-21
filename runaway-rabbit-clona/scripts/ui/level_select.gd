@@ -3,7 +3,6 @@ extends Control
 signal level_selected(level_number: int)
 signal back_requested
 
-const SETTINGS_PATH: String = "user://settings.cfg"
 const MAP_POINTS: Array[Vector2] = [
 	Vector2(68, 270),
 	Vector2(84, 255),
@@ -53,7 +52,7 @@ const LOCKED_BOSS_ICON: Texture2D = preload("res://assets/original_ui/mapbutton2
 var _unlocked_level: int = 1
 
 func _ready() -> void:
-	_load_progress()
+	_unlocked_level = ProfileManager.get_unlocked_level()
 	_update_canvas_scale()
 	_back_button.pressed.connect(func() -> void: back_requested.emit())
 	for index in range(_markers.get_child_count()):
@@ -80,6 +79,7 @@ func _update_canvas_scale() -> void:
 	_map_canvas.scale = Vector2.ONE * uniform_scale
 
 func _on_level_pressed(level_number: int) -> void:
+	ProfileManager.record_level_started(level_number)
 	level_selected.emit(level_number)
 
 func _update_selection(level_number: int) -> void:
@@ -89,7 +89,3 @@ func _update_selection(level_number: int) -> void:
 	_pointer.position = point + Vector2(-15.0, -43.0)
 	_progress_label.text = "UNLOCKED: %02d / 29" % _unlocked_level
 
-func _load_progress() -> void:
-	var config := ConfigFile.new()
-	if config.load(SETTINGS_PATH) == OK:
-		_unlocked_level = clampi(int(config.get_value("campaign", "unlocked_level", 1)), 1, 29)
