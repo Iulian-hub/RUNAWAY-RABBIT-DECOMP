@@ -43,6 +43,8 @@ func _normalize_profile(raw: Variant) -> Dictionary:
 	profile["hints_enabled"] = bool(profile.get("hints_enabled", true))
 	profile["cash"] = maxi(0, int(profile.get("cash", 0)))
 	profile["players"] = clampi(int(profile.get("players", 1)), 1, 2)
+	profile["last_played_level"] = clampi(int(profile.get("last_played_level", profile["current_level"])), 1, MAX_LEVEL)
+	profile["loadout_option"] = maxi(1, int(profile.get("loadout_option", 1)))
 	profile["best_score"] = maxi(0, int(profile.get("best_score", 0)))
 	profile["total_score"] = maxi(0, int(profile.get("total_score", 0)))
 	var upgrades: Dictionary = profile.get("upgrades", {})
@@ -85,6 +87,8 @@ func create_profile(profile_name: String, difficulty: int) -> int:
 				"hints_enabled": true,
 				"cash": 0,
 				"players": 1,
+				"loadout_option": 1,
+				"last_played_level": 1,
 				"best_score": 0,
 				"total_score": 0,
 				"upgrades": _default_upgrades(difficulty)
