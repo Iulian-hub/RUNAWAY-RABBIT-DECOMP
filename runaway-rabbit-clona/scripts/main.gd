@@ -11,7 +11,6 @@ const ENEMY_SCENE: PackedScene = preload("res://scenes/enemy.tscn")
 var selected_level: int = 1
 var score: int = 0
 var _spawn_timer: float = 0.8
-var _elapsed: float = 0.0
 var _game_over: bool = false
 
 func _ready() -> void:
@@ -32,7 +31,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _game_over:
 		return
-	_elapsed += delta
 	_spawn_timer -= delta
 	if _spawn_timer <= 0.0:
 		_spawn_enemy()
@@ -52,7 +50,6 @@ func _spawn_enemy() -> void:
 	var spawn_y_min := viewport_size.y * 0.5 - source_spawn_y_max
 	var spawn_y_max := viewport_size.y * 0.5 - source_spawn_y_min
 	enemy.global_position = Vector2(viewport_size.x + 36.0, randf_range(spawn_y_min, spawn_y_max))
-	enemy.speed += minf(_elapsed * 0.35, 90.0)
 
 func _check_hits() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
