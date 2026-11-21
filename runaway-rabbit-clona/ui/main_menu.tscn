@@ -324,6 +324,11 @@ custom_minimum_size = Vector2(330, 42)
 layout_mode = 2
 text = "SOUND EFFECTS"
 
+[node name="HintsToggle" type="CheckButton" parent="MenuPanel/MenuContent/OptionsPage"]
+custom_minimum_size = Vector2(330, 42)
+layout_mode = 2
+text = "GAMEPLAY HINTS"
+
 [node name="PlayersLabel" type="Label" parent="MenuPanel/MenuContent/OptionsPage"]
 layout_mode = 2
 text = "PLAYERS"
