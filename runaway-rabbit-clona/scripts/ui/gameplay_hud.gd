@@ -44,16 +44,12 @@ func set_lives(value: int) -> void:
 
 func set_bombs(value: int) -> void:
 	bombs_text.text = str(maxi(0, value))
-	bombs_bar.visible = value > 0
-	bombs_text.visible = value > 0
 
 func set_score(value: int) -> void:
 	score_text.text = "$" + str(maxi(0, value)).pad_zeros(7)
 
 func set_shields(value: int) -> void:
 	shields_text.text = str(maxi(0, value))
-	shield_bar.visible = value > 0
-	shields_text.visible = value > 0
 
 func set_beam_charge(value: float) -> void:
 	var ratio := clampf(value, 0.01, 1.0)
