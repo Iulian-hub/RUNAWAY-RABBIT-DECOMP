@@ -139,7 +139,6 @@ static func _build_background_spawns(fields: Dictionary) -> Array[Dictionary]:
 			"parameter_b": float(ys.get(str(index), 0.0)),
 			"position_x": float(depths.get(str(index), 0.0)),
 			"position_y": float(scales.get(str(index), 0.0)),
-			"flags": int(flags.get(str(index), 0))
 		})
 	return result
 
