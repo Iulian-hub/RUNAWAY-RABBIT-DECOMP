@@ -1,6 +1,7 @@
 extends Control
 const SPLASH_SCENE: PackedScene = preload("res://ui/splash_screen.tscn")
 const MENU_SCENE: PackedScene = preload("res://ui/main_menu.tscn")
+const PROFILE_SCENE: PackedScene = preload("res://ui/profile_select.tscn")
 const INSTRUCTIONS_SCENE: PackedScene = preload("res://ui/instructions.tscn")
 const LEVEL_SELECT_SCENE: PackedScene = preload("res://ui/level_select.tscn")
 const GAME_SCENE: PackedScene = preload("res://scenes/main.tscn")
@@ -23,7 +24,21 @@ func _show_splash() -> void:
 	var splash := SPLASH_SCENE.instantiate() as Control
 	add_child(splash)
 	_active_screen = splash
-	splash.finished.connect(_show_menu)
+	splash.finished.connect(_after_splash)
+
+func _after_splash() -> void:
+	if ProfileManager.has_active_profile():
+		_show_menu()
+	else:
+		_show_profiles()
+
+func _show_profiles() -> void:
+	_clear_screen()
+	var profiles := PROFILE_SCENE.instantiate() as Control
+	add_child(profiles)
+	_active_screen = profiles
+	profiles.profile_chosen.connect(_show_menu)
+	profiles.back_requested.connect(_show_menu)
 
 func _show_menu() -> void:
 	_clear_screen()
@@ -31,6 +46,7 @@ func _show_menu() -> void:
 	add_child(menu)
 	_active_screen = menu
 	menu.start_requested.connect(_show_level_select)
+	menu.profile_requested.connect(_show_profiles)
 	menu.instructions_requested.connect(_show_instructions)
 	menu.quit_requested.connect(_quit_game)
 	menu.music_enabled_changed.connect(_set_music_enabled)
