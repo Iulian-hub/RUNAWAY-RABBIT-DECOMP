@@ -9,6 +9,8 @@ class_name LevelDefinition
 @export var events: Array[LevelEventData] = []
 @export var source_template_event_count: int = 0
 @export var source_file: String = "Functions/EntryPoint.bb"
+@export var initial_dynamic_spawn_groups: Array[Dictionary] = []
+@export var initial_aggregate_enemy_limit: int = 0
 
 func get_last_trigger_time() -> float:
 	var result := 0.0
