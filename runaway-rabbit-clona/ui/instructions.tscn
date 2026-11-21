@@ -44,3 +44,5 @@ offset_top = 650.0
 offset_right = 105.0
 offset_bottom = 698.0
 text = "BACK TO MENU"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_pressed"]
