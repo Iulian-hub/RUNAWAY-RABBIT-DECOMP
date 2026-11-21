@@ -61,7 +61,7 @@ func _setup_original_animation() -> void:
 		frames.add_frame("fly", atlas)
 	sprite.sprite_frames = frames
 	sprite.animation = "fly"
-	sprite.scale = Vector2(0.55, 0.55)
+	sprite.scale = Vector2(0.70, 0.70)
 	sprite.play()
 
 func _process(delta: float) -> void:
