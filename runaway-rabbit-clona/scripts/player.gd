@@ -55,7 +55,7 @@ func _setup_original_animation() -> void:
 	sprite.sprite_frames = frames
 	sprite.animation = "idle"
 	sprite.play()
-	sprite.scale = Vector2(0.55, 0.55)
+	sprite.scale = Vector2(0.70, 0.70)
 
 func configure(projectile_root: Node2D) -> void:
 	projectile_parent = projectile_root
