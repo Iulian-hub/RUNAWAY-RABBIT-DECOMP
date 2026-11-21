@@ -17,6 +17,7 @@ var _game_over: bool = false
 func _ready() -> void:
 	randomize()
 	sector_label.text = "SECTOR %02d" % selected_level
+	ProfileManager.record_level_started(selected_level)
 	var viewport_size := get_viewport_rect().size
 	player.global_position = Vector2(90.0, viewport_size.y * 0.78)
 	player.configure(projectiles_root)
@@ -93,6 +94,7 @@ func _on_bomb_triggered() -> void:
 func _on_player_died() -> void:
 	_game_over = true
 	game_over_label.visible = true
+	ProfileManager.record_run(score)
 func _update_score() -> void:
 	score_label.text = "SCORE  %07d" % score
 func _draw() -> void:
