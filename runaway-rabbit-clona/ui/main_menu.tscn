@@ -324,6 +324,15 @@ custom_minimum_size = Vector2(330, 42)
 layout_mode = 2
 text = "SOUND EFFECTS"
 
+[node name="PlayersLabel" type="Label" parent="MenuPanel/MenuContent/OptionsPage"]
+layout_mode = 2
+text = "PLAYERS"
+
+[node name="PlayersOption" type="OptionButton" parent="MenuPanel/MenuContent/OptionsPage"]
+custom_minimum_size = Vector2(330, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="OptionsBackButton" type="Button" parent="MenuPanel/MenuContent/OptionsPage"]
 custom_minimum_size = Vector2(330, 43)
 layout_mode = 2
