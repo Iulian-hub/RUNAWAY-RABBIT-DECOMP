@@ -1,23 +1,25 @@
 extends CanvasLayer
-## Multi-speed horizontal parallax for the original forest artwork.
+## Multi-speed horizontal parallax for the original ice artwork.
 
 @export var sky_speed: float = 0.001
-@export var far_forest_speed: float = 0.008
-@export var mid_forest_speed: float = 0.018
+@export var far_ice_speed: float = 0.008
+@export var mid_ice_speed: float = 0.018
 @export var ground_speed: float = 0.040
 
 @onready var sky: TextureRect = $Layers/Sky
-@onready var far_forest: TextureRect = $Layers/FarForest
-@onready var mid_forest: TextureRect = $Layers/MidForest
-@onready var ground: TextureRect = $Layers/ForestGround
+@onready var far_ice: TextureRect = $Layers/FarIce
+@onready var mid_ice: TextureRect = $Layers/MidIce
+@onready var ice_ground: TextureRect = $Layers/IceGround
 
 func _process(delta: float) -> void:
 	_advance_layer(sky, sky_speed, delta)
-	_advance_layer(far_forest, far_forest_speed, delta)
-	_advance_layer(mid_forest, mid_forest_speed, delta)
-	_advance_layer(ground, ground_speed, delta)
+	_advance_layer(far_ice, far_ice_speed, delta)
+	_advance_layer(mid_ice, mid_ice_speed, delta)
+	_advance_layer(ice_ground, ground_speed, delta)
 
 func _advance_layer(layer: TextureRect, speed: float, delta: float) -> void:
+	if layer == null:
+		return
 	var shader_material := layer.material as ShaderMaterial
 	if shader_material == null:
 		return
