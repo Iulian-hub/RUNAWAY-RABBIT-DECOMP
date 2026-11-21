@@ -12502,7 +12502,7 @@
             },
             "Field20": {
               "1": 6,
-              "2": "local6"
+              "2": 0
             },
             "Field21": 90,
             "Field15": {
@@ -12602,7 +12602,9 @@
               "line": 3825,
               "field": "Field20",
               "index": 2,
-              "expression": "local6"
+              "expression": "local6",
+              "resolved_value": 0,
+              "resolution_note": "EntryPoint local is declared but never assigned; Blitz BASIC local numeric defaults to zero."
             },
             {
               "line": 3826,
@@ -12726,7 +12728,7 @@
               "3": 1
             },
             "Field20": {
-              "1": "local6"
+              "1": 0
             },
             "Field21": 60,
             "Field15": {
@@ -12832,7 +12834,9 @@
               "line": 3862,
               "field": "Field20",
               "index": 1,
-              "expression": "local6"
+              "expression": "local6",
+              "resolved_value": 0,
+              "resolution_note": "EntryPoint local is declared but never assigned; Blitz BASIC local numeric defaults to zero."
             },
             {
               "line": 3863,
@@ -18668,7 +18672,7 @@
             },
             "Field20": {
               "1": 9,
-              "2": "local6"
+              "2": 0
             },
             "Field21": 90,
             "Field15": {
@@ -18768,7 +18772,9 @@
               "line": 4809,
               "field": "Field20",
               "index": 2,
-              "expression": "local6"
+              "expression": "local6",
+              "resolved_value": 0,
+              "resolution_note": "EntryPoint local is declared but never assigned; Blitz BASIC local numeric defaults to zero."
             },
             {
               "line": 4810,
@@ -18892,7 +18898,7 @@
               "3": 1
             },
             "Field20": {
-              "1": "local7"
+              "1": 0
             },
             "Field21": 60,
             "Field15": {
@@ -18998,7 +19004,9 @@
               "line": 4846,
               "field": "Field20",
               "index": 1,
-              "expression": "local7"
+              "expression": "local7",
+              "resolved_value": 0,
+              "resolution_note": "EntryPoint local is declared but never assigned; Blitz BASIC local numeric defaults to zero."
             },
             {
               "line": 4847,
