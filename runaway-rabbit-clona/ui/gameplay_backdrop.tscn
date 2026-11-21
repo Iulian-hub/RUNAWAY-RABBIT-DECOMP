@@ -9,15 +9,19 @@
 
 [sub_resource type="ShaderMaterial" id="SkyScrollMaterial"]
 shader = ExtResource("6_scroll_shader")
+shader_parameter/scroll_offset = 0.0
 
 [sub_resource type="ShaderMaterial" id="FarScrollMaterial"]
 shader = ExtResource("6_scroll_shader")
+shader_parameter/scroll_offset = 0.0
 
 [sub_resource type="ShaderMaterial" id="MidScrollMaterial"]
 shader = ExtResource("6_scroll_shader")
+shader_parameter/scroll_offset = 0.0
 
 [sub_resource type="ShaderMaterial" id="GroundScrollMaterial"]
 shader = ExtResource("6_scroll_shader")
+shader_parameter/scroll_offset = 0.0
 
 [node name="GameplayBackdrop" type="CanvasLayer"]
 layer = -1
