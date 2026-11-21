@@ -17,8 +17,8 @@ const MENU_ENEMY_SCRIPT = preload("res://scripts/ui/menu_enemy.gd")
 const PARALLAX_SHADER: Shader = preload("res://shaders/menu_parallax.gdshader")
 const MENU_ENEMY_LANES: Array[float] = [175.0, 300.0, 425.0, 550.0]
 const INSTRUCTIONS_TEXTURE: Texture2D = preload("res://assets/original_ui/instructions.jpg")
-var _content: VBoxContainer
-var _enemy_layer: Node2D
+@onready var _content: VBoxContainer = $MenuPanel/MenuContent
+@onready var _enemy_layer: Node2D = $MenuEnemies
 var _enemy_spawn_timer: float = 1.0
 var _next_enemy_direction: float = 1.0
 var _enemy_frame_sets: Array[SpriteFrames] = []
@@ -29,7 +29,6 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	randomize()
 	_load_settings()
-	_build_shell()
 	_build_enemy_animations()
 	_show_home()
 
@@ -43,61 +42,6 @@ func _process(delta: float) -> void:
 func get_music_enabled() -> bool:
 	return _music_enabled
 
-func _build_shell() -> void:
-	_add_animated_background_layer(FOREST_SKY, -0.042, Color(1, 1, 1, 1))
-	_add_animated_background_layer(FOREST_FAR, -0.12, Color(1, 1, 1, 0.92), 260.0, 250.0, 1.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 475.0, 105.0, 5.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 525.0, 105.0, 5.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 550.0, 105.0, 5.0)
-	_add_animated_background_layer(FOREST_MID, -0.33, Color(1, 1, 1, 0.96), 575.0, 113.0, 5.0)
-	_add_animated_background_layer(FOREST_GROUND, -0.60, Color(1, 1, 1, 1), 688.0, 32.0, 1.0)
-	_enemy_layer = Node2D.new()
-	_enemy_layer.name = "LiveMenuEnemies"
-	_enemy_layer.position = Vector2.ZERO
-	add_child(_enemy_layer)
-	var header := VBoxContainer.new()
-	header.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	header.offset_top = 38
-	header.offset_bottom = 140
-	header.alignment = BoxContainer.ALIGNMENT_CENTER
-	header.add_theme_constant_override("separation", 2)
-	add_child(header)
-	var logo := Label.new()
-	logo.text = "MIGHTY RODENT"
-	logo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	logo.add_theme_font_size_override("font_size", 42)
-	logo.add_theme_color_override("font_color", Color("#edf7ff"))
-	logo.add_theme_color_override("font_shadow_color", Color("#087aab"))
-	logo.add_theme_constant_override("shadow_offset_x", 2)
-	logo.add_theme_constant_override("shadow_offset_y", 3)
-	header.add_child(logo)
-	var tagline := Label.new()
-	tagline.text = "DEFEND THE GALAXY"
-	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	tagline.add_theme_font_size_override("font_size", 13)
-	tagline.add_theme_color_override("font_color", Color("#6bd8ed"))
-	header.add_child(tagline)
-	var panel := PanelContainer.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.position = Vector2(-220, -205)
-	panel.size = Vector2(440, 500)
-	panel.add_theme_stylebox_override("panel", _panel_style())
-	add_child(panel)
-	_content = VBoxContainer.new()
-	_content.alignment = BoxContainer.ALIGNMENT_CENTER
-	_content.add_theme_constant_override("separation", 11)
-	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	panel.add_child(_content)
-	var footer := Label.new()
-	footer.text = "MIGHTY RODENT  ·  RECONSTRUCTION PROJECT"
-	footer.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	footer.offset_top = -34
-	footer.offset_bottom = -10
-	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	footer.add_theme_font_size_override("font_size", 11)
-	footer.add_theme_color_override("font_color", Color("#52677e"))
-	add_child(footer)
 
 func _build_enemy_animations() -> void:
 	_enemy_frame_sets = [
