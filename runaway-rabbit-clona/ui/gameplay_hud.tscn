@@ -53,9 +53,9 @@ font_color = Color(0.196078, 1, 0.196078, 1)
 
 [node name="Player1Shields" type="TextureRect" parent="Content"]
 offset_left = 5.0
-offset_top = 75.0
-offset_right = 69.0
-offset_bottom = 91.0
+offset_top = 82.0
+offset_right = 77.0
+offset_bottom = 98.0
 texture = ExtResource("5_shield")
 mouse_filter = 2
 
@@ -112,9 +112,9 @@ font_color = Color(1, 0.196078, 0.196078, 1)
 
 [node name="Player2Shields" type="TextureRect" parent="Content"]
 offset_left = 537.0
-offset_top = 75.0
-offset_right = 601.0
-offset_bottom = 91.0
+offset_top = 82.0
+offset_right = 609.0
+offset_bottom = 98.0
 texture = ExtResource("5_shield")
 mouse_filter = 2
 
@@ -136,9 +136,9 @@ mouse_filter = 2
 visible = false
 
 [node name="CompletionText" type="Control" parent="Content"]
-offset_left = 120.0
+offset_left = 0.0
 offset_top = 5.0
-offset_right = 520.0
+offset_right = 640.0
 offset_bottom = 35.0
 mouse_filter = 2
 script = ExtResource("2_bitmap")
