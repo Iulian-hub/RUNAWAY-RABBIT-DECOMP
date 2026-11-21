@@ -103,9 +103,9 @@ offset_top = 526
 offset_right = 150
 offset_bottom = 554
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level01"]
 layout_mode = 1
@@ -127,9 +127,9 @@ offset_top = 496
 offset_right = 182
 offset_bottom = 524
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level02"]
 layout_mode = 1
@@ -151,9 +151,9 @@ offset_top = 423
 offset_right = 279
 offset_bottom = 457
 ignore_texture_size = true
-texture_normal = ExtResource("4")
-texture_hover = ExtResource("4")
-texture_pressed = ExtResource("4")
+texture_normal = ExtResource("4_boss")
+texture_hover = ExtResource("4_boss")
+texture_pressed = ExtResource("4_boss")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level03"]
 layout_mode = 1
@@ -175,9 +175,9 @@ offset_top = 456
 offset_right = 308
 offset_bottom = 484
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level04"]
 layout_mode = 1
@@ -199,9 +199,9 @@ offset_top = 438
 offset_right = 370
 offset_bottom = 466
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level05"]
 layout_mode = 1
@@ -223,9 +223,9 @@ offset_top = 424
 offset_right = 444
 offset_bottom = 452
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level06"]
 layout_mode = 1
@@ -247,9 +247,9 @@ offset_top = 381
 offset_right = 543
 offset_bottom = 415
 ignore_texture_size = true
-texture_normal = ExtResource("4")
-texture_hover = ExtResource("4")
-texture_pressed = ExtResource("4")
+texture_normal = ExtResource("4_boss")
+texture_hover = ExtResource("4_boss")
+texture_pressed = ExtResource("4_boss")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level07"]
 layout_mode = 1
@@ -271,9 +271,9 @@ offset_top = 458
 offset_right = 630
 offset_bottom = 486
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level08"]
 layout_mode = 1
@@ -295,9 +295,9 @@ offset_top = 476
 offset_right = 678
 offset_bottom = 504
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level09"]
 layout_mode = 1
@@ -319,9 +319,9 @@ offset_top = 452
 offset_right = 736
 offset_bottom = 480
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level10"]
 layout_mode = 1
@@ -343,9 +343,9 @@ offset_top = 426
 offset_right = 780
 offset_bottom = 454
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level11"]
 layout_mode = 1
@@ -367,9 +367,9 @@ offset_top = 426
 offset_right = 844
 offset_bottom = 454
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level12"]
 layout_mode = 1
@@ -391,9 +391,9 @@ offset_top = 547
 offset_right = 849
 offset_bottom = 581
 ignore_texture_size = true
-texture_normal = ExtResource("4")
-texture_hover = ExtResource("4")
-texture_pressed = ExtResource("4")
+texture_normal = ExtResource("4_boss")
+texture_hover = ExtResource("4_boss")
+texture_pressed = ExtResource("4_boss")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level13"]
 layout_mode = 1
@@ -415,9 +415,9 @@ offset_top = 486
 offset_right = 946
 offset_bottom = 514
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level14"]
 layout_mode = 1
@@ -439,9 +439,9 @@ offset_top = 520
 offset_right = 970
 offset_bottom = 548
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level15"]
 layout_mode = 1
@@ -463,9 +463,9 @@ offset_top = 552
 offset_right = 1018
 offset_bottom = 580
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level16"]
 layout_mode = 1
@@ -487,9 +487,9 @@ offset_top = 568
 offset_right = 1074
 offset_bottom = 596
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level17"]
 layout_mode = 1
@@ -511,9 +511,9 @@ offset_top = 556
 offset_right = 1126
 offset_bottom = 584
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level18"]
 layout_mode = 1
@@ -535,9 +535,9 @@ offset_top = 520
 offset_right = 1148
 offset_bottom = 548
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level19"]
 layout_mode = 1
@@ -559,9 +559,9 @@ offset_top = 476
 offset_right = 1134
 offset_bottom = 504
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level20"]
 layout_mode = 1
@@ -583,9 +583,9 @@ offset_top = 423
 offset_right = 1055
 offset_bottom = 457
 ignore_texture_size = true
-texture_normal = ExtResource("4")
-texture_hover = ExtResource("4")
-texture_pressed = ExtResource("4")
+texture_normal = ExtResource("4_boss")
+texture_hover = ExtResource("4_boss")
+texture_pressed = ExtResource("4_boss")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level21"]
 layout_mode = 1
@@ -607,9 +607,9 @@ offset_top = 342
 offset_right = 1144
 offset_bottom = 370
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level22"]
 layout_mode = 1
@@ -631,9 +631,9 @@ offset_top = 302
 offset_right = 1164
 offset_bottom = 330
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level23"]
 layout_mode = 1
@@ -655,9 +655,9 @@ offset_top = 256
 offset_right = 1170
 offset_bottom = 284
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level24"]
 layout_mode = 1
@@ -679,9 +679,9 @@ offset_top = 214
 offset_right = 1164
 offset_bottom = 242
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level25"]
 layout_mode = 1
@@ -703,9 +703,9 @@ offset_top = 174
 offset_right = 1146
 offset_bottom = 202
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level26"]
 layout_mode = 1
@@ -727,9 +727,9 @@ offset_top = 150
 offset_right = 1098
 offset_bottom = 178
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level27"]
 layout_mode = 1
@@ -751,9 +751,9 @@ offset_top = 160
 offset_right = 1042
 offset_bottom = 188
 ignore_texture_size = true
-texture_normal = ExtResource("3")
-texture_hover = ExtResource("3")
-texture_pressed = ExtResource("3")
+texture_normal = ExtResource("3_level")
+texture_hover = ExtResource("3_level")
+texture_pressed = ExtResource("3_level")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level28"]
 layout_mode = 1
@@ -775,9 +775,9 @@ offset_top = 155
 offset_right = 1017
 offset_bottom = 189
 ignore_texture_size = true
-texture_normal = ExtResource("4")
-texture_hover = ExtResource("4")
-texture_pressed = ExtResource("4")
+texture_normal = ExtResource("4_boss")
+texture_hover = ExtResource("4_boss")
+texture_pressed = ExtResource("4_boss")
 
 [node name="Number" type="Label" parent="MapCanvas/Markers/Level29"]
 layout_mode = 1
