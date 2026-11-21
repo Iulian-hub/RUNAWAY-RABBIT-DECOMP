@@ -75,38 +75,47 @@ theme_override_constants/v_separation = 10
 [node name="Slot01" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "01  ·  EMPTY SLOT"
 [node name="Slot02" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "02  ·  EMPTY SLOT"
 [node name="Slot03" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "03  ·  EMPTY SLOT"
 [node name="Slot04" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "04  ·  EMPTY SLOT"
 [node name="Slot05" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "05  ·  EMPTY SLOT"
 [node name="Slot06" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "06  ·  EMPTY SLOT"
 [node name="Slot07" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "07  ·  EMPTY SLOT"
 [node name="Slot08" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "08  ·  EMPTY SLOT"
 [node name="Slot09" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
 layout_mode = 2
+toggle_mode = true
 text = "09  ·  EMPTY SLOT"
 [node name="Slot10" type="Button" parent="Panel/Content/Body/SlotGrid"]
 custom_minimum_size = Vector2(270, 54)
