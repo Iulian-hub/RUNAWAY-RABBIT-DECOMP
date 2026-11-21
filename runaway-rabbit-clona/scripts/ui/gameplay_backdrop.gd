@@ -21,6 +21,6 @@ func _advance_layer(layer: TextureRect, speed: float, delta: float) -> void:
 	var shader_material := layer.material as ShaderMaterial
 	if shader_material == null:
 		return
-	var offset := float(shader_material.get_shader_parameter("scroll_offset"))
+	var offset: float = shader_material.get_shader_parameter("scroll_offset")
 	offset = fposmod(offset + speed * delta, 1.0)
 	shader_material.set_shader_parameter("scroll_offset", offset)
