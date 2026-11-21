@@ -36,8 +36,8 @@ func _process(delta: float) -> void:
 	_spawn_timer -= delta
 	if _spawn_timer <= 0.0:
 		_spawn_enemy()
-		var difficulty := minf(_elapsed / 100.0, 0.65)
-		_spawn_timer = randf_range(0.75, 1.35) - difficulty * 0.35
+		# Spawn pacing will be driven by authored level events, not a global difficulty ramp.
+		_spawn_timer = randf_range(0.75, 1.35)
 	_check_hits()
 
 func _spawn_enemy() -> void:
