@@ -7,6 +7,8 @@ class_name LevelDefinition
 @export_range(0, 10, 1) var initial_background_id: int = 0
 @export_range(0.1, 5.0, 0.1) var level_time_multiplier: float = 1.5
 @export var events: Array[LevelEventData] = []
+@export var source_template_event_count: int = 0
+@export var source_file: String = "Functions/EntryPoint.bb"
 
 func get_last_trigger_time() -> float:
 	var result := 0.0
