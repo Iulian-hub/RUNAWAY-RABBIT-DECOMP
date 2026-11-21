@@ -5,7 +5,6 @@ signal back_requested
 
 @onready var _slot_grid: GridContainer = $Panel/Content/Body/SlotGrid
 @onready var _name_input: LineEdit = $Panel/Content/Body/CreatePanel/ProfileName
-@onready var _difficulty: OptionButton = $Panel/Content/Body/CreatePanel/Difficulty
 @onready var _selected_label: Label = $Panel/Content/SelectedLabel
 @onready var _use_button: Button = $Panel/Content/Body/CreatePanel/UseProfileButton
 @onready var _delete_button: Button = $Panel/Content/Body/CreatePanel/DeleteProfileButton
@@ -14,12 +13,6 @@ signal back_requested
 var _selected_slot: int = 0
 
 func _ready() -> void:
-	_difficulty.clear()
-	_difficulty.add_item("EASY", 1)
-	_difficulty.add_item("NORMAL", 2)
-	_difficulty.add_item("HARD", 3)
-	_difficulty.add_item("EXPERT", 4)
-	_difficulty.select(1)
 	$Panel/Content/Body/CreatePanel/CreateProfileButton.pressed.connect(_create_profile)
 	_use_button.pressed.connect(_use_selected_profile)
 	_delete_button.pressed.connect(func() -> void: _confirm_delete.popup_centered())
@@ -63,7 +56,7 @@ func _refresh_slots() -> void:
 	_delete_button.disabled = true
 
 func _create_profile() -> void:
-	var new_slot := ProfileManager.create_profile(_name_input.text, _difficulty.get_selected_id())
+	var new_slot := ProfileManager.create_profile(_name_input.text)
 	if new_slot == 0:
 		_selected_label.text = "ENTER A NAME OR FREE A PROFILE SLOT"
 		return
